@@ -6,6 +6,8 @@ import type { User } from "@/lib/types";
 import { AuthProvider } from "@/context/auth-context";
 import { CartProvider } from "@/context/cart-context";
 
+import { FavoritesProvider } from "@/context/favorites-context";
+
 export function Providers({
   initialUser,
   children,
@@ -16,7 +18,9 @@ export function Providers({
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <AuthProvider initialUser={initialUser}>
-        <CartProvider>{children}</CartProvider>
+        <FavoritesProvider>
+          <CartProvider>{children}</CartProvider>
+        </FavoritesProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ApiError, getCategories, getProducts } from "@/lib/api";
-import type { ProductListQuery, ProductSort } from "@/lib/types";
+import type { CategoryList, ProductList, ProductListQuery, ProductSort } from "@/lib/types";
 import { ProductCard } from "@/components/product-card";
 import { CategoryNav } from "@/components/category-nav";
 import { ShopFilters } from "@/components/shop-filters";
 import { MasonryGrid } from "@/components/masonry-grid";
 import { Pagination } from "@/components/pagination";
 import { EmptyState, ErrorState } from "@/components/ui/states";
-import { ProductGridSkeleton } from "@/components/ui/skeleton";
 import { CartIcon } from "@/components/icons";
 import { buttonClasses } from "@/components/ui/button";
 import Link from "next/link";
@@ -76,23 +75,44 @@ function parseQuery(raw: Record<string, string | string[] | undefined>) {
   return { query, linkParams };
 }
 
+type ShopData =
+  | { ok: true; products: ProductList; categories: CategoryList }
+  | { ok: false; message: string };
+
+/**
+ * Data loading lives outside the component body so no JSX is constructed inside
+ * a try/catch — React can't catch render errors thrown from there anyway.
+ */
+async function loadShopData(query: ProductListQuery): Promise<ShopData> {
+  try {
+    const [products, categories] = await Promise.all([getProducts(query), getCategories()]);
+    return { ok: true, products, categories };
+  } catch (error) {
+    return {
+      ok: false,
+      message:
+        error instanceof ApiError
+          ? error.message
+          : "We couldn't load the products right now.",
+    };
+  }
+}
+
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   const raw = (await searchParams) as Record<string, string | string[] | undefined>;
   const { query, linkParams } = parseQuery(raw);
+  const result = await loadShopData(query);
 
-  let content: React.ReactNode;
+  let body: React.ReactNode;
   let pagination: React.ReactNode = null;
 
-  try {
-    const [productList, categoryList] = await Promise.all([
-      getProducts(query),
-      getCategories(),
-    ]);
-
-    const { data, total, totalPages, page, limit } = productList;
+  if (!result.ok) {
+    body = <ErrorState message={result.message} />;
+  } else {
+    const { data, total, totalPages, page, limit } = result.products;
 
     if (data.length === 0) {
-      content = (
+      body = (
         <EmptyState
           icon={<CartIcon width={26} height={26} />}
           title="No products found"
@@ -107,7 +127,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
     } else {
       const firstIndex = (page - 1) * limit + 1;
       const lastIndex = Math.min(page * limit, total);
-      content = (
+      body = (
         <>
           <p className="mb-4 text-sm text-zinc-500 dark:text-zinc-400" aria-live="polite">
             Showing{" "}
@@ -127,44 +147,35 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
       );
       pagination = <Pagination page={page} totalPages={totalPages} params={linkParams} />;
     }
+  }
 
-    return (
-      <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <header className="mb-5">
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
-            Shop
-          </h1>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            Discover products you&apos;ll love.
-          </p>
-        </header>
-
-        <Suspense fallback={null}>
-          <CategoryNav categories={categoryList.data} />
-        </Suspense>
-
-        <div className="mt-4">
-          <Suspense fallback={null}>
-            <ShopFilters />
-          </Suspense>
-        </div>
-
-        <div className="mt-8">{content}</div>
-        {pagination}
-      </div>
-    );
-  } catch (error) {
-    const message =
-      error instanceof ApiError
-        ? error.message
-        : "We couldn't load the products right now.";
-    return (
-      <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <h1 className="mb-6 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
+  return (
+    <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <header className="mb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
           Shop
         </h1>
-        <ErrorState message={message} />
-      </div>
-    );
-  }
+        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          Discover products you&apos;ll love.
+        </p>
+      </header>
+
+      {result.ok && (
+        <>
+          <Suspense fallback={null}>
+            <CategoryNav categories={result.categories.data} />
+          </Suspense>
+
+          <div className="mt-4">
+            <Suspense fallback={null}>
+              <ShopFilters />
+            </Suspense>
+          </div>
+        </>
+      )}
+
+      <div className="mt-8">{body}</div>
+      {pagination}
+    </div>
+  );
 }

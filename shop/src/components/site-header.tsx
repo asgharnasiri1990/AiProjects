@@ -8,6 +8,7 @@ import { useCart } from "@/context/cart-context";
 import {
   CartIcon,
   ChevronDownIcon,
+  HeartIcon,
   LogoutIcon,
   MenuIcon,
   PackageIcon,
@@ -18,6 +19,7 @@ import {
 import { SearchBar } from "@/components/search-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonClasses } from "@/components/ui/button";
+import { useFavorites } from "@/context/favorites-context";
 
 function Logo() {
   return (
@@ -41,7 +43,7 @@ function CartLink() {
     <Link
       href="/cart"
       aria-label={`Cart, ${totalItems} item${totalItems === 1 ? "" : "s"}`}
-      className="relative flex h-10 w-10 items-center justify-center rounded-lg text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+      className="relative flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-primary-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
     >
       <CartIcon />
       {totalItems > 0 && (
@@ -50,6 +52,29 @@ function CartLink() {
           className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-600 px-1 text-[11px] font-bold text-white"
         >
           {totalItems > 99 ? "99+" : totalItems}
+        </span>
+      )}
+    </Link>
+  );
+}
+
+function FavoritesLink() {
+  const { count } = useFavorites();
+  return (
+    <Link
+      href="/favorites"
+      aria-label={`Saved items, ${count}`}
+      className="relative flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-primary-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+    >
+      <HeartIcon
+        className={count > 0 ? "fill-accent-500 text-accent-600 dark:text-accent-500" : ""}
+      />
+      {count > 0 && (
+        <span
+          aria-hidden
+          className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent-600 px-1 text-[11px] font-bold text-white"
+        >
+          {count > 99 ? "99+" : count}
         </span>
       )}
     </Link>
@@ -206,6 +231,7 @@ export function SiteHeader() {
 
           <div className="ml-auto flex items-center gap-1.5 lg:ml-0">
             <ThemeToggle />
+            <FavoritesLink />
             <CartLink />
             <div className="hidden md:block">{authArea}</div>
             <button

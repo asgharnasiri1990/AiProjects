@@ -35,7 +35,7 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | 1 | Design tokens + UI primitives + brand rename | ✅ **done · `fe37e1a`** |
 | 2 | Masonry grid + new product card | ✅ **done — awaiting review** |
 | 3 | Header, search pill, category nav | ✅ **done — awaiting review** |
-| 4 | Favorites (localStorage) + `/favorites` | planned |
+| 4 | Favorites (localStorage) + `/favorites` | ✅ **done — awaiting review** |
 | 5 | Product detail page redesign | planned |
 | 6 | Home discovery feed + cart/checkout alignment | planned |
 | 7 | Responsive/a11y/perf pass + docs | planned |
@@ -72,6 +72,22 @@ Verified live: `?q=USB` → 4 cards, `?q=watch` → empty state, category click 
 `?category=books` + 4 cards + active chip, "Clear all" → `/?` back to 24 cards, zero
 console errors, `tsc` + build clean. Note: the DOM contains extra hidden `<div id="S:n">`
 nodes — those are Next's streamed Suspense containers, not duplicated UI.
+
+Phase 4 touched: **new** `context/favorites-context.tsx` (device-local wishlist stored as
+full `Product` snapshots under `toman-shop.favorites.v1`, capped at 100, built on
+`useSyncExternalStore` so SSR/hydration can't mismatch and other tabs stay in sync),
+**new** `components/favorite-button.tsx` (`aria-pressed` heart, red only when saved),
+**new** `app/favorites/` (masonry of saved pins + empty state + clear all),
+`components/icons.tsx` (+`HeartIcon`), `product-card.tsx` (heart is a **sibling** of the
+link, never nested in the anchor), `providers.tsx`, `site-header.tsx` (heart link + red
+count badge).
+
+Verified live: save → `aria-pressed` flips, header shows "Saved items, 1", localStorage
+holds the snapshot; `/favorites` renders the pin after reload (persistence); un-saving
+empties the list and writes `[]`. No console errors, `tsc` + build clean.
+
+Lint side-effect: restructuring `app/shop/page.tsx` (data loading in a helper, rendering
+outside any `try/catch`) dropped the repo from **24 → 8 problems (6 errors, 2 warnings)**.
 
 ---
 
