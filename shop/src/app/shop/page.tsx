@@ -4,6 +4,7 @@ import { ApiError, getCategories, getProducts } from "@/lib/api";
 import type { ProductListQuery, ProductSort } from "@/lib/types";
 import { ProductCard } from "@/components/product-card";
 import { ShopFilters } from "@/components/shop-filters";
+import { MasonryGrid } from "@/components/masonry-grid";
 import { Pagination } from "@/components/pagination";
 import { EmptyState, ErrorState } from "@/components/ui/states";
 import { ProductGridSkeleton } from "@/components/ui/skeleton";
@@ -116,11 +117,11 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
             <strong className="font-semibold text-zinc-900 dark:text-zinc-100">{total}</strong>{" "}
             products
           </p>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <MasonryGrid>
             {data.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-          </div>
+          </MasonryGrid>
         </>
       );
       pagination = <Pagination page={page} totalPages={totalPages} params={linkParams} />;

@@ -1,49 +1,52 @@
 import Image from "next/image";
 import Link from "next/link";
 import { imageUrl } from "@/lib/api";
+import { feedAspectRatio } from "@/lib/aspect";
 import { formatToman } from "@/lib/format";
 import type { Product } from "@/lib/types";
-import { Badge } from "@/components/ui/badge";
 
+/**
+ * Pinterest-style pin: image-first, variable height, name + price only.
+ * Deliberately a Server Component — the only interactive parts of the feed
+ * (favouriting, filters) will mount as client islands inside it.
+ */
 export function ProductCard({ product }: { product: Product }) {
-  const outOfStock = !product.inStock;
-
   return (
     <Link
       href={`/shop/${product.id}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-all hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-lg hover:shadow-zinc-200/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-primary-700 dark:hover:shadow-black/40"
+      className="group block overflow-hidden rounded-3xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_18px_36px_-18px_rgba(0,0,0,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas motion-reduce:transform-none motion-reduce:transition-none dark:bg-zinc-900 dark:shadow-black/20"
     >
-      <div className="relative aspect-square overflow-hidden bg-white p-6">
+      <div
+        className="relative overflow-hidden bg-white"
+        style={{ aspectRatio: feedAspectRatio(product.slug) }}
+      >
         <Image
           src={imageUrl(product.image)}
           alt={product.name}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-contain transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+          className={`object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none ${
+            product.inStock ? "" : "opacity-60"
+          }`}
         />
-        {outOfStock && (
-          <span className="absolute left-3 top-3 rounded-full bg-red-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+        {!product.inStock && (
+          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-zinc-900 shadow-sm backdrop-blur dark:bg-zinc-900/90 dark:text-zinc-100">
             Out of stock
           </span>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 border-t border-zinc-100 p-4 dark:border-zinc-800">
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-            {product.category.name}
-          </span>
-          {product.inStock && product.stock <= 5 && (
-            <Badge variant="warning">Only {product.stock} left</Badge>
-          )}
-        </div>
-        <h3 dir="auto" className="line-clamp-1 font-semibold text-zinc-900 dark:text-zinc-100">
+      <div className="px-3 pb-3.5 pt-3">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+          {product.category.name}
+        </p>
+        <h3
+          dir="auto"
+          className="mt-0.5 line-clamp-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           {product.name}
         </h3>
-        <p dir="auto" className="line-clamp-2-rtl text-sm text-zinc-500 dark:text-zinc-400">
-          {product.description}
-        </p>
-        <p className="mt-auto pt-2 text-lg font-bold text-zinc-900 dark:text-white">
+        <p className="mt-0.5 text-sm font-bold tabular-nums text-zinc-900 dark:text-white">
           {formatToman(product.price)}
         </p>
       </div>

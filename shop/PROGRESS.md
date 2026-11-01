@@ -33,7 +33,7 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Design tokens + UI primitives + brand rename | ✅ **done · `fe37e1a`** |
-| 2 | Masonry grid + new product card | next |
+| 2 | Masonry grid + new product card | ✅ **done — awaiting review** |
 | 3 | Header, search pill, category nav | planned |
 | 4 | Favorites (localStorage) + `/favorites` | planned |
 | 5 | Product detail page redesign | planned |
@@ -49,6 +49,17 @@ plus the brand rename in `layout.tsx`, `login/page.tsx`, `signup/page.tsx`,
 Verified: `tsc` clean, `npm run build` exit 0, computed styles in the browser
 (body `rgb(250,249,246)`, ink `rgb(28,27,25)` for logo/cart badge), dark mode
 (`rgb(14,14,13)`), `<title>` now `Shop | DigitalShop`.
+
+Phase 2 touched: **new** `lib/aspect.ts` (stable slug-hashed ratios, 1:1 → 5:6),
+**new** `components/masonry-grid.tsx` (CSS columns 2/3/4 + `break-inside-avoid`),
+rewritten `components/product-card.tsx` (edge-to-edge image, hover zoom/lift,
+category + name + price, white out-of-stock pill), `ui/skeleton.tsx` (masonry-shaped
+skeleton), `app/shop/page.tsx` (grid container swap only), `app/shop/loading.tsx`.
+Verified live: 12 cards, 3 columns, heights `556/439/439/527/…`, filters and sorting
+still drive the URL (`?category=books&sort=price` → 4 cards, ascending prices).
+
+Note: multi-column fills **down** each column, so visual order ≠ DOM order (tab order
+stays correct). Accepted trade-off — see §6.
 
 ---
 
