@@ -28,7 +28,7 @@ export function QuantitySelector({
 
   return (
     <div
-      className="inline-flex items-center rounded-lg border border-zinc-300 dark:border-zinc-700"
+      className="inline-flex items-center rounded-full border border-primary-200 dark:border-zinc-700"
       role="group"
       aria-label={`Quantity for ${label}`}
     >
@@ -37,7 +37,7 @@ export function QuantitySelector({
         onClick={() => canDecrease && onChange(value - 1)}
         disabled={!canDecrease}
         aria-label={`Decrease quantity of ${label}`}
-        className={`flex ${dimensions} items-center justify-center rounded-l-lg text-zinc-600 transition-colors hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-300 dark:hover:bg-zinc-800`}
+        className={`flex ${dimensions} items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-300 dark:hover:bg-zinc-800`}
       >
         <MinusIcon width={16} height={16} />
       </button>
@@ -52,7 +52,7 @@ export function QuantitySelector({
         onClick={() => canIncrease && onChange(value + 1)}
         disabled={!canIncrease}
         aria-label={`Increase quantity of ${label}`}
-        className={`flex ${dimensions} items-center justify-center rounded-r-lg text-zinc-600 transition-colors hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-300 dark:hover:bg-zinc-800`}
+        className={`flex ${dimensions} items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-primary-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-300 dark:hover:bg-zinc-800`}
       >
         <PlusIcon width={16} height={16} />
       </button>

@@ -36,7 +36,7 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | 2 | Masonry grid + new product card | ✅ **done — awaiting review** |
 | 3 | Header, search pill, category nav | ✅ **done — awaiting review** |
 | 4 | Favorites (localStorage) + `/favorites` | ✅ **done — awaiting review** |
-| 5 | Product detail page redesign | planned |
+| 5 | Product detail page redesign | ✅ **done — awaiting review** |
 | 6 | Home discovery feed + cart/checkout alignment | planned |
 | 7 | Responsive/a11y/perf pass + docs | planned |
 
@@ -88,6 +88,16 @@ empties the list and writes `[]`. No console errors, `tsc` + build clean.
 
 Lint side-effect: restructuring `app/shop/page.tsx` (data loading in a helper, rendering
 outside any `try/catch`) dropped the repo from **24 → 8 problems (6 errors, 2 warnings)**.
+
+Phase 5 touched: `app/shop/[id]/page.tsx` (two-column layout on `lg`, sticky buy panel,
+image on a rounded card, badges/price/description re-spaced), `components/add-to-cart-panel.tsx`
+(restyled only — identical add logic, full-width button, quantity row, "View cart" affordance),
+`components/favorite-button.tsx` (new `showLabel` "Save / Saved" pill), `ui/quantity-selector.tsx`
+(pill shape), `app/shop/[id]/loading.tsx` (matches the new layout).
+
+Verified live: product 24 renders title/price/badges/quantity group; Save pill flips to
+"Saved" with `aria-pressed` and the header count updates; un-saving restores `[]`.
+`generateMetadata`, `notFound()` handling and the max-10 clamp are unchanged.
 
 ---
 

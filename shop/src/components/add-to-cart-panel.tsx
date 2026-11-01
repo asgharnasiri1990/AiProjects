@@ -29,11 +29,11 @@ export function AddToCartPanel({
   if (!product.inStock) {
     return (
       <div className="space-y-3">
-        <Button variant="primary" size="lg" disabled aria-disabled>
-          Add to cart
+        <Button variant="primary" size="lg" disabled aria-disabled className="w-full">
+          Out of stock
         </Button>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          This product is currently out of stock. Check back later.
+        <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+          This product is currently unavailable. Check back later.
         </p>
       </div>
     );
@@ -53,7 +53,7 @@ export function AddToCartPanel({
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex items-center justify-between gap-3">
         <QuantitySelector
           value={quantity}
           onChange={(value) => {
@@ -68,30 +68,24 @@ export function AddToCartPanel({
         </span>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <Button
-          size="lg"
-          onClick={handleAdd}
-          loading={state === "adding"}
-          className="flex-1 sm:flex-none sm:px-10"
-        >
-          {state === "added" ? (
-            <>
-              <CheckIcon width={18} height={18} /> Added
-            </>
-          ) : (
-            "Add to cart"
-          )}
-        </Button>
-        {state === "added" && (
-          <Link href="/cart" className={buttonClasses("outline", "lg")}>
-            View cart
-          </Link>
+      <Button size="lg" onClick={handleAdd} loading={state === "adding"} className="w-full">
+        {state === "added" ? (
+          <>
+            <CheckIcon width={18} height={18} /> Added to cart
+          </>
+        ) : (
+          "Add to cart"
         )}
-      </div>
+      </Button>
+
+      {state === "added" && (
+        <Link href="/cart" className={buttonClasses("outline", "lg") + " w-full"}>
+          View cart
+        </Link>
+      )}
 
       {error && (
-        <p role="alert" className="text-sm font-medium text-red-600 dark:text-red-400">
+        <p role="alert" className="text-center text-sm font-medium text-red-600 dark:text-red-400">
           {error}
         </p>
       )}

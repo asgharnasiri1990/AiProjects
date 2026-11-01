@@ -8,6 +8,7 @@ import { formatToman } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { AddToCartPanel } from "@/components/add-to-cart-panel";
+import { FavoriteButton } from "@/components/favorite-button";
 import { ChevronLeftIcon } from "@/components/icons";
 
 interface PageProps {
@@ -53,35 +54,35 @@ export default async function ProductPage({ params }: PageProps) {
   const maxQuantity = Math.min(product.stock, MAX_ITEM_QUANTITY);
 
   return (
-    <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
       <nav aria-label="Breadcrumb" className="mb-6">
         <Link
           href="/shop"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-400"
+          className="inline-flex items-center gap-1.5 rounded-full py-1 text-sm font-medium text-zinc-500 transition-colors hover:text-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-zinc-400 dark:hover:text-primary-300"
         >
           <ChevronLeftIcon width={16} height={16} />
           Back to shop
         </Link>
       </nav>
 
-      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
         {/* Image */}
-        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800">
+        <div className="overflow-hidden rounded-3xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] dark:bg-zinc-900">
           <div className="relative aspect-square">
             <Image
               src={imageUrl(product.image)}
               alt={product.name}
               fill
               priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain p-8"
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-contain p-6 sm:p-10"
             />
           </div>
         </div>
 
         {/* Details */}
-        <div className="flex flex-col gap-5">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-24">
+          <div className="flex flex-wrap items-center gap-2">
             <Badge variant="primary">{product.category.name}</Badge>
             {product.inStock ? (
               product.stock <= 5 ? (
@@ -96,25 +97,32 @@ export default async function ProductPage({ params }: PageProps) {
 
           <h1
             dir="auto"
-            className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white"
+            className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl"
           >
             {product.name}
           </h1>
 
-          <p className="text-3xl font-bold text-zinc-900 dark:text-white">
+          <p className="text-2xl font-bold tabular-nums text-zinc-900 dark:text-white">
             {formatToman(product.price)}
           </p>
 
-          <div className="border-y border-zinc-200 py-5 dark:border-zinc-800">
-            <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-              Description
-            </h2>
-            <p dir="auto" className="leading-7 text-zinc-600 dark:text-zinc-300">
-              {product.description}
-            </p>
+          <div className="rounded-3xl bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] dark:bg-zinc-900 sm:p-6">
+            <AddToCartPanel product={product} maxQuantity={maxQuantity} />
+            <FavoriteButton
+              product={product}
+              showLabel
+              className="mt-3 w-full hover:text-accent-600"
+            />
           </div>
 
-          <AddToCartPanel product={product} maxQuantity={maxQuantity} />
+          <section className="border-t border-primary-200/70 pt-6 dark:border-zinc-800">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+              Description
+            </h2>
+            <p dir="auto" className="mt-2 leading-7 text-zinc-600 dark:text-zinc-300">
+              {product.description}
+            </p>
+          </section>
         </div>
       </div>
     </div>
