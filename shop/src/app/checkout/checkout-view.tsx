@@ -26,7 +26,7 @@ import {
 type Stage = "form" | "created" | "paid";
 
 export function CheckoutView() {
-  const { lines, totalItems, totalPrice, hydrated, reload } = useCart();
+  const { lines, totalPrice, hydrated, reload } = useCart();
   const { user } = useAuth();
 
   const [fullName, setFullName] = useState("");
@@ -149,6 +149,11 @@ export function CheckoutView() {
 
   /* ---------------- Success screens ---------------- */
 
+  // Placing the order empties the cart, so count the order's own lines.
+  const orderedItems = order
+    ? order.items.reduce((sum, item) => sum + item.quantity, 0)
+    : 0;
+
   if (stage !== "form" && order) {
     return (
       <div className="mx-auto w-full max-w-xl flex-1 px-4 py-16 sm:px-6">
@@ -172,7 +177,7 @@ export function CheckoutView() {
             </div>
             <div className="flex justify-between">
               <dt className="text-zinc-500 dark:text-zinc-400">Items</dt>
-              <dd className="font-medium text-zinc-900 dark:text-zinc-100">{totalItems}</dd>
+              <dd className="font-medium text-zinc-900 dark:text-zinc-100">{orderedItems}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-zinc-500 dark:text-zinc-400">Total</dt>

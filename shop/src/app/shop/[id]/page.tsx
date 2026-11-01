@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { ApiError, getProduct, imageUrl, MAX_ITEM_QUANTITY } from "@/lib/api";
 import { formatToman } from "@/lib/format";
 import type { Product } from "@/lib/types";
@@ -13,16 +14,24 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+/**
+ * generateMetadata() and the page body both need the product; memoizing
+ * per request keeps that to one API call.
+ */
+const getProductOnce = cache((id: number) => getProduct(id));
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
   const numericId = Number(id);
   if (!Number.isInteger(numericId) || numericId <= 0) notFound();
   try {
-    const product = await getProduct(numericId);
+    const product = await getProductOnce(numericId);
     return { title: product.name, description: product.description };
   } catch (error) {
-    // Resolve missing products here (before the shell streams) so the
-    // response carries a real 404 status, not just the 404 UI.
+    // Missing product -> the not-found UI. Because this route ships a
+    // loading.tsx, streaming has already started by the time this resolves,
+    // so the response keeps its 200 status (Next adds a noindex tag). A real
+    // 404 would mean dropping the loading skeleton — not worth it here.
     if (error instanceof ApiError && error.status === 404) notFound();
     throw error;
   }
@@ -35,7 +44,7 @@ export default async function ProductPage({ params }: PageProps) {
 
   let product: Product;
   try {
-    product = await getProduct(numericId);
+    product = await getProductOnce(numericId);
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) notFound();
     throw error;

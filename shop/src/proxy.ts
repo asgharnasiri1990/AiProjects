@@ -17,5 +17,7 @@ export default function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account", "/checkout"],
+  // `:path*` also matches the bare route, and keeps future nested
+  // pages (e.g. /account/orders) protected automatically.
+  matcher: ["/account/:path*", "/checkout/:path*"],
 };

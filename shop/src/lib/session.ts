@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { me } from "./api";
 import type { User } from "./types";
@@ -26,8 +27,11 @@ export async function getSessionToken(): Promise<string | null> {
  * Resolve the signed-in user (server only).
  * Returns null when there is no cookie or the token is no longer valid;
  * never throws.
+ *
+ * Memoized per request: the root layout and the page both ask for the
+ * user, and this way that costs a single `/auth/me` call.
  */
-export async function getSessionUser(): Promise<User | null> {
+export const getSessionUser = cache(async (): Promise<User | null> => {
   const token = await getSessionToken();
   if (!token) return null;
   try {
@@ -35,4 +39,4 @@ export async function getSessionUser(): Promise<User | null> {
   } catch {
     return null;
   }
-}
+});

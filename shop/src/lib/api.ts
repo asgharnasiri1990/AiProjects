@@ -34,6 +34,12 @@ interface RequestOptions {
   body?: unknown;
   token?: string;
   signal?: AbortSignal;
+  /**
+   * Cache lifetime in seconds for public, slowly-changing data.
+   * Omit it for anything user-specific or per-request (the default is
+   * `no-store`).
+   */
+  revalidate?: number;
 }
 
 /**
@@ -44,21 +50,26 @@ export async function apiFetch<T>(
   path: string,
   options: RequestOptions = {},
 ): Promise<T> {
-  const { method = "GET", body, token, signal } = options;
+  const { method = "GET", body, token, signal, revalidate } = options;
 
   const headers: Record<string, string> = {};
   if (body !== undefined) headers["Content-Type"] = "application/json";
   if (token) headers.Authorization = `Bearer ${token}`;
 
+  // `cache` and `next.revalidate` conflict, so exactly one is set.
+  const init: RequestInit & { next?: { revalidate: number } } = {
+    method,
+    headers,
+    body: body === undefined ? undefined : JSON.stringify(body),
+    signal,
+    ...(revalidate === undefined
+      ? { cache: "no-store" as const }
+      : { next: { revalidate } }),
+  };
+
   let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`, {
-      method,
-      headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
-      signal,
-      cache: "no-store",
-    });
+    res = await fetch(`${API_URL}${path}`, init);
   } catch {
     throw new ApiError(
       0,
@@ -104,8 +115,9 @@ export function imageUrl(path: string): string {
 /* Shop                                                                */
 /* ------------------------------------------------------------------ */
 
+/** Category names and counts change rarely, so they are cached for a while. */
 export async function getCategories(signal?: AbortSignal): Promise<CategoryList> {
-  return apiFetch<CategoryList>("/categories", { signal });
+  return apiFetch<CategoryList>("/categories", { signal, revalidate: 300 });
 }
 
 export async function getProducts(

@@ -100,15 +100,39 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setHydrated(true);
   }, []);
 
+  /**
+   * Push any guest (localStorage) cart lines into the server cart.
+   * A line that fails — network error, rate limit — is kept in localStorage
+   * and retried on the next sync, so a failed merge never loses the cart.
+   */
+  const syncGuestCart = useCallback(async () => {
+    const guestLines = readGuestCart();
+    if (guestLines.length === 0) return;
+
+    const failed: CartLine[] = [];
+    for (const line of guestLines) {
+      try {
+        await apiCart("/api/cart/items", "POST", {
+          productId: line.id,
+          quantity: line.quantity,
+        });
+      } catch {
+        failed.push(line);
+      }
+    }
+    writeGuestCart(failed);
+  }, []);
+
   const reload = useCallback(async () => {
     if (!user) return;
     try {
+      await syncGuestCart();
       const cart = await apiCart("/api/cart", "GET");
       if (cart) setLines(linesFromCart(cart));
     } catch {
       // Keep showing the current cart if the refresh fails.
     }
-  }, [user]);
+  }, [user, syncGuestCart]);
 
   // React to sign-in / sign-out transitions.
   useEffect(() => {
@@ -127,24 +151,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Signed in: merge any guest cart lines into the server cart,
-    // then discard the local copy.
-    const merge = async () => {
-      const guestLines = readGuestCart();
-      try {
-        for (const line of guestLines) {
-          await apiCart("/api/cart/items", "POST", {
-            productId: line.id,
-            quantity: line.quantity,
-          }).catch(() => undefined);
-        }
-      } finally {
-        writeGuestCart([]);
-      }
+    // Signed in (fresh session): merge the guest cart into the account,
+    // then show the synced server cart.
+    void (async () => {
       await reload();
       setHydrated(true);
-    };
-    void merge();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
@@ -202,7 +214,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       const current = lines.find((l) => l.id === productId);
       if (!current) return;
-      const nextQty = Math.max(1, Math.min(quantity, Math.min(current.stock || 10, MAX_ITEM_QUANTITY)));
+      const nextQty = cap(current, quantity);
 
       applyOptimistic(
         lines.map((l) => (l.id === productId ? { ...l, quantity: nextQty } : l)),
@@ -220,7 +232,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         }
       }
     },
-    [lines, user, reload],
+    [lines, user, reload, cap],
   );
 
   const remove = useCallback(
