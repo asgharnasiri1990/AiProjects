@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { ApiError, getCategories, getProducts } from "@/lib/api";
 import type { ProductListQuery, ProductSort } from "@/lib/types";
 import { ProductCard } from "@/components/product-card";
+import { CategoryNav } from "@/components/category-nav";
 import { ShopFilters } from "@/components/shop-filters";
 import { MasonryGrid } from "@/components/masonry-grid";
 import { Pagination } from "@/components/pagination";
@@ -129,15 +130,24 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
 
     return (
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <header className="mb-6">
+        <header className="mb-5">
           <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
             Shop
           </h1>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            Discover products you&apos;ll love.
+          </p>
         </header>
 
         <Suspense fallback={null}>
-          <ShopFilters categories={categoryList.data} />
+          <CategoryNav categories={categoryList.data} />
         </Suspense>
+
+        <div className="mt-4">
+          <Suspense fallback={null}>
+            <ShopFilters />
+          </Suspense>
+        </div>
 
         <div className="mt-8">{content}</div>
         {pagination}

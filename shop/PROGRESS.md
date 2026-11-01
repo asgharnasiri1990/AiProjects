@@ -34,7 +34,7 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | --- | --- | --- |
 | 1 | Design tokens + UI primitives + brand rename | ✅ **done · `fe37e1a`** |
 | 2 | Masonry grid + new product card | ✅ **done — awaiting review** |
-| 3 | Header, search pill, category nav | planned |
+| 3 | Header, search pill, category nav | ✅ **done — awaiting review** |
 | 4 | Favorites (localStorage) + `/favorites` | planned |
 | 5 | Product detail page redesign | planned |
 | 6 | Home discovery feed + cart/checkout alignment | planned |
@@ -60,6 +60,18 @@ still drive the URL (`?category=books&sort=price` → 4 cards, ascending prices)
 
 Note: multi-column fills **down** each column, so visual order ≠ DOM order (tab order
 stays correct). Accepted trade-off — see §6.
+
+Phase 3 touched: **new** `components/search-bar.tsx` (URL-driven `?q=` pill, 400ms
+debounce, works from any page) and **new** `components/category-nav.tsx` (chip row driving
+`?category=`, count in each chip); `components/shop-filters.tsx` slimmed to sort / in-stock /
+price (search and chips moved out, "Clear all" still resets everything);
+`components/site-header.tsx` restructured (search inline on `lg+`, own row below on
+smaller screens); `app/shop/page.tsx` + `app/shop/loading.tsx` updated to match.
+
+Verified live: `?q=USB` → 4 cards, `?q=watch` → empty state, category click →
+`?category=books` + 4 cards + active chip, "Clear all" → `/?` back to 24 cards, zero
+console errors, `tsc` + build clean. Note: the DOM contains extra hidden `<div id="S:n">`
+nodes — those are Next's streamed Suspense containers, not duplicated UI.
 
 ---
 

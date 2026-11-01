@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
@@ -15,6 +15,7 @@ import {
   UserIcon,
   XIcon,
 } from "@/components/icons";
+import { SearchBar } from "@/components/search-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonClasses } from "@/components/ui/button";
 
@@ -187,33 +188,48 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-6">
+    <header className="sticky top-0 z-40 border-b border-primary-200/60 bg-canvas/85 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/85">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center gap-4">
           <Logo />
+
           <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
             {navLinks}
           </nav>
+
+          {/* Search lives in the bar on large screens… */}
+          <div className="hidden min-w-0 flex-1 justify-center lg:flex">
+            <Suspense fallback={<div className="h-11 w-full max-w-xl rounded-full bg-primary-100/70 dark:bg-white/10" />}>
+              <SearchBar className="w-full max-w-xl" />
+            </Suspense>
+          </div>
+
+          <div className="ml-auto flex items-center gap-1.5 lg:ml-0">
+            <ThemeToggle />
+            <CartLink />
+            <div className="hidden md:block">{authArea}</div>
+            <button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-primary-100 dark:text-zinc-400 dark:hover:bg-zinc-800 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              {mobileOpen ? <XIcon /> : <MenuIcon />}
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
-          <ThemeToggle />
-          <CartLink />
-          <div className="hidden md:block">{authArea}</div>
-          <button
-            type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-zinc-600 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            {mobileOpen ? <XIcon /> : <MenuIcon />}
-          </button>
+        {/* …and in its own row below it on small screens. */}
+        <div className="pb-3 lg:hidden">
+          <Suspense fallback={<div className="h-11 w-full rounded-full bg-primary-100/70 dark:bg-white/10" />}>
+            <SearchBar />
+          </Suspense>
         </div>
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-zinc-200 bg-white px-4 pb-4 pt-2 dark:border-zinc-800 dark:bg-zinc-950 md:hidden">
+        <div className="border-t border-primary-200/60 bg-canvas px-4 pb-4 pt-2 dark:border-zinc-800 dark:bg-zinc-950 md:hidden">
           <nav aria-label="Mobile" className="flex flex-col gap-1">
             {navLinks}
           </nav>
