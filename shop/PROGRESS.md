@@ -37,7 +37,8 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | 3 | Header, search pill, category nav | ✅ **done — awaiting review** |
 | 4 | Favorites (localStorage) + `/favorites` | ✅ **done — awaiting review** |
 | 5 | Product detail page redesign | ✅ **done — awaiting review** |
-| 6 | Home discovery feed + cart/checkout alignment | planned |
+| 6a | Home discovery feed | ✅ **done — awaiting review** |
+| 6b | Cart / checkout / account visual alignment | not started |
 | 7 | Responsive/a11y/perf pass + docs | planned |
 
 Phase 1 touched: `globals.css` (ink ramp replaces violet, `--color-canvas` `#FAF9F6`,
@@ -98,6 +99,19 @@ image on a rounded card, badges/price/description re-spaced), `components/add-to
 Verified live: product 24 renders title/price/badges/quantity group; Save pill flips to
 "Saved" with `aria-pressed` and the header count updates; un-saving restores `[]`.
 `generateMetadata`, `notFound()` handling and the max-10 clamp are unchanged.
+
+Phase 6a touched: **new** `lib/catalog.ts` (`loadCatalog()` — the shared, non-throwing
+catalogue loader now used by both `/` and `/shop`), `app/page.tsx` rewritten as a
+discovery feed (compact intro, category chips, 12-pin masonry, "Browse all products"),
+`app/shop/page.tsx` now imports the shared loader instead of its local copy.
+
+Verified live: `/` → 12 cards, 6 chips, 3 columns, CTA present, title
+`Discover | DigitalShop` (the root page is in the layout's own segment, so `title.template`
+does not apply — set with `title: { absolute }`), zero console errors.
+
+Still pending in this phase: **6b** — cart / checkout / account still use the older
+`rounded-2xl border` card style; they inherit the ink tokens but not the borderless
+`rounded-3xl` card language yet.
 
 ---
 

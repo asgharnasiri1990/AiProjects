@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { ApiError, getCategories, getProducts } from "@/lib/api";
-import type { CategoryList, ProductList, ProductListQuery, ProductSort } from "@/lib/types";
+import { loadCatalog } from "@/lib/catalog";
+import type { ProductListQuery, ProductSort } from "@/lib/types";
 import { ProductCard } from "@/components/product-card";
 import { CategoryNav } from "@/components/category-nav";
 import { ShopFilters } from "@/components/shop-filters";
@@ -75,33 +75,10 @@ function parseQuery(raw: Record<string, string | string[] | undefined>) {
   return { query, linkParams };
 }
 
-type ShopData =
-  | { ok: true; products: ProductList; categories: CategoryList }
-  | { ok: false; message: string };
-
-/**
- * Data loading lives outside the component body so no JSX is constructed inside
- * a try/catch — React can't catch render errors thrown from there anyway.
- */
-async function loadShopData(query: ProductListQuery): Promise<ShopData> {
-  try {
-    const [products, categories] = await Promise.all([getProducts(query), getCategories()]);
-    return { ok: true, products, categories };
-  } catch (error) {
-    return {
-      ok: false,
-      message:
-        error instanceof ApiError
-          ? error.message
-          : "We couldn't load the products right now.",
-    };
-  }
-}
-
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   const raw = (await searchParams) as Record<string, string | string[] | undefined>;
   const { query, linkParams } = parseQuery(raw);
-  const result = await loadShopData(query);
+  const result = await loadCatalog(query);
 
   let body: React.ReactNode;
   let pagination: React.ReactNode = null;
