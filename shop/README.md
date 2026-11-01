@@ -1,4 +1,4 @@
-# TomanShop
+# DigitalShop
 
 A complete online shop built with **Next.js (App Router)** and **Tailwind CSS**, powered entirely by the [practice.amirm.me API](https://practice.amirm.me/api-docs).
 

@@ -10,7 +10,7 @@ export function SiteFooter() {
             <ShoppingBagIcon width={14} height={14} />
           </span>
           <span>
-            <strong className="font-semibold text-zinc-700 dark:text-zinc-300">shopping Center</strong> — a
+            <strong className="font-semibold text-zinc-700 dark:text-zinc-300">DigitalShop</strong> — a
             practice storefront.
           </span>
         </div>

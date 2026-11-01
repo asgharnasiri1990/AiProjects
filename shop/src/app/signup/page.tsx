@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Sign up",
-  description: "Create a TomanShop account.",
+  description: "Create a DigitalShop account.",
 };
 
 export default function SignupPage() {

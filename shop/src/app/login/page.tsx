@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Log in",
-  description: "Log in to your TomanShop account.",
+  description: "Log in to your DigitalShop account.",
 };
 
 export default function LoginPage() {

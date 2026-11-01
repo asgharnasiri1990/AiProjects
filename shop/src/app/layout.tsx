@@ -19,8 +19,8 @@ const vazirmatn = Vazirmatn({
 
 export const metadata: Metadata = {
   title: {
-    default: "TomanShop — practice storefront",
-    template: "%s | TomanShop",
+    default: "DigitalShop — practice storefront",
+    template: "%s | DigitalShop",
   },
   description:
     "A modern online shop powered by the practice.amirm.me API. Browse products, manage a cart, sign up and check out.",

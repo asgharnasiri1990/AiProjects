@@ -2,14 +2,14 @@ export function Skeleton({ className = "" }: { className?: string }) {
   return (
     <div
       aria-hidden
-      className={`animate-pulse rounded-lg bg-zinc-200 dark:bg-zinc-800 ${className}`}
+      className={`animate-pulse rounded-xl bg-primary-200/70 dark:bg-white/10 ${className}`}
     />
   );
 }
 
 export function ProductCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="overflow-hidden rounded-3xl bg-white dark:bg-zinc-900">
       <Skeleton className="aspect-square w-full rounded-none" />
       <div className="space-y-3 p-4">
         <Skeleton className="h-4 w-3/4" />

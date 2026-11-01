@@ -7,16 +7,35 @@
   --font-sans: var(--font-inter), var(--font-vazir), ui-sans-serif, system-ui,
     sans-serif;
 
-  /* Primary palette (violet) */
-  --color-primary-50: #f5f3ff;
-  --color-primary-100: #ede9fe;
-  --color-primary-200: #ddd6fe;
-  --color-primary-300: #c4b5fd;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5b21b6;
-  --color-primary-900: #4c1d95;
+  /* --- Canvas ---------------------------------------------------------
+     The warm off-white "paper" the shop sits on. */
+  --color-canvas: #faf9f6;
+
+  /* --- Ink ------------------------------------------------------------
+     Neutral near-black ramp, replacing the old violet primary scale.
+     Because components already use `primary-*`, every button, link, ring,
+     badge and the cart counter turns ink from this one file.
+     50–300 are light (used as dark-mode tints); 600–900 are near-black
+     (used in light mode). */
+  --color-primary-50: #f7f7f5;
+  --color-primary-100: #efeeeb;
+  --color-primary-200: #e2e1dd;
+  --color-primary-300: #c9c8c2;
+  --color-primary-400: #a8a6a0;
+  --color-primary-500: #7a7873;
+  --color-primary-600: #1c1b19;
+  --color-primary-700: #000000;
+  --color-primary-800: #000000;
+  --color-primary-900: #000000;
+  --color-primary-950: #0d0d0c;
+
+  /* --- Accent ---------------------------------------------------------
+     Pinterest red, reserved for wishlist / heart UI only. */
+  --color-accent-50: #fff1f2;
+  --color-accent-100: #ffe4e6;
+  --color-accent-500: #e60023;
+  --color-accent-600: #c3001e;
+  --color-accent-700: #a3001a;
 }
 
 html {
@@ -24,21 +43,28 @@ html {
 }
 
 body {
-  background-color: var(--color-zinc-50);
-  color: var(--color-zinc-900);
+  background-color: var(--color-canvas);
+  color: var(--color-primary-600);
 }
 
 .dark body {
-  background-color: var(--color-zinc-950);
-  color: var(--color-zinc-100);
+  background-color: #0e0e0d;
+  color: var(--color-primary-100);
 }
 
 ::selection {
-  background-color: var(--color-primary-200);
-  color: var(--color-primary-900);
+  background-color: var(--color-accent-100);
+  color: var(--color-accent-700);
 }
 
 .dark ::selection {
-  background-color: var(--color-primary-800);
-  color: var(--color-primary-50);
+  background-color: var(--color-accent-700);
+  color: var(--color-accent-50);
+}
+
+/* Honour the OS "reduce motion" setting for scrolling as well. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
