@@ -52,7 +52,7 @@ export function CategoryNav({ categories }: { categories: CategoryWithCount[] })
             className={chip(isActive)}
           >
             {category.name}
-            <span className={`text-xs ${isActive ? "text-white/70" : "text-zinc-400"}`}>
+            <span className={`text-xs ${isActive ? "text-white/70" : "text-zinc-500 dark:text-zinc-400"}`}>
               {category.productCount}
             </span>
           </button>

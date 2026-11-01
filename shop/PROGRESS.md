@@ -37,9 +37,9 @@ Plan approved 2026-11-01. Decisions locked by the user:
 | 3 | Header, search pill, category nav | ✅ **done — awaiting review** |
 | 4 | Favorites (localStorage) + `/favorites` | ✅ **done — awaiting review** |
 | 5 | Product detail page redesign | ✅ **done — awaiting review** |
-| 6a | Home discovery feed | ✅ **done — awaiting review** |
-| 6b | Cart / checkout / account visual alignment | not started |
-| 7 | Responsive/a11y/perf pass + docs | planned |
+| 6a | Home discovery feed | ✅ done · `7049e7d` |
+| 6b | Cart / checkout / account visual alignment | **deferred** (still on `rounded-2xl border` cards) |
+| 7 | Responsive/a11y/perf pass + docs | ✅ **done — awaiting review** |
 
 Phase 1 touched: `globals.css` (ink ramp replaces violet, `--color-canvas` `#FAF9F6`,
 `--color-accent-*` red), `ui/button.tsx` (pill radius, ink primary, new secondary),
@@ -112,6 +112,26 @@ does not apply — set with `title: { absolute }`), zero console errors.
 Still pending in this phase: **6b** — cart / checkout / account still use the older
 `rounded-2xl border` card style; they inherit the ink tokens but not the borderless
 `rounded-3xl` card language yet.
+
+Phase 7 (a11y pass + docs):
+
+- Lighthouse on `/shop` was **Accessibility 0.95 / Best Practices 1.0 / SEO 1.0** with two
+  failures; both fixed:
+  - `heading-order` — pin titles were `<h3>` under a page `<h1>`; now `<h2>`
+  - `color-contrast` — the 11px category label and the "Toman" hint used `zinc-400` on white
+    (2.6:1). The `text-zinc-400 dark:text-zinc-500` pair was replaced with
+    `text-zinc-500 dark:text-zinc-400` everywhere it appeared (4.8:1 light, 6.4:1 dark).
+- Re-run after the fixes: **Accessibility 100 · Best Practices 100 · SEO 100**, zero audit
+  failures.
+- Also removed two unused imports in `cart-view.tsx`, so the lint baseline is now
+  **6 problems (6 errors, 0 warnings)** — down from 24.
+- Docs updated: `README.md` (feed/favourites features, new file tree, and the stale
+  `middleware.ts` entry corrected to `proxy.ts`) and `AGENTS.md` (new "Design system & feed"
+  section).
+
+Remaining known debt: the 8 lint problems (6 errors, 2 warnings) are all pre-existing
+`react-hooks/set-state-in-effect` / unused-import findings in `site-header`, `shop-filters`,
+`theme-toggle`, `cart-context` and `cart-view`. They need restructuring, not suppression.
 
 ---
 

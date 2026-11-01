@@ -4,14 +4,16 @@ A complete online shop built with **Next.js (App Router)** and **Tailwind CSS**,
 
 ## Features
 
-- **/shop** — product grid with image, name, price in Toman and an "Out of stock" badge; live search, category pills, min/max price filter, in-stock toggle, sorting (newest / cheapest / most expensive / name) and Previous/Next pagination. All filters are URL-driven (shareable, back/forward friendly).
-- **/shop/[id]** — product detail with description, stock info, quantity selector and "Add to cart" (disabled when out of stock, capped at 10 per the API).
+- **/** — a Pinterest-style discovery feed: compact intro, category pills and a masonry wall of 12 product pins at varied heights.
+- **/shop** — the full catalogue as a variable-height masonry grid. Search lives in the site header (debounced, URL-driven), alongside category pills, min/max price, in-stock toggle, sorting (newest / cheapest / most expensive / name) and Previous/Next pagination. Every filter is URL state — shareable and back/forward friendly.
+- **/shop/[id]** — image-first product page: large artwork, stock badges, quantity selector, "Add to cart" (disabled when out of stock, capped at 10 per the API) and a Save/Saved wishlist button.
+- **/favorites** — the wishlist. Heart any pin and it is kept on this device, with a live count in the header.
 - **/cart** — editable quantities, remove per row, order total, "Clear cart" and "Continue shopping". Guests get `localStorage` persistence; logged-in users sync with the API cart, and the guest cart is merged into the account on login.
 - **Real authentication** — `/signup` and `/login` with client + server validation and clear error messages. The bearer token is stored in an **httpOnly cookie** (set by Next.js route handlers) and never exposed to client JS. Session survives refresh; logout invalidates the token server-side.
 - **Protected routes** — `/account` (profile + order history) and `/checkout` are guarded by middleware; unauthenticated visitors are redirected to `/login?next=…` and returned where they came from after signing in.
 - **Checkout** — delivery form (name, phone, address), order summary, order creation, and the API's fake payment (pay / cancel from the account page).
 - **States everywhere** — loading skeletons per route, empty states, friendly API/network error states with retry, and a custom 404.
-- **Design** — modern, minimal, mobile-first responsive layout, light/dark mode (next-themes, system-aware), accessible forms (labels, `aria-invalid`, `role="alert"`, focus rings, skip link) and Persian text rendered correctly with Vazirmatn.
+- **Design** — warm off-white canvas, borderless rounded cards with a single ink accent, Pinterest-red hearts only, hover lift and image zoom (both disabled under `prefers-reduced-motion`), light/dark mode (next-themes, system-aware), accessible landmarks and forms (labels, `aria-invalid`, `role="alert"`, focus rings, skip link) and Persian text rendered correctly with Vazirmatn.
 
 ## Tech stack
 
@@ -79,9 +81,10 @@ The API issues a bearer token. To keep it out of client-side JavaScript:
 ```
 src/
 ├── app/                    # App Router pages
-│   ├── page.tsx            # Landing page
-│   ├── shop/               # /shop (list + filters + pagination)
+│   ├── page.tsx            # / (discovery feed)
+│   ├── shop/               # /shop (masonry grid + filters + pagination)
 │   │   └── [id]/           # /shop/[id] (product detail)
+│   ├── favorites/          # /favorites (device-local wishlist)
 │   ├── cart/               # /cart
 │   ├── checkout/           # /checkout (protected)
 │   ├── account/            # /account (protected, orders)
@@ -90,20 +93,27 @@ src/
 ├── components/
 │   ├── ui/                 # Design system: Button, Input, Badge, Skeleton, states…
 │   ├── icons.tsx           # Inline SVG icon set
-│   ├── product-card.tsx    # Shop card
-│   ├── shop-filters.tsx    # Search / category / price / sort toolbar
+│   ├── masonry-grid.tsx    # CSS-columns masonry (2/3/4 columns)
+│   ├── product-card.tsx    # Pin: cover image, category, name, price, heart
+│   ├── favorite-button.tsx # Heart toggle (icon or Save/Saved pill)
+│   ├── search-bar.tsx      # Header search pill (URL-driven, debounced)
+│   ├── category-nav.tsx    # Category pills (?category=)
+│   ├── shop-filters.tsx    # Price / sort / in-stock toolbar
 │   ├── pagination.tsx
-│   ├── site-header.tsx     # Nav, cart badge, user menu, theme toggle
+│   ├── site-header.tsx     # Logo, search, saved + cart badges, user menu, theme
 │   └── site-footer.tsx
 ├── context/
 │   ├── auth-context.tsx    # Session state (login/signup/logout)
-│   └── cart-context.tsx    # Guest (localStorage) + synced (API) cart
+│   ├── cart-context.tsx    # Guest (localStorage) + synced (API) cart
+│   └── favorites-context.tsx # Wishlist (localStorage snapshots)
 ├── lib/
 │   ├── api.ts              # API service layer (all fetches live here)
+│   ├── catalog.ts          # Shared non-throwing product+category loader
+│   ├── aspect.ts           # Stable per-product feed aspect ratio
 │   ├── proxy.ts            # Authenticated route-handler proxy helper
 │   ├── session.ts          # httpOnly cookie session helpers (server)
 │   ├── validation.ts       # Form validation rules
 │   ├── format.ts           # Toman / date formatting
 │   └── types.ts            # API payload types
-└── middleware.ts           # Protects /account and /checkout
+└── proxy.ts                # Route guard for /account and /checkout (Next 16 middleware)
 ```

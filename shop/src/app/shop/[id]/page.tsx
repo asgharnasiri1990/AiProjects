@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
 
           <section className="border-t border-primary-200/70 pt-6 dark:border-zinc-800">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               Description
             </h2>
             <p dir="auto" className="mt-2 leading-7 text-zinc-600 dark:text-zinc-300">

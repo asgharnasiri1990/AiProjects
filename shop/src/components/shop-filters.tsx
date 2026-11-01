@@ -147,7 +147,7 @@ export function ShopFilters() {
             onChange={(e) => setMaxInput(e.target.value)}
             className={`${priceInputClasses} w-24 sm:w-28`}
           />
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">Toman</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">Toman</span>
         </div>
       </div>
     </section>

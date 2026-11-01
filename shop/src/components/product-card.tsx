@@ -41,15 +41,15 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <div className="px-3 pb-3.5 pt-3">
-          <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+          <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             {product.category.name}
           </p>
-          <h3
+          <h2
             dir="auto"
             className="mt-0.5 line-clamp-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100"
           >
             {product.name}
-          </h3>
+          </h2>
           <p className="mt-0.5 text-sm font-bold tabular-nums text-zinc-900 dark:text-white">
             {formatToman(product.price)}
           </p>

@@ -48,7 +48,7 @@ export function SearchBar({ className = "" }: { className?: string }) {
       <SearchIcon
         width={17}
         height={17}
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500"
+        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-400"
       />
       <input
         type="search"

@@ -35,6 +35,25 @@ WRITE (client)  Browser  ──►  /api/* route handler  ──►  src/lib/pro
 - Page-level auth checks use `getSessionUser()` (server only). `src/proxy.ts` only checks
   that a cookie is *present* — real validation happens per page.
 
+### Design system & feed
+
+- **Tokens live in `globals.css`** (`@theme`), not a Tailwind config — there is no
+  `tailwind.config.*`. Three ramps matter: `primary-*` is **ink** (near-black, used for every
+  button/link/ring), `canvas` is the warm off-white page, `accent-*` is Pinterest red and is
+  reserved for the wishlist UI. Changing `globals.css` restyles the whole app.
+- **Masonry is CSS multi-column** (`masonry-grid.tsx`), so cards must be its direct children —
+  spacing and `break-inside-avoid` are applied via child selectors. Heights come from
+  `feedAspectRatio(slug)`, capped at 3:4 so the centred artwork in the square API SVGs is never
+  clipped. Visual order fills down columns; DOM/tab order stays correct.
+- **Pins show name + price only** (plus a tiny category). Descriptions live on the detail page.
+- **The heart is a sibling of the card link**, never a child — buttons can't legally nest in
+  anchors, and this makes accidental navigation impossible. Titles are `<h2>` so heading order
+  stays sequential under the page `<h1>`.
+- **Favourites are device-local** (`favorites-context.tsx`, `Product` snapshots, max 100) built on
+  `useSyncExternalStore` — no `setState` in an effect, no hydration mismatch, cross-tab sync.
+- **`lib/catalog.ts` is the one loader** for `/` and `/shop`. It returns a result object instead of
+  throwing so pages render outside any `try/catch` (JSX inside `try` is a lint error here).
+
 ### Where things live
 
 | Path | Role |

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeftIcon, CartIcon, TrashIcon } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonClasses } from "@/components/ui/button";
+import { buttonClasses } from "@/components/ui/button";
 import { QuantitySelector } from "@/components/ui/quantity-selector";
-import { Skeleton, ProductCardSkeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/ui/states";
 import { useAuth } from "@/context/auth-context";
 import { useCart } from "@/context/cart-context";
@@ -172,7 +172,7 @@ export function CartView() {
 
         {/* Summary */}
         <aside className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:sticky lg:top-24">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
             Summary
           </h2>
           <dl className="mt-4 space-y-2.5 text-sm">
@@ -201,7 +201,7 @@ export function CartView() {
                 >
                   Log in to check out
                 </Link>
-                <p className="text-center text-xs text-zinc-400 dark:text-zinc-500">
+                <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
                   Your cart will be waiting for you after login.
                 </p>
               </>
