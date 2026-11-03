@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  /* Inter covers Latin; Vazirmatn picks up Persian glyphs automatically. */
+  --font-sans: var(--font-inter), var(--font-vazir), ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* Warm paper canvas, near-black ink, one restrained moss accent. */
+  --color-canvas: #fbfaf7;
+  --color-wash: #f2efe7;
+  --color-ink: #1a1917;
+  --color-ink-soft: #6a665d;
+  --color-line: #e6e2d8;
+  --color-accent: #3f5f4b;
+  --color-accent-soft: #e9efe9;
+
+  /* Fluid display sizes used by the hero and section headings. */
+  --text-hero: clamp(2.6rem, 6.4vw, 4.6rem);
+  --text-display: clamp(1.9rem, 4vw, 2.9rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  /* Persian needs a little more air between lines than Latin. */
+  [dir="rtl"] p,
+  [dir="rtl"] li {
+    line-height: 2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
