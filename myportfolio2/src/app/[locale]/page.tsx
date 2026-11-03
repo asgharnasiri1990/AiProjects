@@ -16,7 +16,7 @@ import {
 import { ArchiveGrid } from "@/components/archive-grid";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { SectionHeading } from "@/components/section-heading";
-import { WorkRibbon } from "@/components/work-ribbon";
+import { MaterialsRibbon } from "@/components/materials-ribbon";
 import { WorkRow } from "@/components/work-row";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
@@ -56,7 +56,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           </h1>
         </div>
 
-        <WorkRibbon locale={locale} />
+        <MaterialsRibbon locale={locale} />
 
         <div className="grid gap-8 border-t border-line pt-6 lg:grid-cols-12">
           <div className="lg:col-span-5">

@@ -187,7 +187,7 @@
     animation: ribbon-scroll 52s linear infinite;
   }
 
-  .work-ribbon:hover .ribbon-track {
+  .materials-ribbon:hover .ribbon-track {
     animation-play-state: paused;
   }
 
