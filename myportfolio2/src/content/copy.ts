@@ -58,6 +58,10 @@ export interface Copy {
   timelineTitle: string;
   timeline: TimelineEntry[];
 
+  processTitle: string;
+  processLead: string;
+  process: { title: string; body: string }[];
+
   contactTitle: string;
   contactLead: string;
   contactEmail: string;
@@ -176,6 +180,28 @@ export const copy: Record<Locale, Copy> = {
       },
     ],
 
+    processTitle: "روش کار",
+    processLead:
+      "چهار مرحله که هر پروژه از آن‌ها رد می‌شود. هیچ‌کدام جذاب نیستند و همه‌شان لازم‌اند.",
+    process: [
+      {
+        title: "اول مسئله",
+        body: "پیش از هر خط کد، کد موجود، API و محدودیت‌ها را می‌خوانم. بیشتر کار همین است: فهمیدن اینکه واقعاً چه چیزی خراب است.",
+      },
+      {
+        title: "طرح در مرورگر",
+        body: "اول یک صفحه با داده‌ی واقعی؛ نه ماکاپی که دروغ می‌گوید. چیدمان پیش از کامپوننت.",
+      },
+      {
+        title: "ساختن بخش‌های خسته‌کننده",
+        body: "حالت خالی، پیام خطا، فوکوس با کیبورد، راست‌به‌چپ. این‌ها را کاربر حس می‌کند و کسی نمایششان نمی‌دهد.",
+      },
+      {
+        title: "انتشار و بررسی",
+        body: "تایپ‌چک، بیلد، و بعد کلیک‌کردن روی صفحه‌ی باریک. اگر فقط روی سیستم من کار کند، تمام نشده است.",
+      },
+    ],
+
     contactTitle: "بنویسید.",
     contactLead:
       "اگر تیمی هستید که به یک فرانت‌اندِ دقیق نیاز دارد، یا پروژه‌ای دارید که باید درست ساخته شود، ایمیل من باز است. معمولاً در دو روز کاری پاسخ می‌دهم.",
@@ -291,6 +317,28 @@ export const copy: Record<Locale, Copy> = {
         period: "2026",
         title: "Three complete apps",
         detail: "A storefront, a flight tracker and this site; from design to deploy.",
+      },
+    ],
+
+    processTitle: "How I work",
+    processLead:
+      "Four steps every project goes through. None of them are glamorous, and all of them are necessary.",
+    process: [
+      {
+        title: "The problem first",
+        body: "Before a line of code I read what exists: the code, the API, the constraints. Most of the work is finding out what is actually broken.",
+      },
+      {
+        title: "Sketch in the browser",
+        body: "One page with real data, not a mockup that lies. Layout first, components second.",
+      },
+      {
+        title: "Build the boring parts",
+        body: "Empty states, error messages, keyboard focus, right-to-left. Users feel these and nobody demos them.",
+      },
+      {
+        title: "Ship, then check",
+        body: "Typecheck, build, then click through it on a narrow screen. If it only works on my machine, it is not done.",
       },
     ],
 
