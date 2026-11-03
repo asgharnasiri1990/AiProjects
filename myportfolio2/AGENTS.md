@@ -67,6 +67,11 @@ on the site — one per page. It is not the 21st.dev WebGL shader; do not add
 border and no shadow; the archive adds a hand-drawn `SketchRing`. The work index is
 deliberately *not* cards — it is a printed index and carries the hierarchy.
 
+**Rhythm devices**: section eyebrows are hairline pills (`SectionHeading`), and the
+home page closes on a full-bleed ink band (`bg-ink text-paper`) before the paper
+footer. That band is the only inverted surface; do not add a second one without a
+reason — its job is to end the page.
+
 ### RTL rules
 
 - Use logical utilities (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`, `text-start`).

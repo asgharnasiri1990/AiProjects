@@ -24,7 +24,9 @@ export function SectionHeading({
     <div className="flex flex-wrap items-end justify-between gap-4 border-b border-ink pb-3">
       <div>
         <p
-          className={`font-mono text-[11px] text-muted ${labelStyle(locale)}`}
+          className={`inline-flex w-fit items-center rounded-full border border-line px-2.5 py-1 font-mono text-[10px] text-muted ${labelStyle(
+            locale,
+          )}`}
         >
           {label}
         </p>

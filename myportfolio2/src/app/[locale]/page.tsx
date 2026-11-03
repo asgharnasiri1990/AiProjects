@@ -150,16 +150,18 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <ArchiveGrid locale={locale} items={archive.slice(0, 6)} />
       </section>
 
-      <section className={`${shell} pb-16 lg:pb-24`}>
-        <div className="border-t border-ink pt-6">
-          <p className={`font-mono text-[11px] text-muted ${labelStyle(locale)}`}>
+      <section className="bg-ink text-paper">
+        <div className={`${shell} py-14 lg:py-20`}>
+          <p
+            className={`font-mono text-[11px] text-paper/50 ${labelStyle(locale)}`}
+          >
             {c.contactEmail}
           </p>
           <p className="mt-3">
             <a
               href={`mailto:${profile.email}`}
               dir="ltr"
-              className={`inline-block break-all text-2xl font-medium transition-colors hover:text-accent sm:text-4xl ${displayTracking(
+              className={`inline-block break-all text-2xl font-medium underline decoration-paper/25 decoration-2 underline-offset-8 transition-colors hover:decoration-accent sm:text-4xl ${displayTracking(
                 locale,
               )} ${focusRing}`}
             >
@@ -167,14 +169,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             </a>
           </p>
 
-          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
             {profile.socials.map((social) => (
               <li key={social.label}>
                 <a
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-sm transition-colors hover:text-accent ${focusRing}`}
+                  className={`text-sm text-paper/70 transition-colors hover:text-paper ${focusRing}`}
                 >
                   {social.label}
                 </a>
