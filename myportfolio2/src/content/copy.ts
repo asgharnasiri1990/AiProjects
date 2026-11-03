@@ -35,6 +35,7 @@ export interface Copy {
   externalLink: string;
 
   availability: string;
+  portraitAlt: string;
   heroStatement: string;
   heroLead: string;
   ctaWork: string;
@@ -117,6 +118,7 @@ export const copy: Record<Locale, Copy> = {
     externalLink: "در صفحه‌ی جدید باز می‌شود",
 
     availability: "آماده‌ی همکاری",
+    portraitAlt: "پرتره‌ی اصغر نصیری در فضای باز، در حال نگاه‌کردن به گوشی",
     heroStatement: "رابط‌هایی می‌سازم که سر راه نمی‌ایستند.",
     heroLead:
       "توسعه‌دهنده‌ی فرانت‌اند در تهران. بیشتر با React، Next.js و TypeScript کار می‌کنم و به بخش‌های دیده‌نشده اهمیت می‌دهم: راست‌به‌چپِ درست، دسترس‌پذیری واقعی و صفحه‌هایی که روی اتصال ضعیف هم سریع می‌مانند.",
@@ -259,6 +261,7 @@ export const copy: Record<Locale, Copy> = {
     externalLink: "opens in a new tab",
 
     availability: "Open to work",
+    portraitAlt: "Portrait of Asghar Nasiri outdoors, looking at his phone",
     heroStatement: "I build interfaces that get out of the way.",
     heroLead:
       "Front-end developer in Tehran. I work mostly in React, Next.js and TypeScript, and I care about the unglamorous parts: correct right-to-left layout, real accessibility, and pages that stay fast on a weak connection.",

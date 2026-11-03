@@ -84,6 +84,14 @@ hover, static under `prefers-reduced-motion`.
 `translateZ(18px)`, with hover lifting a card to `translateZ(30px)`. The fan array
 is mirrored for `fa`, because the first card sits on the right there.
 
+**Photos** live in `public/images/`. `portrait.jpg` is the owner's GitHub avatar,
+cropped to 4:5 and rendered at 736 × 920 (the source is only 460 px wide, so do not
+display it much larger than ~360 px). It appears twice: the framed figure in
+`about` section 01, and one frame of the hero ribbon. Its alt text lives in
+`copy.portraitAlt`; the ribbon copy is decorative (`alt=""`). To replace it, drop a
+new 4:5 file at `public/images/portrait.jpg` and keep the `<Image>` dimensions in
+sync.
+
 ### Themes
 
 Two themes: **paper** (default) and **ink**. The ink theme is `data-theme="ink"` on

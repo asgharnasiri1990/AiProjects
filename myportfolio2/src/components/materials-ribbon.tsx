@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { copy } from "@/content/copy";
-import { profile } from "@/content/profile";
 import type { Locale } from "@/lib/i18n";
 
 type Frame =
@@ -45,10 +45,14 @@ export function MaterialsRibbon({ locale }: { locale: Locale }) {
                 style={{ transform: `rotateY(${fan[position % fan.length]}deg)` }}
               >
                 {frame.kind === "mark" ? (
-                  <div className="accent-disc grid h-[190px] w-[240px] place-items-center rounded-xl text-[#f7f5ee] sm:w-[280px]">
-                    <span className="font-mono text-5xl leading-none">
-                      {profile.initials}
-                    </span>
+                  <div className="relative h-[190px] w-[152px] overflow-hidden rounded-xl border border-line">
+                    <Image
+                      src="/images/portrait.jpg"
+                      alt=""
+                      fill
+                      sizes="152px"
+                      className="object-cover"
+                    />
                   </div>
                 ) : (
                   <div className="flex h-[190px] w-[240px] flex-col justify-between rounded-xl border border-line bg-paper p-5 sm:w-[280px]">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { copy } from "@/content/copy";
 import { isLocale } from "@/lib/i18n";
@@ -28,7 +29,19 @@ export default async function AboutPage({
 
       <section className="grid gap-6 border-b border-line py-12 lg:grid-cols-12 lg:gap-8">
         <p className={`${label} lg:col-span-3`}>01 — {c.aboutTitle}</p>
-        <div className="space-y-5 lg:col-span-8 lg:col-start-5">
+
+        <figure className="lg:col-span-3">
+          <Image
+            src="/images/portrait.jpg"
+            alt={c.portraitAlt}
+            width={736}
+            height={920}
+            sizes="(min-width: 1024px) 22vw, 60vw"
+            className="w-full rounded-xl border border-line object-cover"
+          />
+        </figure>
+
+        <div className="space-y-5 lg:col-span-6">
           {c.aboutBody.map((paragraph, index) => (
             <p
               key={index}
