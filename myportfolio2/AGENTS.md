@@ -72,6 +72,17 @@ home page closes on a full-bleed band (`bg-band text-band-ink`) before the foote
 That band is the only elevated surface; do not add a second one without a reason —
 its job is to end the page.
 
+**The hero ribbon** (`components/work-ribbon.tsx`) is the signature moving part: work
+frames plus one monogram frame streaming on a tilted, fanned plane, faded at both
+edges. Two identical halves make the `-50%` loop seamless; `pe-4` on each frame
+(not `gap`) keeps that arithmetic exact. It is decorative — `aria-hidden`, no
+links, paused on hover, static under `prefers-reduced-motion`. The titles are all
+in the work index, so nothing is lost to a screen reader.
+
+**The archive** is a fanned 3D grid: outer columns `rotateY(±9deg)`, the middle one
+`translateZ(18px)`, with hover lifting a card to `translateZ(30px)`. The fan array
+is mirrored for `fa`, because the first card sits on the right there.
+
 ### Themes
 
 Two themes: **paper** (default) and **ink**. The ink theme is `data-theme="ink"` on

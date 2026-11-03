@@ -182,6 +182,30 @@
     }
   }
 
+  /* The hero ribbon travels exactly half its (duplicated) width. */
+  .ribbon-track {
+    animation: ribbon-scroll 52s linear infinite;
+  }
+
+  .work-ribbon:hover .ribbon-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes ribbon-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ribbon-track {
+      animation: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .metal-button::before {
       animation: none;

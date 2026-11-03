@@ -16,6 +16,7 @@ import {
 import { ArchiveGrid } from "@/components/archive-grid";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/icons";
 import { SectionHeading } from "@/components/section-heading";
+import { WorkRibbon } from "@/components/work-ribbon";
 import { WorkRow } from "@/components/work-row";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
@@ -45,27 +46,17 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           </p>
         </div>
 
-        <div className="relative flex flex-1 items-center py-10 lg:py-14">
-          {/* The accent disc stands in for a portrait: one solid shape, the monogram. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute end-0 top-1/2 hidden -translate-y-1/2 sm:block"
-          >
-            <div className="accent-disc grid size-[clamp(190px,25vw,370px)] place-items-center rounded-full text-[#f7f5ee]">
-              <span className="font-mono text-[clamp(2.25rem,6.5vw,5rem)] leading-none">
-                {profile.initials}
-              </span>
-            </div>
-          </div>
-
+        <div className="py-8 lg:py-12">
           <h1
-            className={`relative max-w-[20ch] text-mega font-medium lg:max-w-[min(15ch,56%)] ${
+            className={`max-w-[20ch] text-mega font-medium ${
               locale === "fa" ? "leading-[1.06]" : "leading-[0.95]"
             } ${displayTracking(locale)}`}
           >
             {c.heroStatement}
           </h1>
         </div>
+
+        <WorkRibbon locale={locale} />
 
         <div className="grid gap-8 border-t border-line pt-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
