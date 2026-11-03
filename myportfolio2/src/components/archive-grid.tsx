@@ -22,7 +22,7 @@ export function ArchiveGrid({
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex h-full flex-col rounded-xl border border-line bg-paper p-6 transition duration-200 hover:-translate-y-0.5 hover:border-ink/20 hover:bg-white ${focusRing}`}
+            className={`group flex h-full flex-col rounded-xl border border-line bg-paper p-6 transition duration-200 hover:-translate-y-0.5 hover:border-ink/20 hover:bg-raised ${focusRing}`}
           >
             <div className="flex items-start justify-between gap-3">
               <SketchRing className="h-10 w-10 text-line transition-colors group-hover:text-accent" />

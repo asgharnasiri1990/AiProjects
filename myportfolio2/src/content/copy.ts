@@ -29,6 +29,7 @@ export interface Copy {
 
   skipToContent: string;
   switchLanguage: string;
+  switchTheme: string;
   openMenu: string;
   closeMenu: string;
   externalLink: string;
@@ -110,6 +111,7 @@ export const copy: Record<Locale, Copy> = {
 
     skipToContent: "رفتن به محتوای اصلی",
     switchLanguage: "تغییر زبان به انگلیسی",
+    switchTheme: "تغییر روشنایی",
     openMenu: "باز کردن منو",
     closeMenu: "بستن منو",
     externalLink: "در صفحه‌ی جدید باز می‌شود",
@@ -251,6 +253,7 @@ export const copy: Record<Locale, Copy> = {
 
     skipToContent: "Skip to content",
     switchLanguage: "Switch language to Persian",
+    switchTheme: "Switch theme",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     externalLink: "opens in a new tab",

@@ -68,9 +68,28 @@ border and no shadow; the archive adds a hand-drawn `SketchRing`. The work index
 deliberately *not* cards — it is a printed index and carries the hierarchy.
 
 **Rhythm devices**: section eyebrows are hairline pills (`SectionHeading`), and the
-home page closes on a full-bleed ink band (`bg-ink text-paper`) before the paper
-footer. That band is the only inverted surface; do not add a second one without a
-reason — its job is to end the page.
+home page closes on a full-bleed band (`bg-band text-band-ink`) before the footer.
+That band is the only elevated surface; do not add a second one without a reason —
+its job is to end the page.
+
+### Themes
+
+Two themes: **paper** (default) and **ink**. The ink theme is `data-theme="ink"` on
+`<html>`; it swaps the token values in `globals.css` and nothing else, so every
+`var(--color-*)` utility flips at once.
+
+- **Never write `dark:` variants.** They are not wired to this theme and will not
+  apply. If an element needs different treatment, change the token (e.g.
+  `--color-band`) or add a `[data-theme="ink"]` rule next to the component that
+  needs it (see `.accent-disc` and `.metal-button`).
+- The choice lives in `localStorage.theme`. The no-flash script is the first child
+  of `<body>` in `app/[locale]/layout.tsx`; it also honours `?theme=ink|paper` and
+  persists it, which is how themes are previewed and screenshot.
+- `--color-band` / `--color-band-ink` exist because a true colour swap would turn
+  the closing band into a white block in ink mode; it is inverted in paper and
+  merely raised in ink.
+- The accent disc is the one element allowed a gradient — only in ink, and only
+  warm (`#f0703f → #9e2c11`).
 
 ### RTL rules
 

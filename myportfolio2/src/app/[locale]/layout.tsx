@@ -76,6 +76,13 @@ export default async function LocaleLayout({
       className={`${interTight.variable} ${vazirmatn.variable} ${jetbrains.variable}`}
     >
       <body className="flex min-h-dvh flex-col font-sans antialiased">
+        <script
+          // Runs before paint: applies the saved theme (or ?theme=ink) with no flash.
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var m=location.search.match(/[?&]theme=(ink|paper)/);var t=m?m[1]:localStorage.getItem('theme');if(m)localStorage.setItem('theme',m[1]);if(t==='ink')document.documentElement.dataset.theme='ink';}catch(e){}})();",
+          }}
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:start-5 focus:top-4 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-paper"

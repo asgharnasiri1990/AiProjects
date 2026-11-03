@@ -77,3 +77,18 @@ export function SketchRing({ className }: IconProps) {
     </svg>
   );
 }
+
+/** Half-filled circle: the theme toggle. */
+export function ContrastIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M8 2.2a5.8 5.8 0 0 1 0 11.6z" fill="currentColor" />
+    </svg>
+  );
+}

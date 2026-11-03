@@ -51,7 +51,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             aria-hidden="true"
             className="pointer-events-none absolute end-0 top-1/2 hidden -translate-y-1/2 sm:block"
           >
-            <div className="grid size-[clamp(190px,25vw,370px)] place-items-center rounded-full bg-accent text-canvas">
+            <div className="accent-disc grid size-[clamp(190px,25vw,370px)] place-items-center rounded-full text-[#f7f5ee]">
               <span className="font-mono text-[clamp(2.25rem,6.5vw,5rem)] leading-none">
                 {profile.initials}
               </span>
@@ -150,10 +150,10 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <ArchiveGrid locale={locale} items={archive.slice(0, 6)} />
       </section>
 
-      <section className="bg-ink text-paper">
+      <section className="bg-band text-band-ink">
         <div className={`${shell} py-14 lg:py-20`}>
           <p
-            className={`font-mono text-[11px] text-paper/50 ${labelStyle(locale)}`}
+            className={`font-mono text-[11px] text-band-ink/50 ${labelStyle(locale)}`}
           >
             {c.contactEmail}
           </p>
@@ -161,7 +161,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <a
               href={`mailto:${profile.email}`}
               dir="ltr"
-              className={`inline-block break-all text-2xl font-medium underline decoration-paper/25 decoration-2 underline-offset-8 transition-colors hover:decoration-accent sm:text-4xl ${displayTracking(
+              className={`inline-block break-all text-2xl font-medium underline decoration-band-ink/25 decoration-2 underline-offset-8 transition-colors hover:decoration-accent sm:text-4xl ${displayTracking(
                 locale,
               )} ${focusRing}`}
             >
@@ -176,7 +176,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-sm text-paper/70 transition-colors hover:text-paper ${focusRing}`}
+                  className={`text-sm text-band-ink/70 transition-colors hover:text-band-ink ${focusRing}`}
                 >
                   {social.label}
                 </a>

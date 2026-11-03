@@ -12,7 +12,7 @@ import {
   type Locale,
 } from "@/lib/i18n";
 import { focusRing, labelStyle, shell } from "@/lib/styles";
-import { ArrowUpRightIcon } from "@/components/icons";
+import { ArrowUpRightIcon, ContrastIcon } from "@/components/icons";
 
 const links = ["work", "archive", "about", "contact"] as const;
 
@@ -27,6 +27,18 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     document.cookie = `${localeCookie}=${target}; path=/; max-age=31536000; samesite=lax`;
     setOpen(false);
     router.push(switchLocalePath(pathname, target));
+  }
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "ink" ? "paper" : "ink";
+    if (next === "ink") root.dataset.theme = "ink";
+    else delete root.dataset.theme;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      // storage can be unavailable; the attribute alone still works this visit
+    }
   }
 
   function isActive(section: (typeof links)[number]) {
@@ -66,6 +78,15 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </nav>
 
         <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={c.switchTheme}
+            className={`text-muted transition-colors hover:text-ink ${focusRing}`}
+          >
+            <ContrastIcon className="h-4 w-4" />
+          </button>
+
           <button
             type="button"
             onClick={switchLanguage}
