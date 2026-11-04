@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-vazir), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafbfc;
+  --color-ink: #111418;
+  --color-muted: #5f6b7a;
+  --color-line: #e2e6ec;
+  --color-accent: #0b8a5c;
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #e8f6ef;
+  --color-danger: #c0362c;
+  --color-danger-soft: #fdeceb;
+  --color-warn: #8a5a00;
+  --color-warn-soft: #fff5e0;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  /*
+   * Dark theme: only token values change, so every utility reading
+   * var(--color-*) flips without a single `dark:` variant.
+   * Set with data-theme="dark" on <html>.
+   */
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --color-canvas: #0b0e11;
+    --color-surface: #131820;
+    --color-surface-2: #171d26;
+    --color-ink: #eef2f6;
+    --color-muted: #9aa6b5;
+    --color-line: #252d38;
+    --color-accent: #3ddc97;
+    --color-accent-ink: #052a1c;
+    --color-accent-soft: #10291f;
+    --color-danger: #ff7a70;
+    --color-danger-soft: #2a1512;
+    --color-warn: #ffc266;
+    --color-warn-soft: #2a2113;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  /* Persian is a connected script and needs more air between lines. */
+  [dir="rtl"] p,
+  [dir="rtl"] li {
+    line-height: 1.9;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer components {
+  /* The theme toggle shows a moon in light mode and a sun in dark mode. */
+  .theme-sun {
+    display: none;
+  }
+
+  [data-theme="dark"] .theme-sun {
+    display: block;
+  }
+
+  [data-theme="dark"] .theme-moon {
+    display: none;
+  }
+}
