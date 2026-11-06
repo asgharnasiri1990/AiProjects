@@ -43,11 +43,11 @@ module-not-found error. The fonts are bundled; the site builds offline.
 - **Display type** uses `.display-wide` (`font-stretch: 112%`) and
   `.display-fade` (black→grey clipped gradient). Persian must not get
   `tracking-*` or `uppercase`; use `labelStyle` / `displayTracking`.
-- **The portrait** is `public/images/portrait.jpg` (GitHub avatar, 4:5),
-  grayscale + `mix-blend-multiply`, masked by `.portrait-fade`. It is
-  translated down (`translate-y-[30%]`) inside an `overflow-hidden` flex box so
-  the second headline line crosses the face. If you change the mask, keep the
-  fade ending before the container edge or a hard cut appears.
+- **The portrait** is `public/images/portrait.png`, a transparent cutout of the
+  owner on a 4:5 canvas (920 × 1150). It is grayscale and gets
+  `.portrait-bottom-fade`; it sits in normal flow with a negative top margin so
+  the second headline line crosses the hair. Keep the PNG transparent — there is
+  no mask around the silhouette, only the bottom fade.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
 - **Services** are intentionally the five labels from the reference (the

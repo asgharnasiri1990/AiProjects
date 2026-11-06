@@ -18,8 +18,17 @@ export interface WorkItem {
  */
 export const work: WorkItem[] = [
   {
-    slug: "digital-shop",
+    slug: "this-site",
     index: "01",
+    title: { en: "This site", fa: "همین سایت" },
+    category: "web",
+    categoryLabel: { en: "Web design", fa: "طراحی وب" },
+    image: "/images/work-site.webp",
+    source: "https://github.com/asgharnasiri1990/AiProjects",
+  },
+  {
+    slug: "digital-shop",
+    index: "02",
     title: { en: "DigitalShop", fa: "دیجیتال‌شاپ" },
     category: "web",
     categoryLabel: { en: "Web storefront", fa: "فروشگاه وب" },
@@ -28,21 +37,12 @@ export const work: WorkItem[] = [
   },
   {
     slug: "flight-lookup",
-    index: "02",
+    index: "03",
     title: { en: "Flight lookup", fa: "ردیاب پرواز" },
     category: "tools",
     categoryLabel: { en: "Tool", fa: "ابزار" },
     image: "/images/work-flight.webp",
     source:
       "https://github.com/asgharnasiri1990/AiProjects/tree/main/flight-tracker",
-  },
-  {
-    slug: "this-site",
-    index: "03",
-    title: { en: "This site", fa: "همین سایت" },
-    category: "web",
-    categoryLabel: { en: "Web design", fa: "طراحی وب" },
-    image: "/images/work-site.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
   },
 ];

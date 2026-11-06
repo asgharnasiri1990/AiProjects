@@ -41,10 +41,12 @@ npm start
 - **One accent, none:** pure black / white / grey. No shadows, no colour.
 - **The headline** uses Archivo's width axis (`font-stretch: 112%`) and a
   black→grey clipped gradient. Persian uses Vazirmatn and no tracking.
-- **The portrait** (`portrait.jpg`, the owner's GitHub avatar) is grayscale,
-  multiplied over the paper, and faded with a radial mask. It sits behind the
-  second headline line, like the reference. Replace the file at the same path
-  to change it; keep it 4:5.
+- **The portrait** is `portrait.png` — a transparent cutout on a 4:5 canvas,
+  grayscale, with a bottom fade. It is pulled up under the second headline
+  line. Replace the file at the same path to change it; keep the background
+  transparent.
+- **Work order:** this site first (01), then DigitalShop (02), then Flight
+  lookup (03). This is the order in `src/content/work.ts` and on the page.
 - **Work screenshots** are real captures of `shop/`, `flight-tracker/` and this
   app, stored as `work-shop.webp`, `work-flight.webp`, `work-site.webp`.
 - **Services** are the five labels from the reference, as requested.

@@ -15,7 +15,7 @@ export const profile = {
     en: "Tehran, Iran",
     fa: "تهران، ایران",
   } satisfies Localized,
-  photo: "/images/portrait.jpg",
+  photo: "/images/portrait.png",
   socials: [
     { label: "GitHub", href: "https://github.com/asgharnasiri1990" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/asgharnasiri" },

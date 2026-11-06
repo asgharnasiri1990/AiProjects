@@ -9,15 +9,13 @@ export function Portrait({
   priority?: boolean;
 }) {
   return (
-    <div className="portrait-fade">
-      <Image
-        src={profile.photo}
-        alt={alt}
-        width={736}
-        height={920}
-        priority={priority}
-        className="h-auto w-full grayscale contrast-[1.16] brightness-[1.02] mix-blend-multiply"
-      />
-    </div>
+    <Image
+      src={profile.photo}
+      alt={alt}
+      width={920}
+      height={1150}
+      priority={priority}
+      className="portrait-bottom-fade h-auto w-full grayscale"
+    />
   );
 }
