@@ -1,6 +1,6 @@
 # AiProjects
 
-Four **independent** Next.js apps in one git repo. There is no workspace tooling, no
+Five **independent** Next.js apps in one git repo. There is no workspace tooling, no
 root `package.json`, and no shared code: each app owns its `package.json`,
 `node_modules`, and `AGENTS.md`. Always `cd` into the app directory before running
 anything — `npm install` / `npm run dev` at the repo root does nothing useful.
@@ -9,10 +9,11 @@ anything — `npm install` / `npm run dev` at the repo root does nothing useful.
 | --- | --- | --- |
 | `shop/` | `online-shop` | **TomanShop** — a storefront (products, cart, auth, checkout) built entirely on the public `practice.amirm.me` API. See `shop/AGENTS.md` before touching it. |
 | `flight-tracker/` | `expense-tracker` ⚠️ | Single-page flight lookup with one route handler, `app/api/flight/route.ts`. The package name is a leftover from an earlier project — the folder name is the real one. |
-| `myPortfolio/` | `portfolio` | The first bilingual portfolio attempt (Swiss-warm, paper + moss). Superseded by `myportfolio2/`; kept for reference. |
-| `myportfolio2/` | `portfolio-v2` | **The live portfolio** — bilingual (فارسی/English), Swiss-grid, static, no database. Hero, work index, case studies, archive, about, contact. Content in `src/content/`. See `myportfolio2/AGENTS.md`. |
+| `myPortfolio/` | `portfolio` | The first bilingual portfolio attempt (Swiss-warm, paper + moss). Kept for reference. |
+| `myportfolio2/` | `portfolio-v2` | The second attempt (ink-on-paper, tilted hero ribbon). Superseded by `myportfolio3/`; kept for reference. |
+| `myportfolio3/` | `portfolio-v3` | **The live portfolio** — monochrome, reference-style single page, English default with a Persian RTL version. Content in `src/content/`. See `myportfolio3/AGENTS.md`. |
 
-All four apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
+All five apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
 
 ## Read the framework first
 

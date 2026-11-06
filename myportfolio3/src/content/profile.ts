@@ -1,0 +1,23 @@
+import type { Localized } from "@/lib/i18n";
+
+export const profile = {
+  name: {
+    en: "Asghar Nasiri",
+    fa: "اصغر نصیری",
+  } satisfies Localized,
+  initials: "AN",
+  email: "asgharnasiri1990@gmail.com",
+  role: {
+    en: "Front-end developer",
+    fa: "توسعه‌دهنده فرانت‌اند",
+  } satisfies Localized,
+  location: {
+    en: "Tehran, Iran",
+    fa: "تهران، ایران",
+  } satisfies Localized,
+  photo: "/images/portrait.jpg",
+  socials: [
+    { label: "GitHub", href: "https://github.com/asgharnasiri1990" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/asgharnasiri" },
+  ],
+};
