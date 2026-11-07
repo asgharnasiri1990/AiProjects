@@ -332,7 +332,7 @@ export default function Home() {
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 md:py-12">
         <section className="mb-6">
           <h1 className="text-2xl font-bold leading-relaxed md:text-3xl">
-            ارزان‌ترین قیمت گوشی را پیدا کن
+            نبض بازارو بگیر، کف قیمت‌ها رو ببین
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted">
             مدل را انتخاب کن؛ قیمت را زنده از فروشگاه‌های انتخابی می‌گیریم و
