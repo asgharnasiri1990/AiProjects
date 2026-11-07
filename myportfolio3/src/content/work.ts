@@ -23,7 +23,7 @@ export const work: WorkItem[] = [
     title: { en: "This site", fa: "همین سایت" },
     category: "web",
     categoryLabel: { en: "Web design", fa: "طراحی وب" },
-    image: "/images/work-site.webp",
+    image: "/images/work-site-2.webp",
     source: "https://github.com/asgharnasiri1990/AiProjects",
   },
   {

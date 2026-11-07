@@ -21,10 +21,36 @@
   --text-display: clamp(2.4rem, 6vw, 5.2rem);
 }
 
+:root {
+  --display-strong: #0b0b0b;
+  --display-soft: #bdbdbd;
+}
+
+/* Ink theme: the same tokens inverted, so every utility flips at once. */
+html[data-theme="ink"] {
+  --color-paper: #0b0b0b;
+  --color-ink: #f1f1ee;
+  --color-soft: #a2a2a2;
+  --color-faint: #5c5c5c;
+  --color-line: #262626;
+  --color-wash: #151515;
+  --color-band: #171717;
+  --color-band-ink: #f1f1ee;
+  --display-strong: #f1f1ee;
+  --display-soft: #5c5c5c;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+  }
+
+  /* Slightly larger type on phones; every rem-based size follows. */
+  @media (max-width: 639px) {
+    html {
+      font-size: 17px;
+    }
   }
 
   body {
@@ -58,9 +84,9 @@
 .display-fade {
   background-image: linear-gradient(
     101deg,
-    #0b0b0b 0%,
-    #0b0b0b 40%,
-    #a9a9a9 100%
+    var(--display-strong) 0%,
+    var(--display-strong) 40%,
+    var(--display-soft) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -70,9 +96,9 @@
 [dir="rtl"] .display-fade {
   background-image: linear-gradient(
     259deg,
-    #0b0b0b 0%,
-    #0b0b0b 40%,
-    #a9a9a9 100%
+    var(--display-strong) 0%,
+    var(--display-strong) 40%,
+    var(--display-soft) 100%
   );
 }
 
@@ -102,7 +128,79 @@
   );
 }
 
-/* The portrait is a transparent cutout shown inside a circular disc. */
+/* The two hero lines fade toward opposite ends, like the reference. */
+.display-fade-l {
+  background-image: linear-gradient(
+    90deg,
+    var(--display-soft) 0%,
+    var(--display-strong) 72%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.display-fade-r {
+  background-image: linear-gradient(
+    90deg,
+    var(--display-strong) 28%,
+    var(--display-soft) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[dir="rtl"] .display-fade-l {
+  background-image: linear-gradient(
+    270deg,
+    var(--display-soft) 0%,
+    var(--display-strong) 72%
+  );
+}
+
+[dir="rtl"] .display-fade-r {
+  background-image: linear-gradient(
+    270deg,
+    var(--display-strong) 28%,
+    var(--display-soft) 100%
+  );
+}
+
+/* Theme toggle icons: CSS decides, so there is no hydration mismatch. */
+.theme-moon {
+  display: none;
+}
+
+[data-theme="ink"] .theme-sun {
+  display: none;
+}
+
+[data-theme="ink"] .theme-moon {
+  display: inline-block;
+}
+
+/* Scroll reveal: applied by <Reveal> only after it confirms the element is
+   below the fold, so content is never hidden without JavaScript. */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @keyframes rise {
   from {

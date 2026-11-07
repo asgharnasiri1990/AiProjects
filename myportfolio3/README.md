@@ -41,10 +41,9 @@ npm start
 - **One accent, none:** pure black / white / grey. No shadows, no colour.
 - **The headline** uses Archivo's width axis (`font-stretch: 112%`) and a
   black→grey clipped gradient. Persian uses Vazirmatn and no tracking.
-- **The portrait** is `portrait.png` — a transparent cutout shown in a circular
-  wash disc with a hairline border (grayscale). It is pulled up slightly under
-  the second headline line. Replace the file at the same path to change it; keep
-  the background transparent.
+- **The avatar** is `avatar.jpg` — a 200 × 200 grayscale crop shown in the
+  header next to the wordmark, at the same size as the social buttons. The hero
+  has no large portrait.
 - **Work order:** this site first (01), then DigitalShop (02), then Flight
   lookup (03). This is the order in `src/content/work.ts` and on the page.
 - **Work screenshots** are real captures of `shop/`, `flight-tracker/` and this

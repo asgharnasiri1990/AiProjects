@@ -43,11 +43,17 @@ module-not-found error. The fonts are bundled; the site builds offline.
 - **Display type** uses `.display-wide` (`font-stretch: 112%`) and
   `.display-fade` (black→grey clipped gradient). Persian must not get
   `tracking-*` or `uppercase`; use `labelStyle` / `displayTracking`.
-- **The portrait** is `public/images/portrait.png`, a transparent cutout of the
-  owner (4:5 canvas, 920 × 1150), shown inside a circular wash disc
-  (`rounded-full` + hairline border) and grayscale. It sits in normal flow with a
-  small negative top margin. Keep the PNG transparent; do not add a rectangular
-  frame or a radial mask.
+- **The avatar** is `public/images/avatar.jpg` (200 × 200, grayscale) and lives
+  in the header next to the `PORTFOLIO.` wordmark at `h-9 w-9` — the same size as
+  the social icon buttons. The hero has no portrait; do not re-add a large photo
+  without asking.
+- **Themes:** paper (default) and ink. Tokens are overridden on
+  `html[data-theme="ink"]` in `globals.css`; never write `dark:` variants. The
+  no-flash script is the first child of `<body>` in `[locale]/layout.tsx`; the
+  toggle reads and writes `localStorage.theme` and flips `data-theme`.
+- **Reveal:** `components/reveal.tsx` adds `reveal-hidden` only to elements
+  below the fold after mount, then `reveal-in` via IntersectionObserver. Content
+  must never be hidden by default CSS.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
 - **Services** are intentionally the five labels from the reference (the

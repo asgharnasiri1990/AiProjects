@@ -15,9 +15,10 @@ export const profile = {
     en: "Iran",
     fa: "ایران",
   } satisfies Localized,
-  photo: "/images/portrait.png",
+  photo: "/images/avatar.jpg",
   socials: [
     { label: "GitHub", href: "https://github.com/asgharnasiri1990" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/asgharnasiri" },
+    { label: "Instagram", href: "https://www.instagram.com/asghar.nasiri" },
   ],
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { copy } from "@/content/copy";
 import { profile } from "@/content/profile";
@@ -9,10 +10,12 @@ import { focusRing, labelStyle, shell } from "@/lib/styles";
 import {
   CloseIcon,
   GitHubIcon,
+  InstagramIcon,
   LinkedInIcon,
   MenuIcon,
 } from "@/components/icons";
 import { LanguageSwitch } from "@/components/language-switch";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const c = copy[locale];
@@ -29,6 +32,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
   const social = profile.socials.find((item) => item.label === "GitHub");
   const linkedin = profile.socials.find((item) => item.label === "LinkedIn");
+  const instagram = profile.socials.find((item) => item.label === "Instagram");
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-md">
@@ -36,9 +40,16 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <Link
           href={`/${locale}`}
           onClick={close}
-          className={`rounded font-display text-sm font-semibold uppercase tracking-[0.2em] ${focusRing}`}
+          className={`flex items-center gap-2.5 rounded font-display text-[15px] font-semibold uppercase tracking-[0.2em] sm:text-sm ${focusRing}`}
         >
-          PORTFOLIO.
+          <Image
+            src={profile.photo}
+            alt={profile.name[locale]}
+            width={36}
+            height={36}
+            className="h-10 w-10 rounded-full border border-line object-cover grayscale sm:h-9 sm:w-9"
+          />
+          <span>PORTFOLIO.</span>
         </Link>
 
         <nav
@@ -49,7 +60,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-full border border-line px-4 py-2 font-mono text-[10px] text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
+              className={`rounded-full border border-line px-4 py-2 font-mono text-[11px] sm:text-[10px] text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
             >
               {link.label}
             </Link>
@@ -63,7 +74,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className={`grid h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
             >
               <GitHubIcon width={16} height={16} />
             </a>
@@ -74,19 +85,33 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className={`grid h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
             >
               <LinkedInIcon width={15} height={15} />
             </a>
           ) : null}
-          <LanguageSwitch locale={locale} label={c.switchLanguage} />
+          {instagram ? (
+            <a
+              href={instagram.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
+            >
+              <InstagramIcon width={16} height={16} />
+            </a>
+          ) : null}
+          <ThemeToggle label={c.switchTheme} />
+          <div className="hidden sm:block">
+            <LanguageSwitch locale={locale} label={c.switchLanguage} />
+          </div>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? c.closeMenu : c.openMenu}
-            className={`grid h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink md:hidden ${focusRing}`}
+            className={`grid h-10 w-10 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:h-9 sm:w-9 md:hidden ${focusRing}`}
           >
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -97,19 +122,36 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <div id="mobile-nav" className="border-t border-line bg-paper md:hidden">
           <nav
             aria-label={c.nav.home}
-            className={`${shell} flex flex-col gap-1 py-3`}
+            className={`${shell} flex flex-col gap-1 pb-1 pt-3`}
           >
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={close}
-                className={`rounded-full border border-line px-4 py-3 font-mono text-[10px] text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
+                className={`rounded-full border border-line px-4 py-3.5 text-sm text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
+
+          <div
+            className={`${shell} flex flex-wrap items-center gap-2 border-t border-line py-3`}
+          >
+            <LanguageSwitch locale={locale} label={c.switchLanguage} />
+            {profile.socials.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex h-10 items-center rounded-full border border-line px-4 font-mono text-[12px] text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
         </div>
       ) : null}
     </header>

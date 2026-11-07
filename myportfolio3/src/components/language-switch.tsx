@@ -32,7 +32,7 @@ export function LanguageSwitch({
       lang={target}
       onClick={remember}
       aria-label={`${visible} — ${label}`}
-      className={`inline-flex h-9 min-w-11 items-center justify-center rounded-full border border-line px-3 font-mono text-[10px] font-medium text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
+      className={`inline-flex h-10 min-w-11 items-center justify-center rounded-full border border-line px-3 font-mono text-[12px] font-medium text-soft transition-colors hover:border-ink hover:text-ink sm:h-9 sm:text-[10px] ${focusRing}`}
     >
       {visible}
     </Link>

@@ -24,6 +24,7 @@ export interface Copy {
 
   skipToContent: string;
   switchLanguage: string;
+  switchTheme: string;
   openMenu: string;
   closeMenu: string;
   externalLink: string;
@@ -47,6 +48,7 @@ export interface Copy {
   workWeb: string;
   workTools: string;
   workSource: string;
+  workRepos: string;
 
   servicesLabel: string;
   servicesTitle: string;
@@ -82,6 +84,7 @@ export const copy: Record<Locale, Copy> = {
 
     skipToContent: "Skip to content",
     switchLanguage: "Switch language to Persian",
+    switchTheme: "Switch theme",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     externalLink: "opens in a new tab",
@@ -120,6 +123,7 @@ export const copy: Record<Locale, Copy> = {
     workWeb: "WEB",
     workTools: "TOOLS",
     workSource: "View source",
+    workRepos: "All repositories",
 
     servicesLabel: "SERVICES",
     servicesTitle: "THE SERVICES WE PROVIDE",
@@ -181,6 +185,7 @@ export const copy: Record<Locale, Copy> = {
 
     skipToContent: "رفتن به محتوای اصلی",
     switchLanguage: "تغییر زبان به انگلیسی",
+    switchTheme: "تغییر تم",
     openMenu: "باز کردن منو",
     closeMenu: "بستن منو",
     externalLink: "در صفحه‌ی جدید باز می‌شود",
@@ -219,6 +224,7 @@ export const copy: Record<Locale, Copy> = {
     workWeb: "وب",
     workTools: "ابزار",
     workSource: "مشاهده‌ی سورس",
+    workRepos: "همه‌ی مخزن‌ها",
 
     servicesLabel: "خدمات",
     servicesTitle: "خدماتی که ارائه می‌دهم",

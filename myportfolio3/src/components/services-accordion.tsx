@@ -4,56 +4,70 @@ import { useState } from "react";
 import { copy } from "@/content/copy";
 import type { Locale } from "@/lib/i18n";
 import { focusRing } from "@/lib/styles";
-import { ArrowDownIcon } from "@/components/icons";
+import { ArrowDownIcon, ArrowRightIcon } from "@/components/icons";
 
 export function ServicesAccordion({ locale }: { locale: Locale }) {
   const c = copy[locale];
   const [open, setOpen] = useState(0);
 
   return (
-    <div className="mx-auto max-w-4xl space-y-2">
+    <div className="mx-auto max-w-4xl space-y-3">
       {c.services.map((service, index) => {
         const active = open === index;
+        const circle = active
+          ? "border-ink bg-ink text-paper"
+          : "border-line text-soft";
+
         return (
           <div key={service.index}>
-            <button
-              type="button"
-              onClick={() => setOpen(active ? -1 : index)}
-              aria-expanded={active}
-              aria-controls={`service-${service.index}`}
-              className={`flex w-full items-center gap-4 rounded-full border px-5 py-4 text-start transition-colors sm:px-6 ${
-                active
-                  ? "border-ink bg-ink text-paper"
-                  : "border-line bg-paper text-ink hover:border-ink"
-              } ${focusRing}`}
-            >
+            <div className="flex items-center gap-2 sm:gap-3">
               <span
-                className={`w-6 font-mono text-[10px] ${
-                  active ? "text-paper/60" : "text-soft"
-                }`}
+                aria-hidden
+                className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border font-mono text-[11px] sm:h-12 sm:w-12 sm:text-xs ${circle}`}
               >
                 {service.index}
               </span>
-              <span className="flex-1 font-display text-sm font-medium uppercase tracking-[0.02em] sm:text-base">
+
+              <button
+                type="button"
+                onClick={() => setOpen(active ? -1 : index)}
+                aria-expanded={active}
+                aria-controls={`service-${service.index}`}
+                className={`min-w-0 flex-1 rounded-full border px-4 py-3 text-center font-display text-[15px] font-medium uppercase tracking-[0.02em] transition-colors sm:px-6 sm:py-4 sm:text-base ${
+                  active
+                    ? "border-ink bg-ink text-paper"
+                    : "border-line bg-paper text-ink hover:border-ink"
+                } ${focusRing}`}
+              >
                 {service.title}
+              </button>
+
+              <span
+                aria-hidden
+                className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border sm:h-12 sm:w-12 ${circle}`}
+              >
+                {active ? (
+                  <ArrowRightIcon
+                    width={16}
+                    height={16}
+                    className="rtl:-scale-x-100"
+                  />
+                ) : (
+                  <ArrowDownIcon width={16} height={16} />
+                )}
               </span>
-              <ArrowDownIcon
-                width={16}
-                height={16}
-                className={`shrink-0 transition-transform duration-300 ${
-                  active ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+            </div>
 
             <div
               id={`service-${service.index}`}
               className={`grid transition-all duration-300 ${
-                active ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                active
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0"
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-4 pt-3 text-sm leading-7 text-soft sm:px-6">
+                <p className="px-4 pb-3 pt-4 text-center text-[15px] leading-7 text-soft sm:px-16 sm:text-sm">
                   {service.body}
                 </p>
               </div>
