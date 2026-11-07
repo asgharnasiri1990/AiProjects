@@ -55,8 +55,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               <span className="block">{c.heroLines[1]}</span>
             </h1>
 
-            <div className="relative z-0 -mt-16 flex justify-center sm:-mt-24">
-              <div className="pointer-events-none w-[78%] max-w-[320px] sm:w-[52%] sm:max-w-[400px]">
+            <div className="relative z-0 -mt-6 flex justify-center sm:-mt-10">
+              <div className="pointer-events-none w-[80%] max-w-[320px] sm:w-[52%] sm:max-w-[400px]">
                 <Portrait alt={c.portraitAlt} priority />
               </div>
             </div>

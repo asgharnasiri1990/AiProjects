@@ -44,10 +44,10 @@ module-not-found error. The fonts are bundled; the site builds offline.
   `.display-fade` (black→grey clipped gradient). Persian must not get
   `tracking-*` or `uppercase`; use `labelStyle` / `displayTracking`.
 - **The portrait** is `public/images/portrait.png`, a transparent cutout of the
-  owner on a 4:5 canvas (920 × 1150). It is grayscale and gets
-  `.portrait-bottom-fade`; it sits in normal flow with a negative top margin so
-  the second headline line crosses the hair. Keep the PNG transparent — there is
-  no mask around the silhouette, only the bottom fade.
+  owner (4:5 canvas, 920 × 1150), shown inside a circular wash disc
+  (`rounded-full` + hairline border) and grayscale. It sits in normal flow with a
+  small negative top margin. Keep the PNG transparent; do not add a rectangular
+  frame or a radial mask.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
 - **Services** are intentionally the five labels from the reference (the

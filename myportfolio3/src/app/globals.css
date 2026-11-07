@@ -102,11 +102,7 @@
   );
 }
 
-/* The bust fades at its bottom edge so the crop does not read as a hard line. */
-.portrait-bottom-fade {
-  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
-}
+/* The portrait is a transparent cutout shown inside a circular disc. */
 
 @keyframes rise {
   from {
