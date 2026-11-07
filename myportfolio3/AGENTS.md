@@ -13,7 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 A reference-driven, monochrome portfolio: white paper, black ink, hairline
 rules, pill controls, a giant fade-to-grey headline and a black closing band.
 **English is the default locale**; Persian is a full RTL translation of the same
-copy. This is the live portfolio; `myportfolio2/` is kept for reference.
+copy. This is the live portfolio; `archive/myportfolio2/` is kept for reference.
 
 ### The one architectural rule
 
