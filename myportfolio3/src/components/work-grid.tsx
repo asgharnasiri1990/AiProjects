@@ -58,7 +58,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                 } ${focusRing}`}
               >
                 {tab.label}
-                <span className="ms-1.5 text-[0.7em] opacity-50">
+                <span className="ms-1.5 text-[0.72em] opacity-65">
                   {counts[tab.id]}
                 </span>
               </button>

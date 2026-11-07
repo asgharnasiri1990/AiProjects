@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import "@fontsource-variable/archivo/standard.css";
 import "@fontsource-variable/vazirmatn";
@@ -23,11 +23,25 @@ export async function generateMetadata({
   const c = copy[locale];
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
+  let requestOrigin: string | null = null;
+  if (!siteUrl && !vercelUrl) {
+    try {
+      const requestHeaders = await headers();
+      const host =
+        requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+      const proto = requestHeaders.get("x-forwarded-proto") ?? "http";
+      requestOrigin = host ? `${proto}://${host}` : null;
+    } catch {
+      requestOrigin = null;
+    }
+  }
+
   const metadataBase = siteUrl
     ? new URL(siteUrl)
     : vercelUrl
       ? new URL(`https://${vercelUrl}`)
-      : undefined;
+      : new URL(requestOrigin ?? "http://localhost:3000");
 
   return {
     metadataBase,
