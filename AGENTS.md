@@ -1,6 +1,6 @@
 # AiProjects
 
-Five **independent** Next.js apps in one git repo. There is no workspace tooling, no
+Six **independent** Next.js apps in one git repo. There is no workspace tooling, no
 root `package.json`, and no shared code: each app owns its `package.json`,
 `node_modules`, and `AGENTS.md`. Always `cd` into the app directory before running
 anything — `npm install` / `npm run dev` at the repo root does nothing useful.
@@ -12,8 +12,9 @@ anything — `npm install` / `npm run dev` at the repo root does nothing useful.
 | `myPortfolio/` | `portfolio` | The first bilingual portfolio attempt (Swiss-warm, paper + moss). Kept for reference. |
 | `myportfolio2/` | `portfolio-v2` | The second attempt (ink-on-paper, tilted hero ribbon). Superseded by `myportfolio3/`; kept for reference. |
 | `myportfolio3/` | `portfolio-v3` | **The live portfolio** — monochrome, reference-style single page, English default with a Persian RTL version. Content in `src/content/`. See `myportfolio3/AGENTS.md`. |
+| `price-compare/` | `price-compare` | **Phone price comparator** — Persian RTL; one model across Technolife, Farnaa and user-supplied URLs. Prices are scraped live; a broken shop shows an error row, never a fake price. See `price-compare/AGENTS.md` and `price-compare/PROGRESS.md`. |
 
-All five apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
+All six apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
 
 ## Read the framework first
 
@@ -49,14 +50,18 @@ npm run build         # real gate: compiles + type-checks all routes
 signal — record the count before and after your change and compare. `next build`
 does not run ESLint, so a green build does not mean a green lint.
 
+`price-compare/` currently has a clean lint. Its shop adapters hit live external
+pages: a changed or blocked shop must produce a per-shop error row, never a
+demo price or a hard-coded fallback.
+
 ## Conventions
 
 - PowerShell on Windows. Prefer `Get-Content`, `Select-String`, `Invoke-WebRequest`
   over grep/sed/curl idioms.
 - Dev servers commonly run on **port 3000** for one app at a time; `next dev` will
   pick another port if it is taken. Only one app can hold it.
-- Env files are real and gitignored: `.env.local` exists in both apps. Never commit
-  them, and never print secrets into a commit message or a log.
+- Env files are real and gitignored: `.env.local` exists in the apps that need
+  it. Never commit them, and never print secrets into a commit message or a log.
 - Don't reformat or reorganize a file you were not asked to change. These apps are
   hand-polished; large diffs hide the actual fix.
 
