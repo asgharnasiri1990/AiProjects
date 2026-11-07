@@ -45,4 +45,17 @@ export const work: WorkItem[] = [
     source:
       "https://github.com/asgharnasiri1990/AiProjects/tree/main/flight-tracker",
   },
+  {
+    slug: "price-compare",
+    index: "04",
+    title: {
+      en: "Phone price comparator",
+      fa: "مقایسه قیمت گوشی",
+    },
+    category: "tools",
+    categoryLabel: { en: "Price tool", fa: "ابزار قیمت" },
+    image: "/images/work-price.webp",
+    source:
+      "https://github.com/asgharnasiri1990/AiProjects/tree/main/price-compare",
+  },
 ];
