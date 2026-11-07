@@ -152,22 +152,6 @@ html[data-theme="ink"] {
   color: transparent;
 }
 
-[dir="rtl"] .display-fade-l {
-  background-image: linear-gradient(
-    270deg,
-    var(--display-soft) 0%,
-    var(--display-strong) 72%
-  );
-}
-
-[dir="rtl"] .display-fade-r {
-  background-image: linear-gradient(
-    270deg,
-    var(--display-strong) 28%,
-    var(--display-soft) 100%
-  );
-}
-
 /* Theme toggle icons: CSS decides, so there is no hydration mismatch. */
 .theme-moon {
   display: none;

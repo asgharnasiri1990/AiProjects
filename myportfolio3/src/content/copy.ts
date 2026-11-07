@@ -194,7 +194,7 @@ export const copy: Record<Locale, Copy> = {
     closeMenu: "بستن منو",
     externalLink: "در صفحه‌ی جدید باز می‌شود",
 
-    heroLines: ["نمونه‌کارهایم", "را ببین"],
+    heroLines: ["EXPLORE MY", "PORTFOLIO"],
     heroMeta: "توسعه‌دهنده فرانت‌اند — از ۲۰۲۳",
     heroLocation: "ایران",
     heroStatement:

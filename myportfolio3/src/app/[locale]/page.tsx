@@ -39,7 +39,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <h1
               data-rise
               aria-label={`${c.heroLines[0]} ${c.heroLines[1]}`}
-              className={`relative z-10 font-display text-hero font-semibold uppercase leading-[0.84] ${displayTracking(locale)}`}
+              className={`relative z-10 font-display text-hero font-semibold uppercase leading-[0.84] tracking-[-0.04em]`}
             >
               <span className="block text-center">
                 <span className="display-fade-l inline-block">
