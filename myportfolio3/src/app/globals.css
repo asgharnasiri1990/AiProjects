@@ -187,7 +187,7 @@ html[data-theme="ink"] {
   }
 }
 
-/* A short fade when the project filter changes. */
+/* Project-filter fade. */
 @keyframes filter-in {
   from {
     opacity: 0;
@@ -205,6 +205,47 @@ html[data-theme="ink"] {
 
 @media (prefers-reduced-motion: reduce) {
   .filter-in {
+    animation: none;
+  }
+}
+
+/* Hero ticker: a quiet strip of tools that fills the bottom of the hero. */
+.hero-ticker {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-ticker-track {
+  animation: ticker 32s linear infinite;
+}
+
+.hero-ticker:hover .hero-ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ticker-track {
     animation: none;
   }
 }

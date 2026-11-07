@@ -55,8 +55,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
             <div className="absolute left-0 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-start gap-4 lg:flex">
               <p className={`${mono} text-start`}>{c.heroMeta}</p>
-              <CircleLink href="#work" label={c.heroCta} icon="down" />
-              <p className={`${mono} text-start`}>{c.availability}</p>
             </div>
 
             <div className="absolute right-0 top-1/2 z-20 hidden w-56 -translate-y-1/2 flex-col items-end gap-5 text-end lg:flex">
@@ -70,12 +68,40 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               </ul>
             </div>
 
-            <div className="relative z-10 mt-8 flex items-center justify-between gap-4 sm:mt-12 lg:hidden">
-              <p className="max-w-[62%] font-mono text-[11px] uppercase leading-5 tracking-[0.1em] text-soft sm:text-[10px]">
-                {c.heroStatement}
-              </p>
-              <CircleLink href="#work" label={c.heroCta} icon="down" />
+            <p className="relative z-10 mt-8 max-w-[62%] font-mono text-[11px] uppercase leading-5 tracking-[0.1em] text-soft sm:mt-12 lg:hidden">
+              {c.heroStatement}
+            </p>
+          </div>
+
+          <div className="mt-8 flex items-center gap-4 border-t border-line py-3 sm:mt-10">
+            <span className="hidden shrink-0 items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-soft sm:flex">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
+              {c.availability}
+            </span>
+
+            <div
+              dir="ltr"
+              className="hero-ticker relative min-w-0 flex-1 overflow-hidden"
+            >
+              <div className="hero-ticker-track flex w-max items-center font-mono text-[10px] uppercase tracking-[0.14em] text-soft">
+                {[...c.heroTicker, ...c.heroTicker].map((item, index) => (
+                  <span
+                    key={`${item}-${index}`}
+                    className="flex items-center gap-4 pe-4"
+                  >
+                    <span>{item}</span>
+                    <span aria-hidden className="h-1 w-1 rounded-full bg-line" />
+                  </span>
+                ))}
+              </div>
             </div>
+
+            <CircleLink
+              href="#work"
+              label={c.heroCta}
+              icon="down"
+              className="shrink-0"
+            />
           </div>
         </div>
       </section>

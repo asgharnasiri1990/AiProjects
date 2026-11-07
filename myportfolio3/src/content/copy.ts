@@ -34,6 +34,7 @@ export interface Copy {
   heroLocation: string;
   heroStatement: string;
   heroServices: string[];
+  heroTicker: string[];
   heroCta: string;
   availability: string;
   portraitAlt: string;
@@ -102,6 +103,15 @@ export const copy: Record<Locale, Copy> = {
       "LANDING PAGE DESIGN",
       "UI DESIGN FIGMA",
       "MOBILE APP DESIGN",
+    ],
+    heroTicker: [
+      "FRONT-END",
+      "RTL & TYPOGRAPHY",
+      "DESIGN SYSTEMS",
+      "ACCESSIBILITY",
+      "PERFORMANCE",
+      "REACT",
+      "NEXT.JS",
     ],
     heroCta: "See the work",
     availability: "Available for work",
@@ -205,6 +215,15 @@ export const copy: Record<Locale, Copy> = {
       "طراحی لندینگ",
       "طراحی در فیگما",
       "طراحی اپ موبایل",
+    ],
+    heroTicker: [
+      "FRONT-END",
+      "RTL & TYPOGRAPHY",
+      "DESIGN SYSTEMS",
+      "ACCESSIBILITY",
+      "PERFORMANCE",
+      "REACT",
+      "NEXT.JS",
     ],
     heroCta: "دیدن کارها",
     availability: "آماده‌ی همکاری",
