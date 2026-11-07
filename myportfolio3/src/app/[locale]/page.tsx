@@ -99,12 +99,16 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             </div>
 
             <div>
-              <p className="font-mono text-[11px] uppercase leading-6 tracking-[0.06em]">
-                {c.aboutQuote}
+              <p className="max-w-xl text-lg leading-8 text-ink text-pretty">
+                {c.aboutLead}
               </p>
-              <p className="mt-6 max-w-xl text-sm leading-7 text-soft">
-                {c.aboutBody}
-              </p>
+              <div className="mt-5 max-w-xl space-y-4 text-sm leading-7 text-soft">
+                {c.aboutBody.map((paragraph) => (
+                  <p key={paragraph} className="text-pretty">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
 

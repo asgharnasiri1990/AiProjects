@@ -38,8 +38,8 @@ export interface Copy {
   portraitAlt: string;
 
   aboutLabel: string;
-  aboutQuote: string;
-  aboutBody: string;
+  aboutLead: string;
+  aboutBody: string[];
   facts: Fact[];
 
   workLabel: string;
@@ -102,12 +102,14 @@ export const copy: Record<Locale, Copy> = {
     availability: "Available for work",
     portraitAlt: "Portrait of Asghar Nasiri outdoors, looking at his phone",
 
-    aboutLabel: "ABOUT",
-    aboutQuote:
-      "ASGHAR NASIRI IS A FRONT-END DEVELOPER IN TEHRAN, BUILDING FAST, ACCESSIBLE INTERFACES — AND SWEATING THE DETAILS MOST PEOPLE NEVER SEE.",
-    aboutBody:
-      "I started with JavaScript exercises and ended up shipping complete apps in React and Next.js. I would rather finish one thing and publish it than leave ten things half-built.",
-    facts: [
+    aboutLabel: "ABOUT ME",
+    aboutLead:
+      "Hi! I'm Asghar, a Front-End Developer passionate about building clean, modern, and user-friendly web experiences.",
+    aboutBody: [
+      "I enjoy turning ideas and designs into functional websites, paying attention to the little details that make a difference. I'm currently focused on improving my skills in JavaScript, TypeScript, React, and Next.js, while exploring new tools and technologies along the way.",
+      "For me, development is all about learning, solving problems, and getting better with every project. I enjoy taking on new challenges, experimenting with ideas, and building things that people can actually use.",
+      "I'm always open to learning, collaborating, and creating something meaningful.",
+    ],    facts: [
       { value: "03", label: "Shipped apps" },
       { value: "18", label: "Routes in the build" },
       { value: "100", label: "Accessibility score" },
@@ -199,12 +201,14 @@ export const copy: Record<Locale, Copy> = {
     availability: "آماده‌ی همکاری",
     portraitAlt: "پرتره‌ی اصغر نصیری در فضای باز، در حال نگاه‌کردن به گوشی",
 
-    aboutLabel: "درباره",
-    aboutQuote:
-      "اصغر نصیری توسعه‌دهنده‌ی فرانت‌اند در تهران است؛ رابط‌های سریع و در دسترس می‌سازد و به جزئیاتی اهمیت می‌دهد که بیشتر مردم نمی‌بینند.",
-    aboutBody:
-      "از تمرین‌های جاوااسکریپت شروع کردم و به ساخت اپلیکیشن‌های کامل با React و Next.js رسیدم. ترجیح می‌دهم یک چیز را تا آخر بسازم و منتشر کنم تا اینکه ده چیز را نیمه‌کاره رها کنم.",
-    facts: [
+    aboutLabel: "درباره من",
+    aboutLead:
+      "سلام! من اصغرم، یک توسعه‌دهنده فرانت‌اند که به ساخت تجربه‌های وب مدرن، زیبا و کاربرپسند علاقه‌مندم.",
+    aboutBody: [
+      "از تبدیل ایده‌ها و طرح‌های گرافیکی به وب‌سایت‌های کاربردی لذت می‌برم و همیشه به جزئیات کوچکی که می‌توانند تفاوت بزرگی ایجاد کنند توجه دارم. در حال حاضر تمرکزم روی تقویت مهارت‌هایم در JavaScript، TypeScript، React و Next.js است و در کنار آن، ابزارها و تکنولوژی‌های جدید را نیز تجربه می‌کنم.",
+      "از نظر من، برنامه‌نویسی یعنی یادگیری مداوم، حل مسئله و بهتر شدن با هر پروژه. از روبه‌رو شدن با چالش‌های جدید، آزمایش ایده‌ها و ساخت محصولاتی که واقعاً برای افراد کاربرد دارند لذت می‌برم.",
+      "همیشه مشتاق یادگیری، همکاری با دیگران و خلق چیزهای ارزشمند هستم.",
+    ],    facts: [
       { value: "03", label: "اپلیکیشن منتشرشده" },
       { value: "18", label: "مسیر در بیلد" },
       { value: "100", label: "امتیاز دسترس‌پذیری" },
