@@ -47,7 +47,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <h2 className="display-fade-light display-wide mt-14 font-display text-hero font-semibold uppercase leading-[0.86] tracking-[-0.04em]">
+        <h2 className="display-fade-light display-wide mt-14 font-display text-footer font-semibold uppercase leading-[0.9] tracking-[-0.04em]">
           {c.contactTitle}
         </h2>
 
