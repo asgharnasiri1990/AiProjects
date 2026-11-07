@@ -21,8 +21,16 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const c = copy[locale];
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  const metadataBase = siteUrl
+    ? new URL(siteUrl)
+    : vercelUrl
+      ? new URL(`https://${vercelUrl}`)
+      : undefined;
 
   return {
+    metadataBase,
     title: {
       default: c.metaTitle,
       template: `%s — ${profile.name[locale]}`,
@@ -36,11 +44,20 @@ export async function generateMetadata({
       title: c.metaTitle,
       description: c.metaDescription,
       locale: locale === "fa" ? "fa_IR" : "en_US",
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: c.metaTitle,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: c.metaTitle,
       description: c.metaDescription,
+      images: ["/og.png"],
     },
   };
 }

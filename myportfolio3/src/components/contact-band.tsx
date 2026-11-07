@@ -3,6 +3,7 @@ import { profile } from "@/content/profile";
 import type { Locale } from "@/lib/i18n";
 import { focusRing, labelStyle, shell } from "@/lib/styles";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { CopyEmail } from "@/components/copy-email";
 import { Reveal } from "@/components/reveal";
 
 export function ContactBand({ locale }: { locale: Locale }) {
@@ -10,7 +11,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
   const year = new Date().getFullYear();
 
   return (
-    <section id="contact" className="bg-band text-band-ink">
+    <section id="contact" className="border-t border-line bg-band text-band-ink">
       <div className={`${shell} pb-10 pt-16 sm:pt-24`}>
         <Reveal>
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -37,6 +38,12 @@ export function ContactBand({ locale }: { locale: Locale }) {
             >
               {c.contactEmail}
             </a>
+            <CopyEmail
+              email={profile.email}
+              label={c.copyEmail}
+              copiedLabel={c.copied}
+              locale={locale}
+            />
           </div>
         </div>
 

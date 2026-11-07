@@ -6,8 +6,10 @@ export interface WorkItem {
   slug: string;
   index: string;
   title: Localized;
+  summary: Localized;
   category: WorkCategory;
   categoryLabel: Localized;
+  stack: string[];
   image: string;
   source: string;
 }
@@ -21,8 +23,13 @@ export const work: WorkItem[] = [
     slug: "this-site",
     index: "01",
     title: { en: "This site", fa: "همین سایت" },
+    summary: {
+      en: "A monochrome, bilingual portfolio built entirely from data.",
+      fa: "نمونه‌کار مونوکروم و دوزبانه که همه‌چیزش از داده ساخته می‌شود.",
+    },
     category: "web",
     categoryLabel: { en: "Web design", fa: "طراحی وب" },
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     image: "/images/work-site-2.webp",
     source: "https://github.com/asgharnasiri1990/AiProjects",
   },
@@ -30,8 +37,13 @@ export const work: WorkItem[] = [
     slug: "digital-shop",
     index: "02",
     title: { en: "DigitalShop", fa: "دیجیتال‌شاپ" },
+    summary: {
+      en: "A storefront on a public API with a 60-request budget.",
+      fa: "فروشگاه روی یک API عمومی با محدودیت ۶۰ درخواست در دقیقه.",
+    },
     category: "web",
     categoryLabel: { en: "Web storefront", fa: "فروشگاه وب" },
+    stack: ["Next.js", "REST", "Tailwind CSS"],
     image: "/images/work-shop.webp",
     source: "https://github.com/asgharnasiri1990/AiProjects/tree/main/shop",
   },
@@ -39,8 +51,13 @@ export const work: WorkItem[] = [
     slug: "flight-lookup",
     index: "03",
     title: { en: "Flight lookup", fa: "ردیاب پرواز" },
+    summary: {
+      en: "One field, one answer, with a normalisation layer behind it.",
+      fa: "یک ورودی، یک جواب؛ با یک لایه نرمال‌سازی در پشت.",
+    },
     category: "tools",
     categoryLabel: { en: "Tool", fa: "ابزار" },
+    stack: ["Next.js", "Route Handlers", "AviationStack"],
     image: "/images/work-flight.webp",
     source:
       "https://github.com/asgharnasiri1990/AiProjects/tree/main/flight-tracker",
@@ -54,6 +71,11 @@ export const work: WorkItem[] = [
     },
     category: "tools",
     categoryLabel: { en: "Price tool", fa: "ابزار قیمت" },
+    stack: ["Next.js", "Scraping", "RTL"],
+    summary: {
+      en: "Persian RTL price comparison across live shops.",
+      fa: "مقایسه قیمت فارسی و راست‌به‌چپ بین فروشگاه‌های زنده.",
+    },
     image: "/images/work-price.webp",
     source:
       "https://github.com/asgharnasiri1990/AiProjects/tree/main/price-compare",

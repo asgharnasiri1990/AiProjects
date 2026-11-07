@@ -13,6 +13,11 @@ Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4.
 Fonts are self-hosted from npm (`@fontsource-variable/*`) — **no Google Fonts at
 build or runtime**, so this works offline and behind a filter.
 
+For link previews, set `NEXT_PUBLIC_SITE_URL` (for example
+`https://your-domain.com`) in the deployment environment; on Vercel
+`VERCEL_PROJECT_PRODUCTION_URL` is used automatically. The 1200 × 630 card is
+`public/og.png`.
+
 ## Run it
 
 ```powershell

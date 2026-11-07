@@ -34,6 +34,7 @@ export function CountUp({
     }
 
     let frame = 0;
+    let guard = 0;
     let startedAt = 0;
 
     const observer = new IntersectionObserver(
@@ -52,6 +53,11 @@ export function CountUp({
         };
 
         frame = requestAnimationFrame(tick);
+        // Some environments throttle rAF (background tabs, headless). Make sure
+        // the number always lands on its final value.
+        guard = window.setTimeout(() => {
+          el.textContent = value;
+        }, duration + 400);
       },
       { threshold: 0.4 },
     );
@@ -60,6 +66,7 @@ export function CountUp({
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
+      window.clearTimeout(guard);
     };
   }, [value, duration]);
 

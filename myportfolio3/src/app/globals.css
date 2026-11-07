@@ -34,7 +34,7 @@ html[data-theme="ink"] {
   --color-faint: #5c5c5c;
   --color-line: #262626;
   --color-wash: #151515;
-  --color-band: #171717;
+  --color-band: #1c1c1c;
   --color-band-ink: #f1f1ee;
   --display-strong: #f1f1ee;
   --display-soft: #5c5c5c;
@@ -200,6 +200,33 @@ html[data-theme="ink"] {
     opacity: 1;
     transform: none;
   }
+}
+
+/* A short fade when the project filter changes. */
+@keyframes filter-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.filter-in {
+  animation: filter-in 420ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-in {
+    animation: none;
+  }
+}
+
+/* Screenshots sit on a dark page; take the glare down a little. */
+[data-theme="ink"] #work img {
+  filter: grayscale(1) brightness(0.9);
 }
 
 @keyframes rise {

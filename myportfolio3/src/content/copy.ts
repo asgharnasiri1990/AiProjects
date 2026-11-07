@@ -60,6 +60,8 @@ export interface Copy {
   contactLead: string;
   contactCta: string;
   contactEmail: string;
+  copyEmail: string;
+  copied: string;
 
   footerRights: string;
   footerCredit: string;
@@ -158,10 +160,12 @@ export const copy: Record<Locale, Copy> = {
     ],
 
     contactLabel: "SOCIALS",
-    contactTitle: "LET'S TALK",
-    contactLead: "I'M ALWAYS OPEN TO NEW OPPORTUNITIES AND DISCUSSIONS.",
+    contactTitle: "OPEN TO WORK",
+    contactLead: "I'M ALWAYS AVAILABLE FOR NEW OPPORTUNITIES AND DISCUSSIONS.",
     contactCta: "CONTACT ME",
     contactEmail: "EMAIL",
+    copyEmail: "COPY EMAIL",
+    copied: "COPIED",
 
     footerRights: "PORTFOLIO. ALL RIGHTS RESERVED",
     footerCredit: "DESIGNED & BUILT BY ASGHAR NASIRI",
@@ -259,10 +263,12 @@ export const copy: Record<Locale, Copy> = {
     ],
 
     contactLabel: "شبکه‌های اجتماعی",
-    contactTitle: "حرف بزنیم",
-    contactLead: "همیشه برای فرصت‌های تازه و گفت‌وگو باز هستم.",
+    contactTitle: "آماده همکاری",
+    contactLead: "همیشه برای فرصت‌های تازه و گفت‌وگو در دسترس هستم.",
     contactCta: "تماس با من",
     contactEmail: "ایمیل",
+    copyEmail: "کپی ایمیل",
+    copied: "کپی شد",
 
     footerRights: "پورتفولیو. تمام حقوق محفوظ است",
     footerCredit: "طراحی و ساخت: اصغر نصیری",

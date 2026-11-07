@@ -12,9 +12,18 @@ import { Reveal } from "@/components/reveal";
 
 type Filter = "all" | WorkCategory;
 
+const BLUR =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjYiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjYiIGZpbGw9IiM5YTlhOWEiLz48L3N2Zz4=";
+
 export function WorkGrid({ locale }: { locale: Locale }) {
   const c = copy[locale];
   const [filter, setFilter] = useState<Filter>("all");
+
+  const counts: Record<Filter, number> = {
+    all: work.length,
+    web: work.filter((item) => item.category === "web").length,
+    tools: work.filter((item) => item.category === "tools").length,
+  };
 
   const tabs: { id: Filter; label: string }[] = [
     { id: "all", label: c.workAll },
@@ -49,6 +58,9 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                 } ${focusRing}`}
               >
                 {tab.label}
+                <span className="ms-1.5 text-[0.7em] opacity-50">
+                  {counts[tab.id]}
+                </span>
               </button>
             );
           })}
@@ -61,7 +73,10 @@ export function WorkGrid({ locale }: { locale: Locale }) {
         />
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 lg:gap-x-8">
+      <div
+        key={filter}
+        className="filter-in mt-10 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 lg:gap-x-8"
+      >
         {shown.map((item, index) => {
           const title = item.title[locale];
           return (
@@ -79,6 +94,8 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     src={item.image}
                     alt=""
                     fill
+                    placeholder="blur"
+                    blurDataURL={BLUR}
                     sizes="(min-width: 1024px) 46vw, (min-width: 640px) 45vw, 92vw"
                     className="object-cover object-top grayscale transition-transform duration-700 group-hover:scale-[1.02]"
                   />
@@ -97,6 +114,19 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     <h3 className="mt-1 font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl lg:text-3xl">
                       {title}
                     </h3>
+                    <p className="mt-1.5 line-clamp-2 max-w-md text-sm leading-6 text-soft">
+                      {item.summary[locale]}
+                    </p>
+                    <div className="mt-2.5 flex flex-wrap gap-1.5">
+                      {item.stack.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-line px-2 py-0.5 font-mono text-[9px] text-soft sm:text-[10px]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   <span
                     aria-hidden
