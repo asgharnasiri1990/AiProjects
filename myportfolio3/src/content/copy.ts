@@ -102,7 +102,7 @@ export const copy: Record<Locale, Copy> = {
     availability: "Available for work",
     portraitAlt: "Portrait of Asghar Nasiri outdoors, looking at his phone",
 
-    aboutLabel: "ABOUT ME",
+    aboutLabel: "ABOUT",
     aboutLead:
       "Hi! I'm Asghar, a Front-End Developer passionate about building clean, modern, and user-friendly web experiences.",
     aboutBody: [
@@ -201,7 +201,7 @@ export const copy: Record<Locale, Copy> = {
     availability: "آماده‌ی همکاری",
     portraitAlt: "پرتره‌ی اصغر نصیری در فضای باز، در حال نگاه‌کردن به گوشی",
 
-    aboutLabel: "درباره من",
+    aboutLabel: "درباره",
     aboutLead:
       "سلام! من اصغرم، یک توسعه‌دهنده فرانت‌اند که به ساخت تجربه‌های وب مدرن، زیبا و کاربرپسند علاقه‌مندم.",
     aboutBody: [
