@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import "@fontsource-variable/archivo/standard.css";
 import "@fontsource-variable/vazirmatn";
@@ -51,19 +52,19 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  // Read the theme on the server so the first paint and hydration agree.
+  const theme =
+    (await cookies()).get("theme")?.value === "ink" ? "ink" : "paper";
+
   return (
     <html
       lang={locale}
       dir={localeDir(locale)}
+      data-theme={theme}
       suppressHydrationWarning
       className="antialiased"
     >
       <body className="min-h-dvh bg-paper font-sans text-ink">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var p=new URLSearchParams(location.search).get("theme");if(p==="ink"||p==="paper"){localStorage.theme=p;}var t=localStorage.theme;if(t!=="ink"&&t!=="paper"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"ink":"paper";}document.documentElement.dataset.theme=t;}catch(e){}})();`,
-          }}
-        />
         <a
           href="#home"
           className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-5 focus:py-2 focus:font-mono focus:text-[10px] focus:text-paper"

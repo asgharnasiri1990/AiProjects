@@ -12,11 +12,7 @@ export function ThemeToggle({ label }: { label: string }) {
     const root = document.documentElement;
     const next = root.dataset.theme === "ink" ? "paper" : "ink";
     root.dataset.theme = next;
-    try {
-      localStorage.theme = next;
-    } catch {
-      // Storage can be blocked; the toggle still works for this page.
-    }
+    document.cookie = `theme=${next}; path=/; max-age=31536000; samesite=lax`;
   }
 
   return (

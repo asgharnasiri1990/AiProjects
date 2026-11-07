@@ -1,10 +1,11 @@
 # Portfolio v3
 
 A monochrome, single-page portfolio built to match a supplied reference: giant
-fade-to-grey type, a soft-edged portrait, pill navigation, a numbered services
+fade-to-grey type, an avatar in the header, pill navigation, a numbered services
 accordion and a full-bleed black "LET'S TALK" band.
 
-English is the default; Persian is a full RTL translation. Every route is static.
+English is the default; Persian is a full RTL translation. The theme is read from
+a cookie on the server, so routes render dynamically — there is no data fetching.
 
 ## Stack
 
@@ -29,25 +30,29 @@ npm start
 
 | File | Role |
 | --- | --- |
-| `src/content/profile.ts` | Name, email, socials, portrait path |
+| `src/content/profile.ts` | Name, email, socials, avatar |
 | `src/content/copy.ts` | Every string, per locale (add to `Copy` **and** both locales) |
-| `src/content/work.ts` | The three featured projects and their categories |
+| `src/content/work.ts` | The four featured projects and their categories |
 | `src/app/[locale]/page.tsx` | The whole page: hero, about, work, services, band |
-| `src/app/globals.css` | Tokens, the display gradient, the portrait mask, the rise animation |
+| `src/app/globals.css` | Tokens, theme overrides, gradients, reveal |
 | `src/proxy.ts` | Locale redirects; English default, `NEXT_LOCALE` cookie |
 
 ## Design notes
 
 - **One accent, none:** pure black / white / grey. No shadows, no colour.
+- **Themes:** paper (default) and ink, toggled in the header. The choice lives in
+  the `theme` cookie **and** is rendered on the server, so there is no flash and
+  no hydration mismatch.
 - **The headline** uses Archivo's width axis (`font-stretch: 112%`) and a
   black→grey clipped gradient. Persian uses Vazirmatn and no tracking.
 - **The avatar** is `avatar.jpg` — a 200 × 200 grayscale crop shown in the
   header next to the wordmark, at the same size as the social buttons. The hero
   has no large portrait.
-- **Work order:** this site first (01), then DigitalShop (02), then Flight
-  lookup (03). This is the order in `src/content/work.ts` and on the page.
-- **Work screenshots** are real captures of `shop/`, `flight-tracker/` and this
-  app, stored as `work-shop.webp`, `work-flight.webp`, `work-site.webp`.
+- **Work order:** this site (01), then DigitalShop (02), Flight lookup (03) and
+  Phone price comparator (04), in `src/content/work.ts`.
+- **Work screenshots** are real captures of `shop/`, `flight-tracker/`,
+  `price-compare/` and this app, stored as `work-shop.webp`,
+  `work-flight.webp`, `work-price.webp` and `work-site-2.webp`.
 - **Services** are the five labels from the reference, as requested.
 - **Stats** are real: 03 shipped apps, 18 routes in the shop build, 100
   accessibility score. Do not replace them with invented numbers.

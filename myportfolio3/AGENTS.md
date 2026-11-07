@@ -49,8 +49,10 @@ module-not-found error. The fonts are bundled; the site builds offline.
   without asking.
 - **Themes:** paper (default) and ink. Tokens are overridden on
   `html[data-theme="ink"]` in `globals.css`; never write `dark:` variants. The
-  no-flash script is the first child of `<body>` in `[locale]/layout.tsx`; the
-  toggle reads and writes `localStorage.theme` and flips `data-theme`.
+  theme is read from the `theme` cookie **on the server** in
+  `[locale]/layout.tsx` (so the first paint and hydration agree), and the header
+  toggle flips the attribute and writes the cookie. Do not add a pre-hydration
+  script that mutates `<html>`; that causes a hydration mismatch.
 - **Reveal:** `components/reveal.tsx` adds `reveal-hidden` only to elements
   below the fold after mount, then `reveal-in` via IntersectionObserver. Content
   must never be hidden by default CSS.
