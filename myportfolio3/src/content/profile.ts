@@ -12,8 +12,8 @@ export const profile = {
     fa: "توسعه‌دهنده فرانت‌اند",
   } satisfies Localized,
   location: {
-    en: "Tehran, Iran",
-    fa: "تهران، ایران",
+    en: "Iran",
+    fa: "ایران",
   } satisfies Localized,
   photo: "/images/portrait.png",
   socials: [

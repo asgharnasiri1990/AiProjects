@@ -71,7 +71,7 @@ export const copy: Record<Locale, Copy> = {
   en: {
     metaTitle: "Asghar Nasiri — Front-end developer",
     metaDescription:
-      "Asghar Nasiri, front-end developer in Tehran. Fast, accessible, right-to-left interfaces with React, Next.js and TypeScript.",
+      "Asghar Nasiri, front-end developer in Iran. Fast, accessible, right-to-left interfaces with React, Next.js and TypeScript.",
 
     nav: {
       home: "Home",
@@ -88,7 +88,7 @@ export const copy: Record<Locale, Copy> = {
 
     heroLines: ["EXPLORE MY", "PORTFOLIO"],
     heroMeta: "FRONT-END DEVELOPER — EST. 2023",
-    heroLocation: "TEHRAN, IRAN",
+    heroLocation: "IRAN",
     heroStatement:
       "I AM PASSIONATE ABOUT CREATING WEBSITES THAT STAND OUT FROM THE CROWD.",
     heroServices: [
@@ -170,7 +170,7 @@ export const copy: Record<Locale, Copy> = {
   fa: {
     metaTitle: "اصغر نصیری — توسعه‌دهنده فرانت‌اند",
     metaDescription:
-      "اصغر نصیری، توسعه‌دهنده فرانت‌اند در تهران. رابط‌های سریع، در دسترس و راست‌به‌چپ با React، Next.js و TypeScript.",
+      "اصغر نصیری، توسعه‌دهنده فرانت‌اند در ایران. رابط‌های سریع، در دسترس و راست‌به‌چپ با React، Next.js و TypeScript.",
 
     nav: {
       home: "خانه",
@@ -187,7 +187,7 @@ export const copy: Record<Locale, Copy> = {
 
     heroLines: ["نمونه‌کارهایم", "را ببین"],
     heroMeta: "توسعه‌دهنده فرانت‌اند — از ۲۰۲۳",
-    heroLocation: "تهران، ایران",
+    heroLocation: "ایران",
     heroStatement:
       "عاشق ساختن وب‌سایت‌هایی هستم که از بقیه جدا باشند.",
     heroServices: [
