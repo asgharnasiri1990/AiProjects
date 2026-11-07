@@ -11,7 +11,7 @@ anything — `npm install` / `npm run dev` at the repo root does nothing useful.
 | `flight-tracker/` | `expense-tracker` ⚠️ | Single-page flight lookup with one route handler, `app/api/flight/route.ts`. The package name is a leftover from an earlier project — the folder name is the real one. |
 | `myPortfolio/` | `portfolio` | The first bilingual portfolio attempt (Swiss-warm, paper + moss). Kept for reference. |
 | `myportfolio2/` | `portfolio-v2` | The second attempt (ink-on-paper, tilted hero ribbon). Superseded by `myportfolio3/`; kept for reference. |
-| `myportfolio3/` | `portfolio-v3` | **The live portfolio** — monochrome, reference-style single page, English default with a Persian RTL version. Content in `src/content/`. See `myportfolio3/AGENTS.md`. |
+| `myportfolio3/` | `portfolio-v3` | **The live portfolio** — monochrome, reference-style single page, English default with a Persian RTL version. Paper/ink themes, scroll reveal, animated counters. Content in `src/content/`. See `myportfolio3/AGENTS.md`. |
 | `price-compare/` | `price-compare` | **Phone price comparator** — Persian RTL; one model across Technolife, Farnaa and user-supplied URLs. Prices are scraped live; a broken shop shows an error row, never a fake price. See `price-compare/AGENTS.md` and `price-compare/PROGRESS.md`. |
 
 All six apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.

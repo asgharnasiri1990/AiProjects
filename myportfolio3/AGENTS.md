@@ -56,6 +56,16 @@ module-not-found error. The fonts are bundled; the site builds offline.
 - **Reveal:** `components/reveal.tsx` adds `reveal-hidden` only to elements
   below the fold after mount, then `reveal-in` via IntersectionObserver. Content
   must never be hidden by default CSS.
+- **Counters:** `components/count-up.tsx` animates the stat numbers from zero the
+  first time they enter the viewport. The server HTML contains the final value
+  (no-JS and reduced-motion users see it); the component only mutates its own
+  text node after hydration. Do not move the per-frame update into React state.
+- **Header order:** avatar + `PORTFOLIO.`, then (from `sm`) the social icons,
+  theme toggle and language switch. On mobile the social icons move into the open
+  menu and the language switch stays beside the theme toggle; below 360px the
+  wordmark is hidden so the bar stays on one line.
+- **Mobile:** root font is 17px under 640px, work cards are one column, and
+  labels/body copy are bumped up; desktop keeps two columns and the smaller labels.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
 - **Services** are intentionally the five labels from the reference (the
@@ -76,6 +86,15 @@ module-not-found error. The fonts are bundled; the site builds offline.
    images were captured with.
 6. The `@fontsource` CSS is imported in `layout.tsx` before `globals.css`; keep
    that order.
+7. The theme cookie makes `/[locale]` dynamic (`ƒ` in the build). That is
+   intentional and is what keeps first paint and hydration in sync; do not add a
+   pre-hydration script that mutates `<html>`.
+
+### Checkpoint
+
+`PROGRESS.md` records the current state. `v3-stable-2026-11-07` is the
+known-good tag; before a risky update, restore/fork with
+`git checkout v3-stable-2026-11-07` (or `git switch -c <branch>` from it).
 
 ### Verify
 
