@@ -5,6 +5,7 @@ import { isLocale } from "@/lib/i18n";
 import { displayTracking, labelStyle, shell } from "@/lib/styles";
 import { CircleLink } from "@/components/circle-link";
 import { ContactBand } from "@/components/contact-band";
+import { CountUp } from "@/components/count-up";
 import { Reveal } from "@/components/reveal";
 import { ServicesAccordion } from "@/components/services-accordion";
 import { WorkGrid } from "@/components/work-grid";
@@ -119,7 +120,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   <dd
                     className={`font-display text-4xl font-semibold leading-none sm:text-5xl ${displayTracking(locale)}`}
                   >
-                    {fact.value}
+                    <CountUp value={fact.value} />
                   </dd>
                 </div>
               ))}

@@ -49,7 +49,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             height={36}
             className="h-10 w-10 rounded-full border border-line object-cover grayscale sm:h-9 sm:w-9"
           />
-          <span>PORTFOLIO.</span>
+          <span className="max-[359px]:hidden">PORTFOLIO.</span>
         </Link>
 
         <nav
@@ -102,9 +102,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             </a>
           ) : null}
           <ThemeToggle label={c.switchTheme} />
-          <div className="hidden sm:block">
-            <LanguageSwitch locale={locale} label={c.switchLanguage} />
-          </div>
+          <LanguageSwitch locale={locale} label={c.switchLanguage} />
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -139,7 +137,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <div
             className={`${shell} flex flex-wrap items-center gap-2 border-t border-line py-3`}
           >
-            <LanguageSwitch locale={locale} label={c.switchLanguage} />
             {profile.socials.map((item) => (
               <a
                 key={item.label}
