@@ -37,7 +37,7 @@ export default async function LocaleNotFound() {
       </p>
       <Link
         href={`/${locale}`}
-        className={`mt-8 inline-flex h-11 items-center rounded-full bg-ink px-6 font-mono text-[10px] text-paper transition-colors hover:bg-soft ${labelStyle(locale)} ${focusRing}`}
+        className={`mt-8 inline-flex h-11 items-center rounded-full bg-ink px-6 font-mono text-[10px] text-paper transition-colors hover:bg-signal hover:text-signal-ink ${labelStyle(locale)} ${focusRing}`}
       >
         {c.notFoundCta}
       </Link>

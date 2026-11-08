@@ -15,6 +15,13 @@ git switch -c before-updates v3-stable-2026-11-07
 
 ## What is done
 
+- **Warm paper palette + signal lime** (2026-11-09): every neutral is tinted
+  toward the same ochre (`paper #fbfaf6` → `ink #17150f`), `line` is dark enough
+  to read, About and Services sit on the `wash` surface for value rhythm. One
+  accent — `signal` `#c6f24e` — used as a surface, never text: the hero block,
+  the availability strip (inverted), the closing headline, the active filter
+  pill and service row, the card index badges, the closing CTA, and every pill
+  hover. The hero no longer follows the theme.
 - English default (`/en`), Persian RTL (`/fa`); `/` redirects to the saved
   `NEXT_LOCALE` cookie, otherwise English.
 - Monochrome reference layout: centred fade-to-grey hero, avatar beside the

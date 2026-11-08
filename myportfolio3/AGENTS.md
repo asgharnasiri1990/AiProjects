@@ -38,11 +38,26 @@ module-not-found error. The fonts are bundled; the site builds offline.
 
 ### Design rules
 
-- **Monochrome only.** No accent colour, no shadows, no second elevated
-  surface. The black band is the only inverted section.
+- **One signal colour, everything else warm neutral.** No shadows, no second
+  hue. The palette is a warm neutral ramp (all tokens tinted toward ochre,
+  `#fbfaf6` paper → `#17150f` ink) plus exactly one accent: `signal`
+  (`#c6f24e`). Signal is a **surface, never text** — it is ~1.35:1 on paper, so
+  anything sitting on it uses `signal-ink` (`#17150f`). The accent is a
+  structural block, not confetti: the whole hero, the closing headline, the
+  active filter pill and active service row, the work-card index badges, the
+  closing CTA, and every pill hover (plus `::selection`). Keep it to those and
+  do not add a second hue.
+- **The hero does not follow the theme.** It is `bg-signal text-signal-ink` in
+  paper *and* ink. Its headline uses `.hero-on-signal` (a fixed ink →
+  transparent-ink gradient) instead of `.display-fade-l/r`, the availability
+  ticker strip under it is `bg-signal-ink text-signal`, and the `CircleLink`
+  inside that strip takes `onDark`. At `lg` the headline sits in an
+  `@container` box padded by the width of the absolutely positioned side
+  columns (`lg:px-56`) and is sized in `cqw`, so it can never run under the
+  statement column.
 - **Display type** uses `.display-wide` (`font-stretch: 112%`) and
   `.display-fade` (black→grey clipped gradient). Persian must not get
-  `tracking-*` or `uppercase`; use `labelStyle` / `displayTracking`.
+  `tracking-*` or `uppercase`; use `latinLabel` / `displayTracking`.
 - **The avatar** is `public/images/avatar.jpg` (200 × 200, grayscale) and lives
   in the header next to the `PORTFOLIO.` wordmark at `h-9 w-9` — the same size as
   the social icon buttons. The hero has no portrait; do not re-add a large photo

@@ -53,8 +53,8 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                 onClick={() => setFilter(tab.id)}
                 className={`rounded-full border px-5 py-2.5 font-mono text-xs transition-colors sm:px-8 sm:py-4 ${labelStyle(locale)} ${
                   active
-                    ? "border-[#c9a84c] bg-[#c9a84c] text-[#1c1008]"
-                    : "border-line text-soft hover:border-[#c9a84c] hover:text-[#c9a84c]"
+                    ? "border-signal bg-signal text-signal-ink"
+                    : "border-line text-soft hover:border-signal hover:bg-signal hover:text-signal-ink"
                 } ${focusRing}`}
               >
                 {tab.label}
@@ -89,7 +89,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                   aria-label={`${title} — ${c.workSource} — ${c.externalLink}`}
                   className={`absolute inset-0 z-10 rounded-2xl ${focusRing}`}
                 />
-                <div className="pointer-events-none relative aspect-[4/3] overflow-hidden rounded-2xl border border-[#e8dcc8] bg-[#f7f0e3]">
+                <div className="pointer-events-none relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-wash">
                   <Image
                     src={item.image}
                     alt=""
@@ -99,7 +99,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     sizes="(min-width: 1024px) 46vw, (min-width: 640px) 45vw, 92vw"
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
                   />
-                  <span className="absolute bottom-3 start-3 rounded-full bg-paper/90 px-2.5 py-1 font-mono text-[11px] text-soft backdrop-blur sm:text-[10px]">
+                  <span className="absolute bottom-3 start-3 rounded-full bg-signal px-2.5 py-1 font-mono text-[11px] text-signal-ink sm:text-[10px]">
                     {item.index}
                   </span>
                 </div>
@@ -123,7 +123,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                       {item.stack.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-[#e8dcc8] bg-[#f7f0e3] px-2 py-0.5 font-mono text-[10px] text-[#8a7055]"
+                          className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-soft"
                         >
                           {tag}
                         </span>
@@ -132,7 +132,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                   </div>
                   <span
                     aria-hidden
-                    className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-soft transition-colors group-hover:border-[#c9a84c] group-hover:bg-[#c9a84c] group-hover:text-[#1c1008]"
+                    className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-soft transition-colors group-hover:border-signal group-hover:bg-signal group-hover:text-signal-ink"
                   >
                     <ArrowUpRightIcon
                       width={14}

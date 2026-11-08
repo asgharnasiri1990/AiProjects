@@ -39,30 +39,37 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-line sm:flex sm:min-h-[min(calc(100dvh-4rem),40rem)] sm:flex-col sm:justify-center">
-        <div className="hero-bg-blob" aria-hidden="true" />
+      {/* Hero. A lime block in both themes, so its type is `signal-ink`. */}
+      <section className="relative overflow-hidden border-b border-signal-ink/20 bg-signal text-signal-ink sm:flex sm:min-h-[min(calc(100dvh-4rem),40rem)] sm:flex-col sm:justify-center">
         <div className={`${shell} pt-4 sm:pt-8`}>
           <div className="relative flex min-h-[340px] flex-col justify-center py-6 sm:min-h-[460px] sm:py-10">
-            <h1
-              data-rise
-              aria-label={`${c.heroLines[0]} ${c.heroLines[1]}`}
-              className={`relative z-10 font-display text-hero font-semibold uppercase leading-[0.84] tracking-[-0.04em]`}
-            >
-              <span className="block text-center">
-                <span className="display-fade-l inline-block">
-                  {c.heroLines[0]}
+            {/*
+              The two side columns are absolutely positioned, so the headline
+              is padded by their width and sized against that content box
+              (15.4cqw ≈ one line). Its own 10vw size overlapped the right
+              column between ~1024px and ~1380px.
+            */}
+            <div className="@container z-10 lg:px-56">
+              <h1
+                data-rise
+                aria-label={`${c.heroLines[0]} ${c.heroLines[1]}`}
+                className={`hero-on-signal relative font-display text-hero font-semibold uppercase leading-[0.84] tracking-[-0.04em] lg:text-[clamp(3.15rem,15.4cqw,9.2rem)]`}
+              >
+                <span className="block text-center">
+                  <span className="display-fade-l inline-block">
+                    {c.heroLines[0]}
+                  </span>
                 </span>
-              </span>
-              <span className="block text-center">
-                <span className="display-fade-r inline-block">
-                  {c.heroLines[1]}
+                <span className="block text-center">
+                  <span className="display-fade-r inline-block">
+                    {c.heroLines[1]}
+                  </span>
                 </span>
-              </span>
-            </h1>
+              </h1>
+            </div>
 
             <div className="absolute left-0 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-start gap-4 lg:flex">
-              <p className={`${mono} text-start`}>{c.heroMeta}</p>
+              <p className={`${mono} text-start text-signal-ink/70`}>{c.heroMeta}</p>
             </div>
 
             <div className="absolute right-0 top-1/2 z-20 hidden w-56 -translate-y-1/2 flex-col items-end gap-5 text-end lg:flex">
@@ -72,7 +79,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 {c.heroStatement}
               </p>
               <ul
-                className={`space-y-2 font-mono text-[10px] text-soft ${latinLabel(locale, "tracking-[0.12em]")}`}
+                className={`space-y-2 font-mono text-[10px] text-signal-ink/60 ${latinLabel(locale, "tracking-[0.12em]")}`}
               >
                 {c.heroServices.map((service) => (
                   <li key={service}>{service}</li>
@@ -82,24 +89,24 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
             <div className="relative z-10 mt-8 max-w-[85%] sm:mt-12 lg:hidden">
               <p
-                className={`font-mono text-[11px] text-soft sm:text-[10px] ${latinLabel(locale, "tracking-[0.12em]")}`}
+                className={`font-mono text-[11px] text-signal-ink/70 sm:text-[10px] ${latinLabel(locale, "tracking-[0.12em]")}`}
               >
                 {c.heroMeta}
               </p>
               <p
-                className={`mt-2 font-mono text-[11px] leading-5 text-soft sm:text-[10px] ${latinLabel(locale, "tracking-[0.1em]")}`}
+                className={`mt-2 font-mono text-[11px] leading-5 text-signal-ink/70 sm:text-[10px] ${latinLabel(locale, "tracking-[0.1em]")}`}
               >
                 {c.heroStatement}
               </p>
             </div>
           </div>
 
-          <div className="mt-8 border-t border-line py-3 sm:mt-10">
-            <div className="mb-3 flex items-center gap-2 font-mono text-[10px] text-soft sm:hidden">
-              <span
-                aria-hidden
-                className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a84c] animate-pulse"
-              />
+          <div className="-mx-5 mt-8 bg-signal-ink px-5 py-3 text-signal sm:-mx-8 sm:mt-10 sm:px-8 lg:-mx-12 lg:px-12">
+            <div className="mb-3 flex items-center gap-2 font-mono text-[10px] sm:hidden">
+              <span aria-hidden className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+              </span>
               <span className={latinLabel(locale, "tracking-[0.14em]")}>
                 {c.availability}
               </span>
@@ -107,12 +114,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
             <div className="flex items-center gap-4">
               <span
-                className={`hidden shrink-0 items-center gap-2 font-mono text-[10px] text-soft sm:flex ${latinLabel(locale, "tracking-[0.14em]")}`}
+                className={`hidden shrink-0 items-center gap-2 font-mono text-[10px] sm:flex ${latinLabel(locale, "tracking-[0.14em]")}`}
               >
-                <span
-                  aria-hidden
-                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c9a84c] animate-pulse"
-                />
+                <span aria-hidden className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
+                </span>
                 {c.availability}
               </span>
 
@@ -121,14 +128,14 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 dir="ltr"
                 className="hero-ticker relative min-w-0 flex-1 overflow-hidden"
               >
-                <div className="hero-ticker-track flex w-max items-center font-mono text-[10px] uppercase tracking-[0.14em] text-soft">
+                <div className="hero-ticker-track flex w-max items-center font-mono text-[10px] uppercase tracking-[0.14em]">
                   {[...c.heroTicker, ...c.heroTicker].map((item, index) => (
                     <span
                       key={`${item}-${index}`}
                       className="flex items-center gap-4 pe-4"
                     >
                       <span>{item}</span>
-                      <span aria-hidden className="h-1 w-1 rounded-full bg-line" />
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-signal/40" />
                     </span>
                   ))}
                 </div>
@@ -138,6 +145,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 href="#work"
                 label={c.heroCta}
                 icon="down"
+                onDark
                 className="shrink-0"
               />
             </div>
@@ -146,7 +154,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       </section>
 
       {/* About */}
-      <section id="about" className="scroll-mt-20 border-b border-line">
+      <section id="about" className="scroll-mt-20 border-b border-line bg-wash">
         <div className={`${shell} py-20 sm:py-28`}>
           <Reveal>
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -179,7 +187,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               {c.facts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="flex flex-col-reverse border border-[#e8dcc8] bg-[#f7f0e3]/50 px-6 py-8 transition-colors hover:border-[#c9a84c] hover:bg-[#f7f0e3]"
+                  className="flex flex-col-reverse border border-line bg-paper px-6 py-8 transition-colors hover:border-signal hover:bg-signal/15"
                 >
                   <dt className={`mt-2 ${mono}`}>{fact.label}</dt>
                   <dd
@@ -209,7 +217,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       </section>
 
       {/* Services */}
-      <section id="services" className="scroll-mt-20 border-b border-line">
+      <section id="services" className="scroll-mt-20 border-b border-line bg-wash">
         <div className={`${shell} py-20 sm:py-28`}>
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">

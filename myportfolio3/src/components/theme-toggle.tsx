@@ -32,7 +32,7 @@ export function ThemeToggle({
       onClick={toggle}
       aria-label={label}
       aria-pressed={current === "ink"}
-      className={`grid h-10 w-10 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:h-9 sm:w-9 ${focusRing}`}
+      className={`grid h-10 w-10 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:bg-signal hover:text-signal-ink sm:h-9 sm:w-9 ${focusRing}`}
     >
       <SunIcon width={16} height={16} className="theme-sun" />
       <MoonIcon width={16} height={16} className="theme-moon" />

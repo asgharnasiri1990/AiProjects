@@ -33,14 +33,14 @@ export function ContactBand({ locale }: { locale: Locale }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${social.label} — ${c.externalLink}`}
-                className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-[#c9a84c] hover:bg-[#c9a84c]/15 hover:text-[#c9a84c] sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+                className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-signal hover:bg-signal hover:text-signal-ink sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
               >
                 {social.label}
               </a>
             ))}
             <a
               href={`mailto:${profile.email}`}
-              className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-[#c9a84c] hover:bg-[#c9a84c]/15 hover:text-[#c9a84c] sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+              className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-signal hover:bg-signal hover:text-signal-ink sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
             >
               {c.contactEmail}
             </a>
@@ -54,7 +54,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
         </div>
 
         <h2
-          className={`display-fade-light display-wide mt-14 font-display text-footer font-semibold leading-[0.9] ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
+          className={`display-wide mt-14 font-display text-footer font-semibold leading-[0.9] text-signal ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
         >
           {c.contactTitle}
         </h2>
@@ -65,7 +65,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </p>
           <a
             href={`mailto:${profile.email}`}
-            className={`inline-flex h-12 items-center gap-2 rounded-full bg-[#c9a84c] px-6 font-mono text-[12px] font-medium text-[#1c1008] transition-all hover:bg-[#a8872e] hover:shadow-[0_0_0_3px_#e8dcc8] sm:h-11 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+            className={`inline-flex h-12 items-center gap-2 rounded-full bg-signal px-6 font-mono text-[12px] font-medium text-signal-ink transition-colors hover:bg-signal-hover sm:h-11 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
           >
             {c.contactCta}
             <ArrowUpRightIcon width={14} height={14} />
@@ -73,7 +73,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
         </div>
 
         <div
-          className={`mt-16 flex flex-col gap-2 border-t border-band-ink/15 pt-6 font-mono text-[11px] text-band-ink/60 sm:flex-row sm:items-center sm:justify-between sm:text-[10px] ${labelStyle(locale)}`}
+          className={`mt-16 flex flex-col gap-2 border-t border-band-ink/25 pt-6 font-mono text-[11px] text-band-ink/60 sm:flex-row sm:items-center sm:justify-between sm:text-[10px] ${labelStyle(locale)}`}
         >
           <span>
             {c.footerRights} © {year}

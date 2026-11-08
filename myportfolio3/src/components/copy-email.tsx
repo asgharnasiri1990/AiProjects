@@ -61,7 +61,7 @@ export function CopyEmail({
       type="button"
       onClick={copy}
       aria-live="polite"
-      className={`inline-flex h-10 items-center rounded-full border border-band-ink/25 px-4 font-mono text-[12px] transition-colors hover:border-band-ink hover:bg-band-ink hover:text-band sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+      className={`inline-flex h-10 items-center rounded-full border border-band-ink/25 px-4 font-mono text-[12px] transition-colors hover:border-signal hover:bg-signal hover:text-signal-ink sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
     >
       {copied ? copiedLabel : label}
     </button>

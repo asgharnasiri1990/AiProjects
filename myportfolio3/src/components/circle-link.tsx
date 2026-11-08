@@ -7,6 +7,7 @@ export function CircleLink({
   external = false,
   icon = "arrow",
   size = "lg",
+  onDark = false,
   className = "",
 }: {
   href: string;
@@ -14,10 +15,15 @@ export function CircleLink({
   external?: boolean;
   icon?: "arrow" | "down";
   size?: "sm" | "lg";
+  /** For the ink strip inside the lime hero: lime outline instead of ink. */
+  onDark?: boolean;
   className?: string;
 }) {
   const sizeClass = size === "sm" ? "h-9 w-9" : "h-14 w-14";
   const iconSize = size === "sm" ? 14 : 18;
+  const tone = onDark
+    ? "border-signal/40 text-signal hover:border-signal hover:bg-signal hover:text-signal-ink"
+    : "border-ink/25 text-ink hover:border-signal hover:bg-signal hover:text-signal-ink";
 
   return (
     <a
@@ -25,7 +31,7 @@ export function CircleLink({
       aria-label={label}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className={`group inline-grid shrink-0 place-items-center rounded-full border border-[#c9a84c]/40 text-[#c9a84c] transition-colors hover:border-[#c9a84c] hover:bg-[#c9a84c] hover:text-[#1c1008] ${sizeClass} ${focusRing} ${className}`}
+      className={`group inline-grid shrink-0 place-items-center rounded-full border transition-colors ${tone} ${sizeClass} ${focusRing} ${className}`}
     >
       {icon === "down" ? (
         <ArrowDownIcon width={iconSize} height={iconSize} />
