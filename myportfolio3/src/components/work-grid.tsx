@@ -53,8 +53,8 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                 onClick={() => setFilter(tab.id)}
                 className={`rounded-full border px-5 py-2.5 font-mono text-xs transition-colors sm:px-8 sm:py-4 ${labelStyle(locale)} ${
                   active
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line text-soft hover:border-ink hover:text-ink"
+                    ? "border-[#7c3aed] bg-[#7c3aed] text-white"
+                    : "border-line text-soft hover:border-[#7c3aed] hover:text-[#7c3aed]"
                 } ${focusRing}`}
               >
                 {tab.label}
@@ -89,7 +89,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                   aria-label={`${title} — ${c.workSource} — ${c.externalLink}`}
                   className={`absolute inset-0 z-10 rounded-2xl ${focusRing}`}
                 />
-                <div className="pointer-events-none relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-wash">
+                <div className="pointer-events-none relative aspect-[4/3] overflow-hidden rounded-2xl border border-[#ddd6fe] bg-[#f5f3ff]">
                   <Image
                     src={item.image}
                     alt=""
@@ -97,7 +97,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     placeholder="blur"
                     blurDataURL={BLUR}
                     sizes="(min-width: 1024px) 46vw, (min-width: 640px) 45vw, 92vw"
-                    className="object-cover object-top grayscale transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                   <span className="absolute bottom-3 start-3 rounded-full bg-paper/90 px-2.5 py-1 font-mono text-[11px] text-soft backdrop-blur sm:text-[10px]">
                     {item.index}
@@ -123,7 +123,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                       {item.stack.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-soft"
+                          className="rounded-full border border-[#ddd6fe] bg-[#f5f3ff] px-2 py-0.5 font-mono text-[10px] text-[#7c3aed]"
                         >
                           {tag}
                         </span>
@@ -132,7 +132,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                   </div>
                   <span
                     aria-hidden
-                    className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-soft transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-paper"
+                    className="mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-soft transition-colors group-hover:border-[#0d9488] group-hover:bg-[#0d9488] group-hover:text-white"
                   >
                     <ArrowUpRightIcon
                       width={14}

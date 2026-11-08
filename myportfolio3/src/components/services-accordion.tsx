@@ -15,7 +15,7 @@ export function ServicesAccordion({ locale }: { locale: Locale }) {
       {c.services.map((service, index) => {
         const active = open === index;
         const circle = active
-          ? "border-ink bg-ink text-paper"
+          ? "border-[#7c3aed] bg-[#7c3aed] text-white"
           : "border-line text-soft";
 
         return (
@@ -36,8 +36,8 @@ export function ServicesAccordion({ locale }: { locale: Locale }) {
                 aria-controls={`service-${service.index}`}
                 className={`min-w-0 flex-1 rounded-full border px-4 py-3 text-center font-display text-[15px] font-medium transition-colors sm:px-6 sm:py-4 sm:text-base ${latinLabel(locale, "tracking-[0.02em]")} ${
                   active
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line bg-paper text-ink hover:border-ink"
+                    ? "border-[#7c3aed] bg-[#7c3aed] text-white"
+                    : "border-line bg-paper text-ink hover:border-[#7c3aed] hover:text-[#7c3aed]"
                 } ${focusRing}`}
               >
                 {service.title}

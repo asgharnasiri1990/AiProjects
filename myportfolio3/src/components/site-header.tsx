@@ -53,7 +53,7 @@ export function SiteHeader({
             alt={profile.name[locale]}
             width={36}
             height={36}
-            className="h-10 w-10 rounded-full border border-line object-cover grayscale sm:h-9 sm:w-9"
+            className="h-10 w-10 rounded-full border-2 border-[#7c3aed]/40 object-cover sm:h-9 sm:w-9 hover:border-[#7c3aed] transition-colors"
           />
           <span dir="ltr" className="max-[359px]:hidden">
             PORTFOLIO.
@@ -68,7 +68,7 @@ export function SiteHeader({
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-full border border-line px-4 py-2 font-mono text-[11px] sm:text-[10px] text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
+              className={`rounded-full border border-line px-4 py-2 font-mono text-[11px] sm:text-[10px] text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] ${labelStyle(locale)} ${focusRing}`}
             >
               {link.label}
             </Link>
@@ -82,7 +82,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${social.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] sm:grid ${focusRing}`}
             >
               <GitHubIcon width={16} height={16} />
             </a>
@@ -93,7 +93,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${linkedin.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] sm:grid ${focusRing}`}
             >
               <LinkedInIcon width={15} height={15} />
             </a>
@@ -104,7 +104,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${instagram.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] sm:grid ${focusRing}`}
             >
               <InstagramIcon width={16} height={16} />
             </a>
@@ -117,7 +117,7 @@ export function SiteHeader({
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? c.closeMenu : c.openMenu}
-            className={`grid h-10 w-10 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:h-9 sm:w-9 md:hidden ${focusRing}`}
+            className={`grid h-10 w-10 place-items-center rounded-full border border-line text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] sm:h-9 sm:w-9 md:hidden ${focusRing}`}
           >
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -135,7 +135,7 @@ export function SiteHeader({
                 key={link.href}
                 href={link.href}
                 onClick={close}
-                className={`rounded-full border border-line px-4 py-3.5 text-sm text-soft transition-colors hover:border-ink hover:text-ink ${labelStyle(locale)} ${focusRing}`}
+                className={`rounded-full border border-line px-4 py-3.5 text-sm text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] ${labelStyle(locale)} ${focusRing}`}
               >
                 {link.label}
               </Link>
@@ -152,7 +152,7 @@ export function SiteHeader({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${item.label} — ${c.externalLink}`}
-                className={`inline-flex h-10 items-center rounded-full border border-line px-4 font-mono text-[12px] text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
+                className={`inline-flex h-10 items-center rounded-full border border-line px-4 font-mono text-[12px] text-soft transition-colors hover:border-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#f5f3ff] ${focusRing}`}
               >
                 {item.label}
               </a>

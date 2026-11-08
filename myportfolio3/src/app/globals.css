@@ -8,13 +8,14 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
     monospace;
 
-  --color-paper: #ffffff;
-  --color-ink: #0b0b0b;
-  --color-soft: #6d6d6d;
-  --color-line: #e4e4e4;
-  --color-wash: #f4f4f2;
-  --color-band: #0a0a0a;
-  --color-band-ink: #f6f6f4;
+  /* ── Light theme · Violet + Teal palette ── */
+  --color-paper: #fafaf9;
+  --color-ink: #1e1b4b;
+  --color-soft: #6366f1;
+  --color-line: #ddd6fe;
+  --color-wash: #f5f3ff;
+  --color-band: #1e1b4b;
+  --color-band-ink: #f5f3ff;
 
   --text-hero: clamp(3.15rem, 10vw, 9.2rem);
   --text-display: clamp(2.4rem, 6vw, 5.2rem);
@@ -22,8 +23,8 @@
 }
 
 :root {
-  --display-strong: #0b0b0b;
-  --display-soft: #bdbdbd;
+  --display-strong: #1e1b4b;
+  --display-soft: #a5b4fc;
   color-scheme: light;
 }
 
@@ -41,15 +42,15 @@
 
 /* Ink theme: the same tokens inverted, so every utility flips at once. */
 html[data-theme="ink"] {
-  --color-paper: #0b0b0b;
-  --color-ink: #f1f1ee;
-  --color-soft: #a2a2a2;
-  --color-line: #262626;
-  --color-wash: #151515;
-  --color-band: #202020;
-  --color-band-ink: #f1f1ee;
-  --display-strong: #f1f1ee;
-  --display-soft: #5c5c5c;
+  --color-paper: #0f0e1a;
+  --color-ink: #ede9fe;
+  --color-soft: #818cf8;
+  --color-line: #312e81;
+  --color-wash: #1e1b4b;
+  --color-band: #0f0e1a;
+  --color-band-ink: #ede9fe;
+  --display-strong: #ede9fe;
+  --display-soft: #4f46e5;
   color-scheme: dark;
 }
 
@@ -123,9 +124,9 @@ html[data-theme="ink"] {
 .display-fade-light {
   background-image: linear-gradient(
     101deg,
-    #ffffff 0%,
-    #f6f6f4 40%,
-    #6f6f6f 100%
+    #f5f3ff 0%,
+    #c4b5fd 40%,
+    #5eead4 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -135,9 +136,9 @@ html[data-theme="ink"] {
 [dir="rtl"] .display-fade-light {
   background-image: linear-gradient(
     259deg,
-    #ffffff 0%,
-    #f6f6f4 40%,
-    #6f6f6f 100%
+    #f5f3ff 0%,
+    #c4b5fd 40%,
+    #5eead4 100%
   );
 }
 
@@ -162,6 +163,81 @@ html[data-theme="ink"] {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ── Accent helpers — Violet + Teal ── */
+.btn-accent {
+  background-color: #7c3aed;
+  color: #ffffff;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+.btn-accent:hover {
+  background-color: #6d28d9;
+  box-shadow: 0 0 0 3px #ddd6fe;
+}
+
+.tag-accent {
+  border-color: #ddd6fe;
+  color: #7c3aed;
+  background-color: #f5f3ff;
+}
+
+.dot-available {
+  background-color: #0d9488;
+}
+
+/* Hero gradient: ink → violet → teal */
+.display-fade-hero {
+  background-image: linear-gradient(
+    101deg,
+    var(--display-strong) 0%,
+    #7c3aed 55%,
+    #0d9488 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* ── Hero ambient blobs ── */
+.hero-bg-blob {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-bg-blob::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 70%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #ddd6fe 0%, transparent 70%);
+  opacity: 0.55;
+  filter: blur(60px);
+}
+.hero-bg-blob::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  right: -10%;
+  width: 55%;
+  height: 90%;
+  background: radial-gradient(ellipse at center, #ccfbf1 0%, transparent 70%);
+  opacity: 0.45;
+  filter: blur(60px);
+}
+
+[data-theme="ink"] .hero-bg-blob::before {
+  background: radial-gradient(ellipse at center, #4c1d95 0%, transparent 70%);
+  opacity: 0.35;
+}
+[data-theme="ink"] .hero-bg-blob::after {
+  background: radial-gradient(ellipse at center, #134e4a 0%, transparent 70%);
+  opacity: 0.30;
 }
 
 /* Theme toggle icons: CSS decides, so there is no hydration mismatch. */

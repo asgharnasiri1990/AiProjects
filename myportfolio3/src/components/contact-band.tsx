@@ -33,14 +33,14 @@ export function ContactBand({ locale }: { locale: Locale }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${social.label} — ${c.externalLink}`}
-                className={`inline-flex h-10 items-center rounded-full border border-band-ink/25 px-4 font-mono text-[12px] transition-colors hover:border-band-ink hover:bg-band-ink hover:text-band sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+                className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-[#5eead4] hover:bg-[#5eead4]/10 hover:text-[#5eead4] sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
               >
                 {social.label}
               </a>
             ))}
             <a
               href={`mailto:${profile.email}`}
-              className={`inline-flex h-10 items-center rounded-full border border-band-ink/25 px-4 font-mono text-[12px] transition-colors hover:border-band-ink hover:bg-band-ink hover:text-band sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+              className={`inline-flex h-10 items-center rounded-full border border-band-ink/30 px-4 font-mono text-[12px] transition-colors hover:border-[#5eead4] hover:bg-[#5eead4]/10 hover:text-[#5eead4] sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
             >
               {c.contactEmail}
             </a>
@@ -65,7 +65,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </p>
           <a
             href={`mailto:${profile.email}`}
-            className={`inline-flex h-12 items-center gap-2 rounded-full bg-band-ink px-6 font-mono text-[12px] font-medium text-band transition-colors hover:bg-white sm:h-11 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
+            className={`inline-flex h-12 items-center gap-2 rounded-full bg-[#7c3aed] px-6 font-mono text-[12px] font-medium text-white transition-all hover:bg-[#6d28d9] hover:shadow-[0_0_0_3px_#ddd6fe] sm:h-11 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
           >
             {c.contactCta}
             <ArrowUpRightIcon width={14} height={14} />

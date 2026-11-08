@@ -41,6 +41,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line sm:flex sm:min-h-[min(calc(100dvh-4rem),40rem)] sm:flex-col sm:justify-center">
+        <div className="hero-bg-blob" aria-hidden="true" />
         <div className={`${shell} pt-4 sm:pt-8`}>
           <div className="relative flex min-h-[340px] flex-col justify-center py-6 sm:min-h-[460px] sm:py-10">
             <h1
@@ -97,7 +98,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <div className="mb-3 flex items-center gap-2 font-mono text-[10px] text-soft sm:hidden">
               <span
                 aria-hidden
-                className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#0d9488] animate-pulse"
               />
               <span className={latinLabel(locale, "tracking-[0.14em]")}>
                 {c.availability}
@@ -110,7 +111,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               >
                 <span
                   aria-hidden
-                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#0d9488] animate-pulse"
                 />
                 {c.availability}
               </span>
@@ -178,7 +179,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               {c.facts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="flex flex-col-reverse border border-line px-6 py-8"
+                  className="flex flex-col-reverse border border-[#ddd6fe] bg-[#f5f3ff]/50 px-6 py-8 transition-colors hover:border-[#7c3aed] hover:bg-[#f5f3ff]"
                 >
                   <dt className={`mt-2 ${mono}`}>{fact.label}</dt>
                   <dd
