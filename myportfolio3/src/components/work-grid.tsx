@@ -97,7 +97,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     placeholder="blur"
                     blurDataURL={BLUR}
                     sizes="(min-width: 1024px) 46vw, (min-width: 640px) 45vw, 92vw"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="object-cover object-top grayscale transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                   <span className="absolute bottom-3 start-3 rounded-full bg-signal px-2.5 py-1 font-mono text-[11px] text-signal-ink sm:text-[10px]">
                     {item.index}

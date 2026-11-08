@@ -53,7 +53,7 @@ export function SiteHeader({
             alt={profile.name[locale]}
             width={36}
             height={36}
-            className="h-10 w-10 rounded-full border border-line object-cover transition-colors hover:border-signal sm:h-9 sm:w-9"
+            className="h-10 w-10 rounded-full border border-line object-cover grayscale transition-colors hover:border-signal sm:h-9 sm:w-9"
           />
           <span dir="ltr" className="max-[359px]:hidden">
             PORTFOLIO.
