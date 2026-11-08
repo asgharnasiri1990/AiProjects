@@ -8,6 +8,7 @@ import { ContactBand } from "@/components/contact-band";
 import { CountUp } from "@/components/count-up";
 import { Reveal } from "@/components/reveal";
 import { ServicesAccordion } from "@/components/services-accordion";
+import { VisitTracker } from "@/components/visit-tracker";
 import { WorkGrid } from "@/components/work-grid";
 
 export async function generateMetadata({
@@ -194,6 +195,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       </section>
 
       <ContactBand locale={locale} />
+      <VisitTracker />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import "@fontsource-variable/archivo/standard.css";
 import "@fontsource-variable/vazirmatn";
 import "@fontsource-variable/jetbrains-mono";
@@ -87,6 +88,10 @@ export default async function LocaleLayout({
   const theme =
     (await cookies()).get("theme")?.value === "ink" ? "ink" : "paper";
 
+  const umamiSrc = process.env.NEXT_PUBLIC_UMAMI_SRC;
+  const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+  const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
+
   return (
     <html
       lang={locale}
@@ -104,6 +109,17 @@ export default async function LocaleLayout({
         </a>
         <SiteHeader locale={locale} />
         <main id="home">{children}</main>
+        <Analytics />
+        {umamiSrc && umamiWebsiteId ? (
+          <script defer src={umamiSrc} data-website-id={umamiWebsiteId} />
+        ) : null}
+        {plausibleDomain ? (
+          <script
+            defer
+            data-domain={plausibleDomain}
+            src="https://plausible.io/js/script.js"
+          />
+        ) : null}
       </body>
     </html>
   );

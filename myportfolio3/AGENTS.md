@@ -96,6 +96,23 @@ module-not-found error. The fonts are bundled; the site builds offline.
 known-good tag; before a risky update, restore/fork with
 `git checkout v3-stable-2026-11-07` (or `git switch -c <branch>` from it).
 
+### Analytics
+
+- **Vercel Analytics** is installed (`@vercel/analytics/next`, `<Analytics />`
+  in the locale layout). Enable Web Analytics in the Vercel project for the
+  device/browser/country dashboard.
+- **Umami / Plausible** are optional and env-gated
+  (`NEXT_PUBLIC_UMAMI_SRC` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID`,
+  `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`). Do not enable both at once.
+- **Custom device counter:** `components/visit-tracker.tsx` posts once per page
+  load to `/api/visit`; `lib/stats.ts` classifies the user-agent and increments
+  aggregate counts only. It uses Vercel KV / Upstash REST when
+  `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the `UPSTASH_*` pair) exist, and a
+  gitignored `.data/stats.json` locally. On Vercel without KV it stores nothing.
+- **View:** `/en/stats?token=...` (and `/fa/stats`), protected by `STATS_TOKEN`;
+  missing/wrong token → 404 and the page is `noindex`. Never store IPs, raw
+  user agents or cookies in the stats store.
+
 ### Verify
 
 ```powershell
