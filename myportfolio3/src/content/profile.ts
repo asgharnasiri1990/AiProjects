@@ -5,7 +5,6 @@ export const profile = {
     en: "Asghar Nasiri",
     fa: "اصغر نصیری",
   } satisfies Localized,
-  initials: "AN",
   email: "asgharnasiri1990@gmail.com",
   role: {
     en: "Front-end developer",

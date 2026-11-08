@@ -59,6 +59,7 @@ export async function generateMetadata({
       title: c.metaTitle,
       description: c.metaDescription,
       locale: locale === "fa" ? "fa_IR" : "en_US",
+      url: new URL(`/${locale}`, metadataBase).toString(),
       images: [
         {
           url: "/og.png",
@@ -107,9 +108,11 @@ export default async function LocaleLayout({
         >
           {copy[locale].skipToContent}
         </a>
-        <SiteHeader locale={locale} />
-        <main id="home">{children}</main>
-        <Analytics />
+        <SiteHeader locale={locale} theme={theme} />
+        <main id="home" tabIndex={-1}>
+          {children}
+        </main>
+        {process.env.VERCEL ? <Analytics /> : null}
         {umamiSrc && umamiWebsiteId ? (
           <script defer src={umamiSrc} data-website-id={umamiWebsiteId} />
         ) : null}

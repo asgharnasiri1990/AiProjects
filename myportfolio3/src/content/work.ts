@@ -15,7 +15,7 @@ export interface WorkItem {
 }
 
 /**
- * The three apps that actually exist in this repository.
+ * The four featured projects in this repository.
  * Categories drive the filter pill in the featured-project section.
  */
 export const work: WorkItem[] = [
@@ -38,7 +38,7 @@ export const work: WorkItem[] = [
     index: "02",
     title: { en: "DigitalShop", fa: "دیجیتال‌شاپ" },
     summary: {
-      en: "A storefront on a public API with a 60-request budget.",
+      en: "A storefront on a public API, capped at 60 requests per minute.",
       fa: "فروشگاه روی یک API عمومی با محدودیت ۶۰ درخواست در دقیقه.",
     },
     category: "web",

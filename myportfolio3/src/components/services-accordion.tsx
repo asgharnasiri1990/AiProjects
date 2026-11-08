@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { copy } from "@/content/copy";
 import type { Locale } from "@/lib/i18n";
-import { focusRing } from "@/lib/styles";
+import { focusRing, latinLabel } from "@/lib/styles";
 import { ArrowDownIcon, ArrowRightIcon } from "@/components/icons";
 
 export function ServicesAccordion({ locale }: { locale: Locale }) {
@@ -29,11 +29,12 @@ export function ServicesAccordion({ locale }: { locale: Locale }) {
               </span>
 
               <button
+                id={`service-button-${service.index}`}
                 type="button"
                 onClick={() => setOpen(active ? -1 : index)}
                 aria-expanded={active}
                 aria-controls={`service-${service.index}`}
-                className={`min-w-0 flex-1 rounded-full border px-4 py-3 text-center font-display text-[15px] font-medium uppercase tracking-[0.02em] transition-colors sm:px-6 sm:py-4 sm:text-base ${
+                className={`min-w-0 flex-1 rounded-full border px-4 py-3 text-center font-display text-[15px] font-medium transition-colors sm:px-6 sm:py-4 sm:text-base ${latinLabel(locale, "tracking-[0.02em]")} ${
                   active
                     ? "border-ink bg-ink text-paper"
                     : "border-line bg-paper text-ink hover:border-ink"
@@ -60,6 +61,9 @@ export function ServicesAccordion({ locale }: { locale: Locale }) {
 
             <div
               id={`service-${service.index}`}
+              role="region"
+              aria-labelledby={`service-button-${service.index}`}
+              inert={!active}
               className={`grid transition-all duration-300 ${
                 active
                   ? "grid-rows-[1fr] opacity-100"

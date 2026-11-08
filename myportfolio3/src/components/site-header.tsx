@@ -17,7 +17,13 @@ import {
 import { LanguageSwitch } from "@/components/language-switch";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-export function SiteHeader({ locale }: { locale: Locale }) {
+export function SiteHeader({
+  locale,
+  theme,
+}: {
+  locale: Locale;
+  theme: "paper" | "ink";
+}) {
   const c = copy[locale];
   const [open, setOpen] = useState(false);
 
@@ -49,11 +55,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             height={36}
             className="h-10 w-10 rounded-full border border-line object-cover grayscale sm:h-9 sm:w-9"
           />
-          <span className="max-[359px]:hidden">PORTFOLIO.</span>
+          <span dir="ltr" className="max-[359px]:hidden">
+            PORTFOLIO.
+          </span>
         </Link>
 
         <nav
-          aria-label={c.nav.home}
+          aria-label={c.navPrimary}
           className="mx-auto hidden items-center gap-2 md:flex"
         >
           {links.map((link) => (
@@ -73,7 +81,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub"
+              aria-label={`${social.label} — ${c.externalLink}`}
               className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
             >
               <GitHubIcon width={16} height={16} />
@@ -84,7 +92,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               href={linkedin.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
+              aria-label={`${linkedin.label} — ${c.externalLink}`}
               className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
             >
               <LinkedInIcon width={15} height={15} />
@@ -95,13 +103,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               href={instagram.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label={`${instagram.label} — ${c.externalLink}`}
               className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-ink hover:text-ink sm:grid ${focusRing}`}
             >
               <InstagramIcon width={16} height={16} />
             </a>
           ) : null}
-          <ThemeToggle label={c.switchTheme} />
+          <ThemeToggle label={c.switchTheme} theme={theme} />
           <LanguageSwitch locale={locale} label={c.switchLanguage} />
           <button
             type="button"
@@ -119,7 +127,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       {open ? (
         <div id="mobile-nav" className="border-t border-line bg-paper md:hidden">
           <nav
-            aria-label={c.nav.home}
+            aria-label={c.navMobile}
             className={`${shell} flex flex-col gap-1 pb-1 pt-3`}
           >
             {links.map((link) => (
@@ -143,6 +151,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${item.label} — ${c.externalLink}`}
                 className={`inline-flex h-10 items-center rounded-full border border-line px-4 font-mono text-[12px] text-soft transition-colors hover:border-ink hover:text-ink ${focusRing}`}
               >
                 {item.label}

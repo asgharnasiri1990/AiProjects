@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { copy } from "@/content/copy";
 import { isLocale } from "@/lib/i18n";
-import { displayTracking, labelStyle, shell } from "@/lib/styles";
+import {
+  displayTracking,
+  labelStyle,
+  latinLabel,
+  shell,
+} from "@/lib/styles";
 import { CircleLink } from "@/components/circle-link";
 import { ContactBand } from "@/components/contact-band";
 import { CountUp } from "@/components/count-up";
@@ -19,7 +24,8 @@ export async function generateMetadata({
 
   return {
     alternates: {
-      languages: { en: "/en", fa: "/fa" },
+      canonical: `/${locale}`,
+      languages: { en: "/en", fa: "/fa", "x-default": "/en" },
     },
   };
 }
@@ -59,50 +65,81 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             </div>
 
             <div className="absolute right-0 top-1/2 z-20 hidden w-56 -translate-y-1/2 flex-col items-end gap-5 text-end lg:flex">
-              <p className="font-mono text-[11px] uppercase leading-5 tracking-[0.12em] sm:text-[10px]">
+              <p
+                className={`font-mono text-[11px] leading-5 sm:text-[10px] ${latinLabel(locale, "tracking-[0.12em]")}`}
+              >
                 {c.heroStatement}
               </p>
-              <ul className="space-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-soft">
+              <ul
+                className={`space-y-2 font-mono text-[10px] text-soft ${latinLabel(locale, "tracking-[0.12em]")}`}
+              >
                 {c.heroServices.map((service) => (
                   <li key={service}>{service}</li>
                 ))}
               </ul>
             </div>
 
-            <p className="relative z-10 mt-8 max-w-[62%] font-mono text-[11px] uppercase leading-5 tracking-[0.1em] text-soft sm:mt-12 lg:hidden">
-              {c.heroStatement}
-            </p>
+            <div className="relative z-10 mt-8 max-w-[85%] sm:mt-12 lg:hidden">
+              <p
+                className={`font-mono text-[11px] text-soft sm:text-[10px] ${latinLabel(locale, "tracking-[0.12em]")}`}
+              >
+                {c.heroMeta}
+              </p>
+              <p
+                className={`mt-2 font-mono text-[11px] leading-5 text-soft sm:text-[10px] ${latinLabel(locale, "tracking-[0.1em]")}`}
+              >
+                {c.heroStatement}
+              </p>
+            </div>
           </div>
 
-          <div className="mt-8 flex items-center gap-4 border-t border-line py-3 sm:mt-10">
-            <span className="hidden shrink-0 items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-soft sm:flex">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
-              {c.availability}
-            </span>
-
-            <div
-              dir="ltr"
-              className="hero-ticker relative min-w-0 flex-1 overflow-hidden"
-            >
-              <div className="hero-ticker-track flex w-max items-center font-mono text-[10px] uppercase tracking-[0.14em] text-soft">
-                {[...c.heroTicker, ...c.heroTicker].map((item, index) => (
-                  <span
-                    key={`${item}-${index}`}
-                    className="flex items-center gap-4 pe-4"
-                  >
-                    <span>{item}</span>
-                    <span aria-hidden className="h-1 w-1 rounded-full bg-line" />
-                  </span>
-                ))}
-              </div>
+          <div className="mt-8 border-t border-line py-3 sm:mt-10">
+            <div className="mb-3 flex items-center gap-2 font-mono text-[10px] text-soft sm:hidden">
+              <span
+                aria-hidden
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
+              />
+              <span className={latinLabel(locale, "tracking-[0.14em]")}>
+                {c.availability}
+              </span>
             </div>
 
-            <CircleLink
-              href="#work"
-              label={c.heroCta}
-              icon="down"
-              className="shrink-0"
-            />
+            <div className="flex items-center gap-4">
+              <span
+                className={`hidden shrink-0 items-center gap-2 font-mono text-[10px] text-soft sm:flex ${latinLabel(locale, "tracking-[0.14em]")}`}
+              >
+                <span
+                  aria-hidden
+                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink"
+                />
+                {c.availability}
+              </span>
+
+              <div
+                aria-hidden="true"
+                dir="ltr"
+                className="hero-ticker relative min-w-0 flex-1 overflow-hidden"
+              >
+                <div className="hero-ticker-track flex w-max items-center font-mono text-[10px] uppercase tracking-[0.14em] text-soft">
+                  {[...c.heroTicker, ...c.heroTicker].map((item, index) => (
+                    <span
+                      key={`${item}-${index}`}
+                      className="flex items-center gap-4 pe-4"
+                    >
+                      <span>{item}</span>
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-line" />
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <CircleLink
+                href="#work"
+                label={c.heroCta}
+                icon="down"
+                className="shrink-0"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -114,7 +151,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
               <div className="flex items-start gap-5">
                 <h2
-                  className={`display-wide font-display text-display font-semibold uppercase leading-none ${displayTracking(locale)}`}
+                  className={`display-wide font-display text-display font-semibold leading-none ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
                 >
                   {c.aboutLabel}
                 </h2>
@@ -161,7 +198,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <div className={`${shell} py-20 sm:py-28`}>
           <Reveal>
             <h2
-              className={`text-center font-display text-display font-semibold uppercase leading-none ${displayTracking(locale)}`}
+              className={`text-center font-display text-display font-semibold leading-none ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
             >
               {c.workLabel}
             </h2>
@@ -176,11 +213,13 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <h2
-                className={`display-wide font-display text-display font-semibold uppercase leading-tight text-balance ${displayTracking(locale)}`}
+                className={`display-wide font-display text-display font-semibold leading-tight text-balance ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
               >
                 {c.servicesTitle}
               </h2>
-              <p className="mt-5 font-mono text-[11px] uppercase leading-5 tracking-[0.1em] text-soft sm:text-[10px]">
+              <p
+                className={`mt-5 font-mono text-[11px] leading-5 text-soft sm:text-[10px] ${latinLabel(locale, "tracking-[0.1em]")}`}
+              >
                 {c.servicesLead}
               </p>
             </div>

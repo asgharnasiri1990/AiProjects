@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -20,6 +21,15 @@ export function LanguageSwitch({
   const pathname = usePathname() ?? `/${locale}`;
   const target = otherLocale(locale);
   const visible = target === "fa" ? "FA" : "EN";
+  const [hash, setHash] = useState("");
+
+  // Keep the current anchor (#work, #services, …) when switching language.
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [pathname]);
 
   const remember = () => {
     document.cookie = `${localeCookie}=${target}; path=/; max-age=31536000; samesite=lax`;
@@ -27,7 +37,7 @@ export function LanguageSwitch({
 
   return (
     <Link
-      href={switchLocalePath(pathname, target)}
+      href={`${switchLocalePath(pathname, target)}${hash}`}
       hrefLang={target}
       lang={target}
       onClick={remember}

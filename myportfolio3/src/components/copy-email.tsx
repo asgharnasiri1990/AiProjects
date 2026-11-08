@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { focusRing, labelStyle } from "@/lib/styles";
 
@@ -16,6 +16,14 @@ export function CopyEmail({
   locale: Locale;
 }) {
   const [copied, setCopied] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const timer = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timer.current) window.clearTimeout(timer.current);
+    };
+  }, []);
 
   async function copy() {
     let copiedOk = false;
@@ -35,6 +43,7 @@ export function CopyEmail({
         area.select();
         copiedOk = document.execCommand("copy");
         document.body.removeChild(area);
+        button.current?.focus();
       } catch {
         copiedOk = false;
       }
@@ -42,11 +51,13 @@ export function CopyEmail({
 
     if (!copiedOk) return;
     setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+    if (timer.current) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCopied(false), 1600);
   }
 
   return (
     <button
+      ref={button}
       type="button"
       onClick={copy}
       aria-live="polite"

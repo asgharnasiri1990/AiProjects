@@ -21,6 +21,8 @@ export interface Copy {
     services: string;
     projects: string;
   };
+  navPrimary: string;
+  navMobile: string;
 
   skipToContent: string;
   switchLanguage: string;
@@ -31,13 +33,11 @@ export interface Copy {
 
   heroLines: [string, string];
   heroMeta: string;
-  heroLocation: string;
   heroStatement: string;
   heroServices: string[];
   heroTicker: string[];
   heroCta: string;
   availability: string;
-  portraitAlt: string;
 
   aboutLabel: string;
   aboutLead: string;
@@ -51,7 +51,6 @@ export interface Copy {
   workSource: string;
   workRepos: string;
 
-  servicesLabel: string;
   servicesTitle: string;
   servicesLead: string;
   services: Service[];
@@ -84,6 +83,8 @@ export const copy: Record<Locale, Copy> = {
       services: "Services",
       projects: "Projects",
     },
+    navPrimary: "Primary navigation",
+    navMobile: "Mobile navigation",
 
     skipToContent: "Skip to content",
     switchLanguage: "Switch language to Persian",
@@ -94,7 +95,6 @@ export const copy: Record<Locale, Copy> = {
 
     heroLines: ["EXPLORE MY", "PORTFOLIO"],
     heroMeta: "FRONT-END DEVELOPER — EST. 2023",
-    heroLocation: "IRAN",
     heroStatement:
       "I AM PASSIONATE ABOUT CREATING WEBSITES THAT STAND OUT FROM THE CROWD.",
     heroServices: [
@@ -115,7 +115,6 @@ export const copy: Record<Locale, Copy> = {
     ],
     heroCta: "See the work",
     availability: "Available for work",
-    portraitAlt: "Portrait of Asghar Nasiri outdoors, looking at his phone",
 
     aboutLabel: "ABOUT",
     aboutLead:
@@ -124,7 +123,8 @@ export const copy: Record<Locale, Copy> = {
       "I enjoy turning ideas and designs into functional websites, paying attention to the little details that make a difference. I'm currently focused on improving my skills in JavaScript, TypeScript, React, and Next.js, while exploring new tools and technologies along the way.",
       "For me, development is all about learning, solving problems, and getting better with every project. I enjoy taking on new challenges, experimenting with ideas, and building things that people can actually use.",
       "I'm always open to learning, collaborating, and creating something meaningful.",
-    ],    facts: [
+    ],
+    facts: [
       { value: "03", label: "Shipped apps" },
       { value: "18", label: "Routes in the build" },
       { value: "100", label: "Accessibility score" },
@@ -137,7 +137,6 @@ export const copy: Record<Locale, Copy> = {
     workSource: "View source",
     workRepos: "All repositories",
 
-    servicesLabel: "SERVICES",
     servicesTitle: "THE SERVICES WE PROVIDE",
     servicesLead:
       "CREATING VISUALLY APPEALING AND FUNCTIONAL INTERFACES TAILORED TO REAL NEEDS, WITH A CONSISTENT EXPERIENCE ACROSS SCREENS.",
@@ -196,6 +195,8 @@ export const copy: Record<Locale, Copy> = {
       services: "خدمات",
       projects: "پروژه‌ها",
     },
+    navPrimary: "ناوبری اصلی",
+    navMobile: "ناوبری موبایل",
 
     skipToContent: "رفتن به محتوای اصلی",
     switchLanguage: "تغییر زبان به انگلیسی",
@@ -206,7 +207,6 @@ export const copy: Record<Locale, Copy> = {
 
     heroLines: ["EXPLORE MY", "PORTFOLIO"],
     heroMeta: "توسعه‌دهنده فرانت‌اند — از ۲۰۲۳",
-    heroLocation: "ایران",
     heroStatement:
       "دوست دارم سایت‌هایی بسازم که بین بقیه به چشم بیایند.",
     heroServices: [
@@ -227,7 +227,6 @@ export const copy: Record<Locale, Copy> = {
     ],
     heroCta: "دیدن کارها",
     availability: "آماده‌ی همکاری",
-    portraitAlt: "پرتره‌ی اصغر نصیری در فضای باز، در حال نگاه‌کردن به گوشی",
 
     aboutLabel: "درباره",
     aboutLead:
@@ -236,7 +235,8 @@ export const copy: Record<Locale, Copy> = {
       "از تبدیل ایده‌ها و طرح‌های گرافیکی به وب‌سایت‌های کاربردی لذت می‌برم و همیشه به جزئیات کوچکی که می‌توانند تفاوت بزرگی ایجاد کنند توجه دارم. در حال حاضر تمرکزم روی تقویت مهارت‌هایم در JavaScript، TypeScript، React و Next.js است و در کنار آن، ابزارها و تکنولوژی‌های جدید را نیز تجربه می‌کنم.",
       "از نظر من، برنامه‌نویسی یعنی یادگیری مداوم، حل مسئله و بهتر شدن با هر پروژه. از روبه‌رو شدن با چالش‌های جدید، آزمایش ایده‌ها و ساخت محصولاتی که واقعاً برای افراد کاربرد دارند لذت می‌برم.",
       "همیشه مشتاق یادگیری، همکاری با دیگران و خلق چیزهای ارزشمند هستم.",
-    ],    facts: [
+    ],
+    facts: [
       { value: "03", label: "اپلیکیشن منتشرشده" },
       { value: "18", label: "مسیر در بیلد" },
       { value: "100", label: "امتیاز دسترس‌پذیری" },
@@ -249,7 +249,6 @@ export const copy: Record<Locale, Copy> = {
     workSource: "دیدن کد",
     workRepos: "همه‌ی مخزن‌ها",
 
-    servicesLabel: "خدمات",
     servicesTitle: "چه کارهایی انجام می‌دهم",
     servicesLead:
       "رابط‌هایی می‌سازم ساده و کارآمد، بر اساس نیاز واقعی و با تجربه‌ای یکدست در همه‌ی صفحه‌ها.",
@@ -282,7 +281,7 @@ export const copy: Record<Locale, Copy> = {
     ],
 
     contactLabel: "شبکه‌های اجتماعی",
-    contactTitle: "آماده همکاری",
+    contactTitle: "آماده‌ی همکاری",
     contactLead: "همیشه برای فرصت‌های تازه و گفت‌وگو در دسترس هستم.",
     contactCta: "تماس با من",
     contactEmail: "ایمیل",

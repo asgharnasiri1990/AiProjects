@@ -1,15 +1,25 @@
-"use client";
-
+import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { copy } from "@/content/copy";
 import { defaultLocale, isLocale } from "@/lib/i18n";
-import { displayTracking, focusRing, shell } from "@/lib/styles";
+import { displayTracking, focusRing, labelStyle, shell } from "@/lib/styles";
 
-export default function LocaleNotFound() {
-  const pathname = usePathname() ?? "";
-  const segment = pathname.split("/").filter(Boolean)[0];
-  const locale = isLocale(segment) ? segment : defaultLocale;
+export async function generateMetadata(): Promise<Metadata> {
+  const current = (await headers()).get("x-locale");
+  const locale = isLocale(current) ? current : defaultLocale;
+
+  return {
+    title: locale === "fa" ? "صفحه پیدا نشد" : "Page not found",
+    robots: { index: false, follow: false },
+  };
+}
+
+export default async function LocaleNotFound() {
+  // `not-found.tsx` gets no params. The proxy puts the current locale on the
+  // request so this page can be rendered on the server, not only after hydration.
+  const current = (await headers()).get("x-locale");
+  const locale = isLocale(current) ? current : defaultLocale;
   const c = copy[locale];
 
   return (
@@ -18,7 +28,7 @@ export default function LocaleNotFound() {
         404
       </p>
       <h1
-        className={`mt-4 font-display text-display font-semibold uppercase leading-tight ${displayTracking(locale)}`}
+        className={`mt-4 font-display text-display font-semibold leading-tight ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
       >
         {c.notFoundTitle}
       </h1>
@@ -27,7 +37,7 @@ export default function LocaleNotFound() {
       </p>
       <Link
         href={`/${locale}`}
-        className={`mt-8 inline-flex h-11 items-center rounded-full bg-ink px-6 font-mono text-[10px] uppercase tracking-[0.14em] text-paper transition-colors hover:bg-soft ${focusRing}`}
+        className={`mt-8 inline-flex h-11 items-center rounded-full bg-ink px-6 font-mono text-[10px] text-paper transition-colors hover:bg-soft ${labelStyle(locale)} ${focusRing}`}
       >
         {c.notFoundCta}
       </Link>

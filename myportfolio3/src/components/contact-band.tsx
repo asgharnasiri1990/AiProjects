@@ -1,7 +1,12 @@
 import { copy } from "@/content/copy";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/lib/i18n";
-import { focusRing, labelStyle, shell } from "@/lib/styles";
+import {
+  displayTracking,
+  focusRing,
+  labelStyle,
+  shell,
+} from "@/lib/styles";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { CopyEmail } from "@/components/copy-email";
 import { Reveal } from "@/components/reveal";
@@ -27,6 +32,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${social.label} — ${c.externalLink}`}
                 className={`inline-flex h-10 items-center rounded-full border border-band-ink/25 px-4 font-mono text-[12px] transition-colors hover:border-band-ink hover:bg-band-ink hover:text-band sm:h-9 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
               >
                 {social.label}
@@ -47,7 +53,9 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <h2 className="display-fade-light display-wide mt-14 font-display text-footer font-semibold uppercase leading-[0.9] tracking-[-0.04em]">
+        <h2
+          className={`display-fade-light display-wide mt-14 font-display text-footer font-semibold leading-[0.9] ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
+        >
           {c.contactTitle}
         </h2>
 
@@ -57,14 +65,16 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </p>
           <a
             href={`mailto:${profile.email}`}
-            className={`inline-flex h-12 items-center gap-2 rounded-full bg-band-ink px-6 font-mono text-[12px] font-medium uppercase tracking-[0.14em] text-band transition-colors hover:bg-white sm:h-11 sm:text-[10px] ${focusRing}`}
+            className={`inline-flex h-12 items-center gap-2 rounded-full bg-band-ink px-6 font-mono text-[12px] font-medium text-band transition-colors hover:bg-white sm:h-11 sm:text-[10px] ${labelStyle(locale)} ${focusRing}`}
           >
             {c.contactCta}
             <ArrowUpRightIcon width={14} height={14} />
           </a>
         </div>
 
-        <div className="mt-16 flex flex-col gap-2 border-t border-band-ink/15 pt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-band-ink/40 sm:flex-row sm:items-center sm:justify-between sm:text-[9px]">
+        <div
+          className={`mt-16 flex flex-col gap-2 border-t border-band-ink/15 pt-6 font-mono text-[11px] text-band-ink/60 sm:flex-row sm:items-center sm:justify-between sm:text-[10px] ${labelStyle(locale)}`}
+        >
           <span>
             {c.footerRights} © {year}
           </span>

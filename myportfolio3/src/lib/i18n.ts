@@ -33,7 +33,3 @@ export interface Localized {
   en: string;
   fa: string;
 }
-
-export function t(value: Localized, locale: Locale): string {
-  return value[locale];
-}

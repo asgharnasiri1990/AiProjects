@@ -5,7 +5,7 @@ import Image from "next/image";
 import { copy } from "@/content/copy";
 import { work, type WorkCategory } from "@/content/work";
 import type { Locale } from "@/lib/i18n";
-import { focusRing, labelStyle } from "@/lib/styles";
+import { focusRing, labelStyle, latinTracking } from "@/lib/styles";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { CircleLink } from "@/components/circle-link";
 import { Reveal } from "@/components/reveal";
@@ -68,7 +68,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
 
         <CircleLink
           href="https://github.com/asgharnasiri1990/AiProjects"
-          label={c.workRepos}
+          label={`${c.workRepos} — ${c.externalLink}`}
           external
         />
       </div>
@@ -86,7 +86,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                   href={item.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${title} — ${c.workSource}`}
+                  aria-label={`${title} — ${c.workSource} — ${c.externalLink}`}
                   className={`absolute inset-0 z-10 rounded-2xl ${focusRing}`}
                 />
                 <div className="pointer-events-none relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-wash">
@@ -111,7 +111,9 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                     >
                       {item.categoryLabel[locale]}
                     </p>
-                    <h3 className="mt-1 font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl lg:text-3xl">
+                    <h3
+                      className={`mt-1 font-display text-xl font-medium sm:text-2xl lg:text-3xl ${latinTracking(locale, "tracking-[-0.02em]")}`}
+                    >
                       {title}
                     </h3>
                     <p className="mt-1.5 line-clamp-2 max-w-md text-sm leading-6 text-soft">
@@ -121,7 +123,7 @@ export function WorkGrid({ locale }: { locale: Locale }) {
                       {item.stack.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-line px-2 py-0.5 font-mono text-[9px] text-soft sm:text-[10px]"
+                          className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-soft"
                         >
                           {tag}
                         </span>
