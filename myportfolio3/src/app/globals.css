@@ -8,14 +8,14 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
     monospace;
 
-  /* ── Light theme · Violet + Teal palette ── */
-  --color-paper: #fafaf9;
-  --color-ink: #1e1b4b;
-  --color-soft: #6366f1;
-  --color-line: #ddd6fe;
-  --color-wash: #f5f3ff;
-  --color-band: #1e1b4b;
-  --color-band-ink: #f5f3ff;
+  /* Gold & Obsidian - warm luxury palette */
+  --color-paper: #fdf8f0;
+  --color-ink: #1c1008;
+  --color-soft: #8a7055;
+  --color-line: #e8dcc8;
+  --color-wash: #f7f0e3;
+  --color-band: #1c1008;
+  --color-band-ink: #fdf0d0;
 
   --text-hero: clamp(3.15rem, 10vw, 9.2rem);
   --text-display: clamp(2.4rem, 6vw, 5.2rem);
@@ -23,8 +23,8 @@
 }
 
 :root {
-  --display-strong: #1e1b4b;
-  --display-soft: #a5b4fc;
+  --display-strong: #1c1008;
+  --display-soft: #c9a84c;
   color-scheme: light;
 }
 
@@ -42,15 +42,15 @@
 
 /* Ink theme: the same tokens inverted, so every utility flips at once. */
 html[data-theme="ink"] {
-  --color-paper: #0f0e1a;
-  --color-ink: #ede9fe;
-  --color-soft: #818cf8;
-  --color-line: #312e81;
-  --color-wash: #1e1b4b;
-  --color-band: #0f0e1a;
-  --color-band-ink: #ede9fe;
-  --display-strong: #ede9fe;
-  --display-soft: #4f46e5;
+  --color-paper: #120d06;
+  --color-ink: #fdf0d0;
+  --color-soft: #b89060;
+  --color-line: #2e2010;
+  --color-wash: #1a1108;
+  --color-band: #0e0904;
+  --color-band-ink: #fdf0d0;
+  --display-strong: #fdf0d0;
+  --display-soft: #c9a84c;
   color-scheme: dark;
 }
 
@@ -124,9 +124,9 @@ html[data-theme="ink"] {
 .display-fade-light {
   background-image: linear-gradient(
     101deg,
-    #f5f3ff 0%,
-    #c4b5fd 40%,
-    #5eead4 100%
+    #fdf0d0 0%,
+    #c9a84c 50%,
+    #e8c97a 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -136,9 +136,9 @@ html[data-theme="ink"] {
 [dir="rtl"] .display-fade-light {
   background-image: linear-gradient(
     259deg,
-    #f5f3ff 0%,
-    #c4b5fd 40%,
-    #5eead4 100%
+    #fdf0d0 0%,
+    #c9a84c 50%,
+    #e8c97a 100%
   );
 }
 
@@ -215,9 +215,9 @@ html[data-theme="ink"] {
   left: -20%;
   width: 70%;
   height: 100%;
-  background: radial-gradient(ellipse at center, #ddd6fe 0%, transparent 70%);
-  opacity: 0.55;
-  filter: blur(60px);
+  background: radial-gradient(ellipse at center, #f0d896 0%, transparent 70%);
+  opacity: 0.45;
+  filter: blur(70px);
 }
 .hero-bg-blob::after {
   content: "";
@@ -226,18 +226,18 @@ html[data-theme="ink"] {
   right: -10%;
   width: 55%;
   height: 90%;
-  background: radial-gradient(ellipse at center, #ccfbf1 0%, transparent 70%);
-  opacity: 0.45;
-  filter: blur(60px);
+  background: radial-gradient(ellipse at center, #e8c97a 0%, transparent 70%);
+  opacity: 0.30;
+  filter: blur(70px);
 }
 
 [data-theme="ink"] .hero-bg-blob::before {
-  background: radial-gradient(ellipse at center, #4c1d95 0%, transparent 70%);
-  opacity: 0.35;
+  background: radial-gradient(ellipse at center, #c9a84c 0%, transparent 70%);
+  opacity: 0.20;
 }
 [data-theme="ink"] .hero-bg-blob::after {
-  background: radial-gradient(ellipse at center, #134e4a 0%, transparent 70%);
-  opacity: 0.30;
+  background: radial-gradient(ellipse at center, #8b6914 0%, transparent 70%);
+  opacity: 0.15;
 }
 
 /* Theme toggle icons: CSS decides, so there is no hydration mismatch. */

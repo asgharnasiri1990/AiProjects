@@ -25,7 +25,7 @@ export function CircleLink({
       aria-label={label}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className={`group inline-grid shrink-0 place-items-center rounded-full border border-[#7c3aed]/30 text-[#7c3aed] transition-colors hover:border-[#7c3aed] hover:bg-[#7c3aed] hover:text-white ${sizeClass} ${focusRing} ${className}`}
+      className={`group inline-grid shrink-0 place-items-center rounded-full border border-[#c9a84c]/40 text-[#c9a84c] transition-colors hover:border-[#c9a84c] hover:bg-[#c9a84c] hover:text-[#1c1008] ${sizeClass} ${focusRing} ${className}`}
     >
       {icon === "down" ? (
         <ArrowDownIcon width={iconSize} height={iconSize} />

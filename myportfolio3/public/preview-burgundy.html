@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Preview — Burgundy & Rose Gold</title>
+<style>
+  /* ── Palette ── */
+  :root {
+    --paper:    #fdf4f0;
+    --ink:      #2d0a16;
+    --soft:     #8b5e57;
+    --line:     #f0d5cf;
+    --wash:     #faeae6;
+    --accent:   #c97c6e;
+    --accent-d: #a85f52;
+    --band:     #2d0a16;
+    --band-ink: #fdf4f0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--paper); color: var(--ink); }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(253,244,240,.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    max-width: 1280px; margin: auto;
+    padding: 0 2rem; height: 64px;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .logo { display: flex; align-items: center; gap: .6rem; font-weight: 700; font-size: .9rem; letter-spacing: .18em; text-transform: uppercase; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid var(--accent); background: var(--wash);
+    display: grid; place-items: center; font-size: .7rem; color: var(--accent); font-weight: 700;
+  }
+  nav { margin: auto; display: flex; gap: .5rem; }
+  .nav-pill {
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: .4rem 1rem; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--soft); cursor: pointer; transition: all .2s;
+    background: transparent;
+  }
+  .nav-pill:hover { border-color: var(--accent); color: var(--accent); background: var(--wash); }
+  .header-actions { display: flex; gap: .4rem; }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--line); background: transparent;
+    display: grid; place-items: center; cursor: pointer; transition: all .2s;
+    color: var(--soft); font-size: .75rem;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--wash); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    min-height: 90vh;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-blob {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-blob::before {
+    content: ''; position: absolute;
+    top: -30%; left: -15%; width: 65%; height: 100%;
+    background: radial-gradient(ellipse, #f7c5bc 0%, transparent 70%);
+    opacity: .5; filter: blur(72px);
+  }
+  .hero-blob::after {
+    content: ''; position: absolute;
+    bottom: -25%; right: -8%; width: 50%; height: 90%;
+    background: radial-gradient(ellipse, #e8a89e 0%, transparent 70%);
+    opacity: .35; filter: blur(72px);
+  }
+  .hero-inner { max-width: 1280px; margin: auto; padding: 2rem 2rem 1.5rem; position: relative; z-index: 1; width: 100%; }
+  .hero-title {
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: -.04em; line-height: .88;
+    text-align: center; margin: 1.5rem 0 2rem;
+  }
+  .fade-l {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--ink) 70%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .fade-r {
+    background: linear-gradient(90deg, var(--ink) 30%, var(--accent) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-meta {
+    font-family: monospace; font-size: .62rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--soft);
+    display: flex; align-items: center; gap: 1rem; justify-content: space-between;
+    border-top: 1px solid var(--line); padding-top: .75rem; margin-top: 1.5rem;
+  }
+  .dot-avail {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .ticker { font-family: monospace; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); overflow: hidden; flex: 1; }
+
+  /* ── CIRCLE BUTTON ── */
+  .circle-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1px solid rgba(201,124,110,.4); color: var(--accent);
+    display: grid; place-items: center; cursor: pointer;
+    transition: all .2s; background: transparent; font-size: 1rem;
+  }
+  .circle-btn:hover { border-color: var(--accent); background: var(--accent); color: white; }
+
+  /* ── ABOUT ── */
+  section { border-bottom: 1px solid var(--line); }
+  .shell { max-width: 1280px; margin: auto; padding: 5rem 2rem; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .section-title {
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: -.04em; line-height: 1;
+  }
+  .body-text { font-size: 1.05rem; line-height: 1.8; color: var(--ink); max-width: 520px; }
+  .body-soft { font-size: .88rem; line-height: 1.8; color: var(--soft); margin-top: 1rem; max-width: 520px; }
+
+  /* ── FACTS ── */
+  .facts { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+  .fact-card {
+    border: 1px solid var(--line); background: rgba(250,234,230,.5);
+    padding: 2rem 1.5rem; display: flex; flex-direction: column-reverse; gap: .5rem;
+    transition: all .25s; cursor: default;
+  }
+  .fact-card:hover { border-color: var(--accent); background: var(--wash); }
+  .fact-num { font-size: 2.8rem; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .fact-label { font-family: monospace; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); }
+
+  /* ── WORK ── */
+  .work-filters { display: flex; gap: .5rem; margin: 2rem 0; }
+  .filter-btn {
+    border-radius: 999px; border: 1px solid var(--line);
+    padding: .6rem 1.4rem; font-family: monospace; font-size: .72rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--soft);
+    cursor: pointer; transition: all .2s; background: transparent;
+  }
+  .filter-btn.active { border-color: var(--accent); background: var(--accent); color: white; }
+  .filter-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 2rem; margin-top: 2rem; }
+  .work-card { cursor: pointer; }
+  .work-img {
+    aspect-ratio: 4/3; border-radius: 1rem;
+    border: 1px solid var(--line); background: var(--wash);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--soft); font-size: .8rem; letter-spacing: .1em;
+    text-transform: uppercase; overflow: hidden; position: relative;
+    transition: transform .4s;
+  }
+  .work-img:hover { transform: scale(1.01); }
+  .work-img-inner {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--wash) 0%, #f5cbc4 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; opacity: .4;
+  }
+  .work-tag { font-family: monospace; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-top: .8rem; }
+  .work-title { font-size: 1.3rem; font-weight: 600; margin-top: .2rem; letter-spacing: -.02em; }
+  .work-desc { font-size: .85rem; line-height: 1.6; color: var(--soft); margin-top: .3rem; }
+  .stack-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem; }
+  .stack-tag {
+    border: 1px solid #f0d5cf; background: #faeae6;
+    padding: .15rem .6rem; border-radius: 999px;
+    font-family: monospace; font-size: .6rem; color: var(--soft);
+  }
+
+  /* ── SERVICES ── */
+  .services-list { max-width: 800px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: .75rem; }
+  .service-row { display: flex; align-items: center; gap: .75rem; }
+  .service-num {
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
+    display: grid; place-items: center; font-family: monospace; font-size: .7rem;
+    color: var(--soft); flex-shrink: 0;
+  }
+  .service-num.active { border-color: var(--accent); background: var(--accent); color: white; }
+  .service-btn {
+    flex: 1; border-radius: 999px; border: 1px solid var(--line);
+    padding: .75rem 1.5rem; text-align: center; font-size: .95rem; font-weight: 500;
+    cursor: pointer; transition: all .2s; background: var(--paper);
+  }
+  .service-btn.active { border-color: var(--accent); background: var(--accent); color: white; }
+  .service-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+
+  /* ── CONTACT BAND ── */
+  .contact-band { background: var(--band); color: var(--band-ink); border: none; }
+  .contact-band .shell { padding: 5rem 2rem 3rem; }
+  .contact-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .contact-label { font-family: monospace; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; opacity: .5; }
+  .social-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .social-pill {
+    border: 1px solid rgba(253,244,240,.25); border-radius: 999px;
+    padding: .4rem 1rem; font-family: monospace; font-size: .62rem;
+    letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+    transition: all .2s; color: var(--band-ink);
+  }
+  .social-pill:hover { border-color: var(--accent); background: rgba(201,124,110,.15); color: var(--accent); }
+  .contact-title {
+    font-size: clamp(2.4rem, 6vw, 5.5rem); font-weight: 700;
+    text-transform: uppercase; letter-spacing: -.04em; line-height: .9;
+    margin: 3rem 0 2rem;
+    background: linear-gradient(101deg, #fdf4f0 0%, #c97c6e 50%, #e8a89e 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .contact-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-lead { font-family: monospace; font-size: .68rem; line-height: 1.8; opacity: .6; max-width: 360px; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--accent); color: white; border: none;
+    padding: .75rem 1.75rem; border-radius: 999px;
+    font-family: monospace; font-size: .72rem; letter-spacing: .08em;
+    text-transform: uppercase; font-weight: 600; cursor: pointer;
+    transition: all .2s;
+  }
+  .cta-btn:hover { background: #a85f52; box-shadow: 0 0 0 3px #f0d5cf; }
+  .footer-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(253,244,240,.12); padding-top: 1.5rem; margin-top: 4rem;
+    font-family: monospace; font-size: .62rem; opacity: .5;
+  }
+
+  /* ── LABEL ── */
+  .label { font-family: monospace; font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: .5rem; }
+
+  /* ── BADGE ── */
+  .badge {
+    position: absolute; bottom: .75rem; left: .75rem;
+    background: rgba(253,244,240,.88); backdrop-filter: blur(6px);
+    border-radius: 999px; padding: .2rem .7rem;
+    font-family: monospace; font-size: .62rem; color: var(--soft);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="avatar">AS</div>
+      PORTFOLIO.
+    </div>
+    <nav>
+      <button class="nav-pill">Home</button>
+      <button class="nav-pill">About</button>
+      <button class="nav-pill">Services</button>
+      <button class="nav-pill">Projects</button>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn">GH</button>
+      <button class="icon-btn">LI</button>
+      <button class="icon-btn">☀</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      <span style="display:block; text-align:center;"><span class="fade-l">DESIGN &</span></span>
+      <span style="display:block; text-align:center;"><span class="fade-r">DEVELOP</span></span>
+    </h1>
+    <div class="hero-meta">
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="dot-avail"></span>
+        Available for work
+      </span>
+      <div class="ticker">
+        React &nbsp;·&nbsp; Next.js &nbsp;·&nbsp; TypeScript &nbsp;·&nbsp; Node.js &nbsp;·&nbsp; Tailwind &nbsp;·&nbsp; Figma &nbsp;·&nbsp; Python &nbsp;·&nbsp; Docker
+      </div>
+      <div class="circle-btn">↓</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="shell">
+    <div class="about-grid">
+      <div>
+        <div class="label">01 — About</div>
+        <h2 class="section-title">ABOUT<br/>ME</h2>
+      </div>
+      <div>
+        <p class="body-text">I design and develop beautiful digital experiences — from pixel-perfect interfaces to robust backend systems.</p>
+        <p class="body-soft">With a focus on craftsmanship and attention to detail, I bring together design sensibility and engineering precision to create products that are both elegant and functional.</p>
+        <p class="body-soft" style="margin-top:.6rem;">Based in Tehran · Available worldwide · Open to remote collaboration.</p>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact-card">
+        <dt class="fact-label">Years of Experience</dt>
+        <dd class="fact-num">5+</dd>
+      </div>
+      <div class="fact-card">
+        <dt class="fact-label">Projects Delivered</dt>
+        <dd class="fact-num">40+</dd>
+      </div>
+      <div class="fact-card">
+        <dt class="fact-label">Client Satisfaction</dt>
+        <dd class="fact-num">98%</dd>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section>
+  <div class="shell">
+    <div class="label" style="text-align:center;">02 — Work</div>
+    <h2 class="section-title" style="text-align:center;font-size:clamp(2rem,5vw,4rem);">FEATURED<br/>PROJECTS</h2>
+    <div class="work-filters">
+      <button class="filter-btn active">All <span style="opacity:.6;font-size:.85em;">8</span></button>
+      <button class="filter-btn">Web <span style="opacity:.6;font-size:.85em;">5</span></button>
+      <button class="filter-btn">Tools <span style="opacity:.6;font-size:.85em;">3</span></button>
+    </div>
+    <div class="work-grid">
+      <article class="work-card">
+        <div class="work-img">
+          <div class="work-img-inner">🌐</div>
+          <span class="badge">01</span>
+        </div>
+        <p class="work-tag">Web · 2024</p>
+        <h3 class="work-title">E-Commerce Platform</h3>
+        <p class="work-desc">A full-featured online store with real-time inventory and seamless checkout.</p>
+        <div class="stack-tags">
+          <span class="stack-tag">Next.js</span>
+          <span class="stack-tag">Stripe</span>
+          <span class="stack-tag">Postgres</span>
+        </div>
+      </article>
+      <article class="work-card">
+        <div class="work-img">
+          <div class="work-img-inner">🛠</div>
+          <span class="badge">02</span>
+        </div>
+        <p class="work-tag">Tool · 2024</p>
+        <h3 class="work-title">AI Resume Builder</h3>
+        <p class="work-desc">Generates tailored resumes using Gemini API with beautiful PDF export.</p>
+        <div class="stack-tags">
+          <span class="stack-tag">React</span>
+          <span class="stack-tag">Gemini</span>
+          <span class="stack-tag">PDF.js</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section>
+  <div class="shell">
+    <div class="label" style="text-align:center;">03 — Services</div>
+    <h2 class="section-title" style="text-align:center;font-size:clamp(2rem,5vw,4rem);">WHAT I<br/>OFFER</h2>
+    <div class="services-list">
+      <div class="service-row">
+        <div class="service-num active">01</div>
+        <button class="service-btn active">Web Design & Development</button>
+        <div class="service-num active" style="font-size:1rem;">→</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">02</div>
+        <button class="service-btn">UI / UX Design</button>
+        <div class="service-num" style="font-size:1rem;">↓</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">03</div>
+        <button class="service-btn">AI Integration</button>
+        <div class="service-num" style="font-size:1rem;">↓</div>
+      </div>
+      <div class="service-row">
+        <div class="service-num">04</div>
+        <button class="service-btn">Backend & API Development</button>
+        <div class="service-num" style="font-size:1rem;">↓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BAND -->
+<section class="contact-band">
+  <div class="shell">
+    <div class="contact-top">
+      <span class="contact-label">Get in touch</span>
+      <div class="social-pills">
+        <a class="social-pill">GitHub</a>
+        <a class="social-pill">LinkedIn</a>
+        <a class="social-pill">Instagram</a>
+        <a class="social-pill">Email</a>
+      </div>
+    </div>
+    <h2 class="contact-title">LET'S WORK<br/>TOGETHER</h2>
+    <div class="contact-bottom">
+      <p class="contact-lead">Looking for a developer who cares about craft? Let's build something remarkable together.</p>
+      <button class="cta-btn">Send a message ↗</button>
+    </div>
+    <div class="footer-bar">
+      <span>All rights reserved © 2024</span>
+      <span>Designed & built with passion</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
