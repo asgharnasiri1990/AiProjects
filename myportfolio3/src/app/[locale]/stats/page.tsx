@@ -104,7 +104,7 @@ export default async function StatsPage({
                             <span>{row.label}</span>
                             <span className="tabular-nums text-soft">
                               {row.count}
-                              <span className="ms-1 text-[10px] text-faint">
+                              <span className="ms-1 text-[10px] text-soft/70">
                                 ({percent}%)
                               </span>
                             </span>

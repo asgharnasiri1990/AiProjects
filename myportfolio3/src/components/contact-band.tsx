@@ -87,7 +87,7 @@ export function ContactBand({ locale }: { locale: Locale }) {
             </div>
 
             <div className="flex flex-col gap-4 border-t border-band-ink/15 pt-6 lg:items-end lg:border-0 lg:pt-1 lg:text-end">
-              <p className="max-w-sm text-[12px] leading-6 text-band-ink/50">
+              <p className="max-w-sm text-balance text-[12px] leading-6 text-band-ink/50">
                 {c.formNote}
               </p>
               <div className="lg:mt-auto">
