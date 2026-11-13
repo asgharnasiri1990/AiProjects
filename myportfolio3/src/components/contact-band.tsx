@@ -9,6 +9,7 @@ import {
 } from "@/lib/styles";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { CopyEmail } from "@/components/copy-email";
+import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
 
 export function ContactBand({ locale }: { locale: Locale }) {
@@ -72,8 +73,43 @@ export function ContactBand({ locale }: { locale: Locale }) {
           </a>
         </div>
 
+        <div className="mt-14 border-t border-band-ink/25 pt-10 sm:mt-16 sm:pt-12">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,44rem)_minmax(0,1fr)] lg:gap-16">
+            <div>
+              <p
+                className={`font-mono text-[12px] text-band-ink/50 sm:text-[10px] ${labelStyle(locale)}`}
+              >
+                {c.formTitle}
+              </p>
+              <div className="mt-8">
+                <ContactForm locale={locale} />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 border-t border-band-ink/15 pt-6 lg:items-end lg:border-0 lg:pt-1 lg:text-end">
+              <p className="max-w-sm text-[12px] leading-6 text-band-ink/50">
+                {c.formNote}
+              </p>
+              <div className="lg:mt-auto">
+                <p
+                  className={`font-mono text-[10px] text-band-ink/40 ${labelStyle(locale)}`}
+                >
+                  {c.contactEmail}
+                </p>
+                <a
+                  href={`mailto:${profile.email}`}
+                  dir="ltr"
+                  className="mt-2 inline-block font-mono text-[13px] text-band-ink transition-colors hover:text-signal focus-visible:text-signal focus-visible:outline-none"
+                >
+                  {profile.email}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div
-          className={`mt-16 flex flex-col gap-2 border-t border-band-ink/25 pt-6 font-mono text-[11px] text-band-ink/60 sm:flex-row sm:items-center sm:justify-between sm:text-[10px] ${labelStyle(locale)}`}
+          className={`mt-14 flex flex-col gap-2 border-t border-band-ink/25 pt-6 font-mono text-[11px] text-band-ink/60 sm:flex-row sm:items-center sm:justify-between sm:text-[10px] ${labelStyle(locale)}`}
         >
           <span>
             {c.footerRights} © {year}

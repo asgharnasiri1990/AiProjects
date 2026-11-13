@@ -62,6 +62,15 @@ export interface Copy {
   contactEmail: string;
   copyEmail: string;
   copied: string;
+  formTitle: string;
+  formName: string;
+  formEmail: string;
+  formMessage: string;
+  formSubmit: string;
+  formNote: string;
+  formError: string;
+  formEmailError: string;
+  formSubject: string;
 
   footerRights: string;
   footerCredit: string;
@@ -175,6 +184,16 @@ export const copy: Record<Locale, Copy> = {
     contactEmail: "EMAIL",
     copyEmail: "COPY EMAIL",
     copied: "COPIED",
+    formTitle: "OR WRITE HERE",
+    formName: "NAME",
+    formEmail: "EMAIL",
+    formMessage: "MESSAGE",
+    formSubmit: "SEND MESSAGE",
+    formNote:
+      "This opens your mail app with the message ready. Nothing is stored on a server.",
+    formError: "Please fill in your name, email and message.",
+    formEmailError: "That email address does not look right.",
+    formSubject: "Message from the website",
 
     footerRights: "PORTFOLIO. ALL RIGHTS RESERVED",
     footerCredit: "DESIGNED & BUILT BY ASGHAR NASIRI",
@@ -287,6 +306,16 @@ export const copy: Record<Locale, Copy> = {
     contactEmail: "ایمیل",
     copyEmail: "کپی ایمیل",
     copied: "کپی شد",
+    formTitle: "یا همین‌جا بنویسید",
+    formName: "نام",
+    formEmail: "ایمیل",
+    formMessage: "پیام",
+    formSubmit: "ارسال پیام",
+    formNote:
+      "پیام در برنامه‌ی ایمیل‌تان آماده می‌شود و چیزی روی سرور ذخیره نمی‌شود.",
+    formError: "لطفاً نام، ایمیل و پیام را کامل کنید.",
+    formEmailError: "این نشانی ایمیل درست به نظر نمی‌رسد.",
+    formSubject: "پیام از وب‌سایت",
 
     footerRights: "پورتفولیو. تمام حقوق محفوظ است",
     footerCredit: "طراحی و ساخت: اصغر نصیری",

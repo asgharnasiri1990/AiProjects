@@ -5,8 +5,8 @@
     system-ui, sans-serif;
   --font-sans: "Archivo Variable", "Vazirmatn Variable", ui-sans-serif,
     system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
-    monospace;
+  --font-mono: "JetBrains Mono Variable", "Vazirmatn Variable", ui-monospace,
+    SFMono-Regular, Menlo, monospace;
 
   /* Warm paper stock: every neutral is tinted toward the same ochre, so the
      page reads as printed paper instead of a blank screen. */

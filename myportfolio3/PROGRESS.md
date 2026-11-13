@@ -38,6 +38,9 @@ git switch -c before-updates v3-stable-2026-11-07
 - Projects: This site (01), DigitalShop (02), Flight lookup (03), Phone price
   comparator (04). Real screenshots, links to GitHub.
 - Socials: GitHub, LinkedIn, Instagram (`asghar.nasiri`).
+- Contact form at the end of the closing band (`components/contact-form.tsx`):
+  name, email and message are validated in the browser, then handed to the
+  visitor's mail app as a `mailto:` link. Nothing is posted or stored.
 - Fonts are self-hosted from npm (`@fontsource-variable/*`); Google Fonts is
   never requested. `npm run dev` works offline.
 - `tsc`, `lint` and `build` are clean.

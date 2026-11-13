@@ -92,6 +92,10 @@ module-not-found error. The fonts are bundled; the site builds offline.
   MOBILE APP DESIGN. The accordion opens one row at a time.
 - **Facts** are verifiable: 03 apps, 18 routes in the shop build, 100
   accessibility score. Never invent metrics.
+- **The contact form** (`components/contact-form.tsx`) closes the black band and
+  is mailto-only: it validates locally and then opens the visitor's mail app.
+  Do not add a backend, storage or a third-party form service without asking —
+  the site has no database and the privacy promise in `AGENTS.md` has to hold.
 
 ### Gotchas
 
