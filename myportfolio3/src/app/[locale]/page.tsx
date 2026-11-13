@@ -35,7 +35,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   if (!isLocale(locale)) notFound();
 
   const c = copy[locale];
-  const mono = `font-mono text-[11px] text-soft sm:text-[10px] ${labelStyle(locale)}`;
+  const mono = `font-mono text-[11px] sm:text-[10px] ${labelStyle(locale)}`;
 
   return (
     <>
@@ -52,6 +52,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <div className="@container z-10 lg:px-56">
               <h1
                 data-rise
+                dir="ltr"
+                lang={locale === "fa" ? "en" : undefined}
                 aria-label={`${c.heroLines[0]} ${c.heroLines[1]}`}
                 className={`hero-on-signal relative font-display text-hero font-semibold uppercase leading-[0.84] tracking-[-0.04em] lg:text-[clamp(3.15rem,15.4cqw,9.2rem)]`}
               >
@@ -104,7 +106,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           <div className="-mx-5 mt-8 bg-signal-ink px-5 py-3 text-signal sm:-mx-8 sm:mt-10 sm:px-8 lg:-mx-12 lg:px-12">
             <div className="mb-3 flex items-center gap-2 font-mono text-[10px] sm:hidden">
               <span aria-hidden className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+                <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-signal opacity-60" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
               </span>
               <span className={latinLabel(locale, "tracking-[0.14em]")}>
@@ -117,7 +119,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 className={`hidden shrink-0 items-center gap-2 font-mono text-[10px] sm:flex ${latinLabel(locale, "tracking-[0.14em]")}`}
               >
                 <span aria-hidden className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+                  <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-signal opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
                 </span>
                 {c.availability}
@@ -189,7 +191,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   key={fact.label}
                   className="flex flex-col-reverse border border-line bg-paper px-6 py-8 transition-colors hover:border-signal hover:bg-signal/15"
                 >
-                  <dt className={`mt-2 ${mono}`}>{fact.label}</dt>
+                  <dt className={`mt-2 text-soft ${mono}`}>{fact.label}</dt>
                   <dd
                     className={`font-display text-4xl font-semibold leading-none sm:text-5xl ${displayTracking(locale)}`}
                   >

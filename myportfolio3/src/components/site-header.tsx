@@ -46,7 +46,7 @@ export function SiteHeader({
         <Link
           href={`/${locale}`}
           onClick={close}
-          className={`flex items-center gap-2.5 rounded font-display text-[15px] font-semibold uppercase tracking-[0.2em] sm:text-sm ${focusRing}`}
+          className={`flex shrink-0 items-center gap-2.5 rounded font-display text-[15px] font-semibold uppercase tracking-[0.2em] sm:text-sm ${focusRing}`}
         >
           <Image
             src={profile.photo}
@@ -55,7 +55,7 @@ export function SiteHeader({
             height={36}
             className="h-10 w-10 rounded-full border border-line object-cover grayscale transition-colors hover:border-signal sm:h-9 sm:w-9"
           />
-          <span dir="ltr" className="max-[359px]:hidden">
+          <span dir="ltr" lang="en" className="max-[359px]:hidden">
             PORTFOLIO.
           </span>
         </Link>
@@ -68,7 +68,7 @@ export function SiteHeader({
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-full border border-line px-4 py-2 font-mono text-[11px] sm:text-[10px] text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal ${labelStyle(locale)} ${focusRing}`}
+              className={`whitespace-nowrap rounded-full border border-line px-4 py-2 font-mono text-[11px] sm:text-[10px] text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal ${labelStyle(locale)} ${focusRing}`}
             >
               {link.label}
             </Link>
@@ -82,7 +82,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${social.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal lg:grid ${focusRing}`}
             >
               <GitHubIcon width={16} height={16} />
             </a>
@@ -93,7 +93,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${linkedin.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal lg:grid ${focusRing}`}
             >
               <LinkedInIcon width={15} height={15} />
             </a>
@@ -104,7 +104,7 @@ export function SiteHeader({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${instagram.label} — ${c.externalLink}`}
-              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal sm:grid ${focusRing}`}
+              className={`hidden h-9 w-9 place-items-center rounded-full border border-line text-soft transition-colors hover:border-signal hover:text-signal-ink hover:bg-signal lg:grid ${focusRing}`}
             >
               <InstagramIcon width={16} height={16} />
             </a>

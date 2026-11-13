@@ -13,7 +13,6 @@
   --color-paper: #fbfaf6;
   --color-ink: #17150f;
   --color-soft: #6b675e;
-  --color-faint: #b9b2a2;
   --color-line: #ded7c7;
   --color-wash: #ede7d8;
   --color-band: #14120c;
@@ -41,7 +40,6 @@ html[data-theme="ink"] {
   --color-paper: #121110;
   --color-ink: #f2efe6;
   --color-soft: #a6a193;
-  --color-faint: #625d53;
   --color-line: #2e2b24;
   --color-wash: #201c15;
   --color-band: #211e17;
@@ -116,27 +114,6 @@ html[data-theme="ink"] {
 /* Archivo's width axis matches the reference's wide grotesque. */
 .display-wide {
   font-stretch: 112%;
-}
-
-.display-fade-light {
-  background-image: linear-gradient(
-    101deg,
-    #f6f3ea 0%,
-    #efeade 40%,
-    #6e685c 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-[dir="rtl"] .display-fade-light {
-  background-image: linear-gradient(
-    259deg,
-    #f6f3ea 0%,
-    #efeade 40%,
-    #6e685c 100%
-  );
 }
 
 /* The two hero lines fade toward opposite ends, like the reference. */

@@ -10,8 +10,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Portfolio v3
 
-A reference-driven, monochrome portfolio: white paper, black ink, hairline
-rules, pill controls, a giant fade-to-grey headline and a black closing band.
+A reference-driven portfolio: warm paper, near-black ink, hairline rules, pill
+controls, a giant fade headline and a black closing band — with one lime signal
+(`#c6f24e`) used as a surface, never as text. The hero is a full lime block in
+both themes, so the page opens and closes on colour.
 **English is the default locale**; Persian is a full RTL translation of the same
 copy. This is the live portfolio; `archive/myportfolio2/` is kept for reference.
 
@@ -75,10 +77,12 @@ module-not-found error. The fonts are bundled; the site builds offline.
   first time they enter the viewport. The server HTML contains the final value
   (no-JS and reduced-motion users see it); the component only mutates its own
   text node after hydration. Do not move the per-frame update into React state.
-- **Header order:** avatar + `PORTFOLIO.`, then (from `sm`) the social icons,
-  theme toggle and language switch. On mobile the social icons move into the open
-  menu and the language switch stays beside the theme toggle; below 360px the
-  wordmark is hidden so the bar stays on one line.
+- **Header order:** avatar + `PORTFOLIO.` (never shrinks, never wraps), then the
+  social icons from `lg` — below that the bar is too tight and the socials live
+  in the contact band (and in the open menu on phones), plus the theme toggle.
+  The nav pills appear from `md` and must stay `whitespace-nowrap`; the language
+  switch stays beside the theme toggle; below 360px the wordmark is hidden so
+  the bar stays on one line.
 - **Mobile:** root font is 17px under 640px, work cards are one column, and
   labels/body copy are bumped up; desktop keeps two columns and the smaller labels.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.

@@ -1,8 +1,8 @@
 # Portfolio v3
 
-A monochrome, single-page portfolio built to match a supplied reference: giant
-fade-to-grey type, an avatar in the header, pill navigation, a numbered services
-accordion and a full-bleed black "OPEN TO WORK" band.
+A single-page portfolio built to match a supplied reference: a warm paper ramp,
+giant fade type, a lime hero, an avatar in the header, pill navigation, a
+numbered services accordion and a full-bleed black "OPEN TO WORK" band.
 
 English is the default; Persian is a full RTL translation. The theme is read from
 a cookie on the server, so routes render dynamically — there is no data fetching.
