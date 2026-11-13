@@ -41,6 +41,10 @@ git switch -c before-updates v3-stable-2026-11-07
 - Contact form at the end of the closing band (`components/contact-form.tsx`):
   name, email and message are validated in the browser, then handed to the
   visitor's mail app as a `mailto:` link. Nothing is posted or stored.
+- Private `/en/stats` (and `/fa/stats`): bilingual, behind a one-time
+  `/stats/unlock?token=...` link that plants an http-only cookie, with
+  today / 7 days / 30 days / all-time ranges. Counts live in Vercel KV (or a
+  local JSON file); only aggregate device/OS/browser buckets are stored.
 - Fonts are self-hosted from npm (`@fontsource-variable/*`); Google Fonts is
   never requested. `npm run dev` works offline.
 - `tsc`, `lint` and `build` are clean.

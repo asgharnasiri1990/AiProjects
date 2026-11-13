@@ -69,8 +69,10 @@ npm start
   countries and page views.
 - **Device counter + `/stats`:** create an **Upstash Redis** store in Vercel
   (Storage → Upstash), connect it to the project, then set `STATS_TOKEN`.
-  Open `/en/stats?token=...` (or `/fa/stats`). Locally, set `STATS_TOKEN` in
-  `.env.local`; counts are written to `.data/stats.json`.
+  Open `/en/stats/unlock?token=...` once — it sets an http-only cookie and
+  redirects to `/en/stats`, which then offers today / 7 / 30 days / all time.
+  Locally, set `STATS_TOKEN` in `.env.local`; counts are written to
+  `.data/stats.json`.
 - **Umami / Plausible** are optional. Set the matching env vars from
   `.env.example` and enable **only one**; both would double-count.
 - Only aggregate device/OS/browser counts are stored — no IP addresses, raw user

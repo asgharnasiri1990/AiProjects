@@ -78,6 +78,26 @@ export interface Copy {
   notFoundTitle: string;
   notFoundBody: string;
   notFoundCta: string;
+
+  stats: StatsCopy;
+}
+
+export interface StatsCopy {
+  label: string;
+  back: string;
+  title: string;
+  lead: string;
+  total: string;
+  storage: string;
+  storageKv: string;
+  storageFile: string;
+  storageNone: string;
+  rangeLabel: string;
+  ranges: Record<"today" | "week" | "month" | "all", string>;
+  groups: Record<"device" | "os" | "browser", string>;
+  labels: Record<string, string>;
+  notConfiguredTitle: string;
+  notConfiguredBody: string;
 }
 
 export const copy: Record<Locale, Copy> = {
@@ -201,6 +221,49 @@ export const copy: Record<Locale, Copy> = {
     notFoundTitle: "This page could not be found",
     notFoundBody: "The address may have changed, or the page may have been removed.",
     notFoundCta: "Back to home",
+
+    stats: {
+      label: "Private",
+      back: "Back to portfolio",
+      title: "Visitor stats",
+      lead: "Aggregate counts only. No IP addresses, raw user agents or cookies are stored.",
+      total: "total visits",
+      storage: "Storage",
+      storageKv: "Vercel KV",
+      storageFile: "local file",
+      storageNone: "not configured",
+      rangeLabel: "Period",
+      ranges: {
+        today: "Today",
+        week: "7 days",
+        month: "30 days",
+        all: "All time",
+      },
+      groups: {
+        device: "Devices",
+        os: "Operating systems",
+        browser: "Browsers",
+      },
+      labels: {
+        mobile: "Mobile",
+        tablet: "Tablet",
+        desktop: "Desktop",
+        other: "Other",
+        ios: "iOS",
+        android: "Android",
+        windows: "Windows",
+        macos: "macOS",
+        linux: "Linux",
+        chrome: "Chrome",
+        safari: "Safari",
+        firefox: "Firefox",
+        edge: "Edge",
+        samsung: "Samsung Internet",
+      },
+      notConfiguredTitle: "Storage is not configured.",
+      notConfiguredBody:
+        "Connect an Upstash Redis store to this Vercel project and set STATS_TOKEN. Locally the counts are written to .data/stats.json.",
+    },
   },
 
   fa: {
@@ -323,5 +386,48 @@ export const copy: Record<Locale, Copy> = {
     notFoundTitle: "این صفحه پیدا نشد",
     notFoundBody: "شاید نشانی عوض شده یا این صفحه دیگر وجود ندارد.",
     notFoundCta: "بازگشت به خانه",
+
+    stats: {
+      label: "خصوصی",
+      back: "بازگشت به نمونه‌کار",
+      title: "آمار بازدید",
+      lead: "فقط شمارش تجمیعی. هیچ نشانی IP، User-Agent خام یا کوکی ذخیره نمی‌شود.",
+      total: "بازدید",
+      storage: "ذخیره‌سازی",
+      storageKv: "Vercel KV",
+      storageFile: "فایل محلی",
+      storageNone: "تنظیم نشده",
+      rangeLabel: "بازه",
+      ranges: {
+        today: "امروز",
+        week: "۷ روز",
+        month: "۳۰ روز",
+        all: "کل",
+      },
+      groups: {
+        device: "دستگاه‌ها",
+        os: "سیستم‌عامل‌ها",
+        browser: "مرورگرها",
+      },
+      labels: {
+        mobile: "موبایل",
+        tablet: "تبلت",
+        desktop: "دسکتاپ",
+        other: "سایر",
+        ios: "iOS",
+        android: "اندروید",
+        windows: "ویندوز",
+        macos: "macOS",
+        linux: "لینوکس",
+        chrome: "کروم",
+        safari: "سافاری",
+        firefox: "فایرفاکس",
+        edge: "اج",
+        samsung: "سامسونگ اینترنت",
+      },
+      notConfiguredTitle: "ذخیره‌سازی تنظیم نشده است.",
+      notConfiguredBody:
+        "یک دیتابیس Upstash Redis به پروژه‌ی Vercel وصل کن و STATS_TOKEN را تنظیم کن. در حالت محلی شمارش‌ها در .data/stats.json نوشته می‌شوند.",
+    },
   },
 };

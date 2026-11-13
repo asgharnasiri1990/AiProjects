@@ -129,12 +129,18 @@ known-good tag; before a risky update, restore/fork with
   `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`). Do not enable both at once.
 - **Custom device counter:** `components/visit-tracker.tsx` posts once per page
   load to `/api/visit`; `lib/stats.ts` classifies the user-agent and increments
-  aggregate counts only. It uses Vercel KV / Upstash REST when
-  `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the `UPSTASH_*` pair) exist, and a
-  gitignored `.data/stats.json` locally. On Vercel without KV it stores nothing.
-- **View:** `/en/stats?token=...` (and `/fa/stats`), protected by `STATS_TOKEN`;
-  missing/wrong token → 404 and the page is `noindex`. Never store IPs, raw
-  user agents or cookies in the stats store.
+  aggregate counts only — a lifetime counter plus a per-UTC-day bucket
+  (`stats:day:YYYY-MM-DD`) so the page can show today / 7 / 30 days. It uses
+  Vercel KV / Upstash REST when `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the
+  `UPSTASH_*` pair) exist, and a gitignored `.data/stats.json` locally. On
+  Vercel without KV it stores nothing.
+- **View:** open `/en/stats/unlock?token=...` **once**. That route handler plants
+  an http-only `stats_auth` cookie (30 days) and redirects to the clean
+  `/en/stats` (or `/fa/stats`). The page itself never reads the token from the
+  query string, so the secret never reaches the browser address bar or Vercel
+  Analytics. No/wrong cookie → 404, and the page is `noindex`. Changing
+  `STATS_TOKEN` revokes every existing cookie. Never store IPs, raw user agents
+  or cookies in the stats store.
 
 ### Verify
 
