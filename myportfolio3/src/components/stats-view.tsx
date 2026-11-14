@@ -217,6 +217,32 @@ export async function StatsView({
             ) : null}
           </div>
 
+          {stats.cities.length > 0 ? (
+            <section className="mt-10">
+              <h2
+                className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
+              >
+                {s.cityGroup}
+              </h2>
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                {stats.cities.map((item) => (
+                  <li
+                    key={`${item.country}|${item.city}`}
+                    className="flex items-baseline gap-2 text-sm"
+                  >
+                    <span>{item.city}</span>
+                    <span className="text-[11px] text-soft">
+                      {countryName(item.country)}
+                    </span>
+                    <span className="tabular-nums text-[11px] text-soft">
+                      {number.format(item.count)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           <section className="mt-14">
             <h2
               className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
@@ -228,7 +254,7 @@ export async function StatsView({
               <p className="mt-4 text-sm text-soft">{s.visitsEmpty}</p>
             ) : (
               <div className="mt-4 overflow-x-auto">
-                <table className="w-full min-w-[44rem] border-collapse text-start text-[12px]">
+                <table className="w-full min-w-[50rem] border-collapse text-start text-[12px]">
                   <thead>
                     <tr
                       className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
@@ -241,6 +267,9 @@ export async function StatsView({
                       </th>
                       <th className="border-b border-line py-2 text-start font-normal">
                         {s.colCountry}
+                      </th>
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colCity}
                       </th>
                       <th className="border-b border-line py-2 text-start font-normal">
                         {s.colSystem}
@@ -264,6 +293,9 @@ export async function StatsView({
                         </td>
                         <td className="whitespace-nowrap py-2 pe-4 text-soft">
                           {visit.country ? countryName(visit.country) : "—"}
+                        </td>
+                        <td className="whitespace-nowrap py-2 pe-4 text-soft">
+                          {visit.city || "—"}
                         </td>
                         <td className="whitespace-nowrap py-2 pe-4 text-soft">
                           {s.labels[visit.os] ?? visit.os}

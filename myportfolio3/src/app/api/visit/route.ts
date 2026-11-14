@@ -13,6 +13,16 @@ function text(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : undefined;
 }
 
+/** Vercel sends the city URL-encoded ("Frankfurt%20am%20Main"). */
+function decodeCity(value: string | null) {
+  if (!value) return "";
+  try {
+    return decodeURIComponent(value).replace(/\s+/g, " ").trim().slice(0, 40);
+  } catch {
+    return value.replace(/\s+/g, " ").trim().slice(0, 40);
+  }
+}
+
 /** Only the handful of device hints we actually read ever leave the browser. */
 function sanitize(raw: unknown): ClientHints {
   if (!raw || typeof raw !== "object") return {};
@@ -61,13 +71,14 @@ export async function POST(request: Request) {
   }
 
   const classification = classifyUserAgent(ua, hints);
-  // Vercel resolves the country at the edge; we keep the two-letter code and
-  // never the address it came from.
+  // Vercel resolves country and city at the edge; we keep the labels and never
+  // the address they came from.
   const country = request.headers.get("x-vercel-ip-country") ?? "";
+  const city = decodeCity(request.headers.get("x-vercel-ip-city"));
 
   if (classification) {
     try {
-      await recordVisit(classification, country);
+      await recordVisit(classification, country, city);
     } catch {
       // Analytics must never break a page view.
     }

@@ -50,6 +50,8 @@ export interface VisitRecord {
   browserVersion: string;
   /** ISO-3166 alpha-2, resolved from the edge header — the IP itself is never stored. */
   country: string;
+  /** City name from the same edge header, when Vercel provides one. */
+  city: string;
 }
 
 export interface StatsSnapshot {
@@ -60,6 +62,7 @@ export interface StatsSnapshot {
     rows: { id: string; count: number }[];
   }[];
   countries: { code: string; count: number }[];
+  cities: { city: string; country: string; count: number }[];
   visits: VisitRecord[];
 }
 
@@ -264,6 +267,7 @@ function toRecord(
   visit: Classification,
   at: Date,
   country: string,
+  city: string,
 ): VisitRecord {
   return {
     at: at.toISOString(),
@@ -274,15 +278,18 @@ function toRecord(
     browser: visit.browser,
     browserVersion: visit.browserVersion,
     country,
+    city,
   };
 }
 
-/** Country lives in its own hash because the list of codes is open-ended. */
+/** Country and city live in their own hashes because the values are open-ended. */
 const KV_COUNTRIES = "stats:countries";
+const KV_CITIES = "stats:cities";
 
 export async function recordVisit(
   visit: Classification,
   country = "",
+  city = "",
   at = new Date(),
 ) {
   const mode = storageMode();
@@ -290,7 +297,9 @@ export async function recordVisit(
 
   const keys = fields(visit);
   const code = country.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2);
-  const record = toRecord(visit, at, code);
+  const place = city.trim().slice(0, 40);
+  const cityField = place ? `city:${code}|${place}` : "";
+  const record = toRecord(visit, at, code, place);
 
   if (mode === "kv") {
     // One batched round trip: lifetime counters, today's bucket and the log.
@@ -305,12 +314,18 @@ export async function recordVisit(
       commands.push(["HINCRBY", KV_COUNTRIES, code, 1]);
       commands.push(["HINCRBY", day, `country:${code}`, 1]);
     }
+    if (place) {
+      commands.push(["HINCRBY", KV_CITIES, `${code}|${place}`, 1]);
+      commands.push(["HINCRBY", day, cityField, 1]);
+    }
     await kvPipeline(commands);
     return;
   }
 
   const counts = await readJson<Record<string, number>>(FILE, {});
-  const all = code ? [...keys, `country:${code}`] : keys;
+  const all = [...keys];
+  if (code) all.push(`country:${code}`);
+  if (cityField) all.push(cityField);
   for (const key of all) {
     counts[key] = (counts[key] ?? 0) + 1;
     const bucket = `${dayKey(at)}:${key}`;
@@ -352,20 +367,28 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
       const results = await kvPipeline([
         ...keys.map((key) => ["GET", `stats:${key}`]),
         ["HGETALL", KV_COUNTRIES],
+        ["HGETALL", KV_CITIES],
         ["LRANGE", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
       ]);
       keys.forEach((key, index) => {
         const value = Number(results[index]?.result ?? 0);
         counts[key] = Number.isFinite(value) ? value : 0;
       });
-      const flat = (results[keys.length]?.result ?? []) as string[];
-      for (let index = 0; index < flat.length; index += 2) {
-        const value = Number(flat[index + 1]);
-        if (flat[index] && Number.isFinite(value)) {
-          counts[`country:${flat[index]}`] = value;
+      const countryPairs = (results[keys.length]?.result ?? []) as string[];
+      for (let index = 0; index < countryPairs.length; index += 2) {
+        const value = Number(countryPairs[index + 1]);
+        if (countryPairs[index] && Number.isFinite(value)) {
+          counts[`country:${countryPairs[index]}`] = value;
         }
       }
-      visits = parseVisits(results[keys.length + 1]?.result);
+      const cityPairs = (results[keys.length + 1]?.result ?? []) as string[];
+      for (let index = 0; index < cityPairs.length; index += 2) {
+        const value = Number(cityPairs[index + 1]);
+        if (cityPairs[index] && Number.isFinite(value)) {
+          counts[`city:${cityPairs[index]}`] = value;
+        }
+      }
+      visits = parseVisits(results[keys.length + 2]?.result);
     } else {
       const days = await Promise.all(
         dayList(RANGE_DAYS[range]).map((day) => readKvDay(day)),
@@ -404,6 +427,16 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
     .sort((a, b) => b.count - a.count)
     .slice(0, 6);
 
+  const cities = Object.entries(counts)
+    .filter(([key, value]) => key.startsWith("city:") && value > 0)
+    .map(([key, count]) => {
+      const [country, city] = key.slice("city:".length).split("|");
+      return { city: city ?? "", country: country ?? "", count };
+    })
+    .filter((item) => item.city)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+
   return {
     storage: mode,
     total: counts.total ?? 0,
@@ -415,6 +448,7 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
       })),
     })),
     countries,
+    cities,
     visits,
   };
 }
