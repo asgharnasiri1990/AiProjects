@@ -46,8 +46,10 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   (gallery, video, description, specs, contact CTA); 5 seeded listings.
 - Home: the header stays **on top** and the hero sits directly under it with a
   zero gap (SiteShell); other pages keep the same header with no hero.
-- Catalog starts at 6 categories; **mobile now has 10 products**, all with
-  local photos (added iPhone 15, Galaxy S24 Ultra, Xiaomi 14, OnePlus 12).
+- Mobile has **32 products: Apple 10 / Samsung 10 / Xiaomi 10** (+ Google 1,
+  OnePlus 1), all with local photos. Colour variants (pink iPhone 16/15,
+  burgundy iPhone 18 Pro, pink Galaxy A56/Z Flip8, green Xiaomi 14 …) come
+  from Zoomit; GSMArena has no per-colour images and is only a fallback.
 - The other categories still have fewer than 10 products (watch 4, audio 5,
   charger 3, power bank 3, case/glass 3); expanding them to 10 each is the
   next step, phones first as requested.

@@ -1,0 +1,171 @@
+[
+  {
+    "slug": "iphone-16-pro-max",
+    "status": "no-color",
+    "count": 123
+  },
+  {
+    "slug": "iphone-16",
+    "status": "ok",
+    "file": "iphone-16.webp",
+    "source": "apple-iphone-16-pink-66dff643e404d665a09e05e2?w=1920"
+  },
+  {
+    "slug": "iphone-15",
+    "status": "ok",
+    "file": "iphone-15.webp",
+    "source": "2023-9-apple-iphone-15-pink-652d21118716201626d1764b?w=1920"
+  },
+  {
+    "slug": "iphone-17",
+    "status": "no-color",
+    "count": 137
+  },
+  {
+    "slug": "iphone-17-pro",
+    "status": "ok",
+    "file": "iphone-17-pro.webp",
+    "source": "apple-iphone-17-pro-blue-back-68c075e42e4b43cec3e904d0?w=128"
+  },
+  {
+    "slug": "iphone-17-pro-max",
+    "status": "ok",
+    "file": "iphone-17-pro-max.webp",
+    "source": "apple-iphone-17-pro-max-deep-blue-back-68c0775c2e4b43cec3e904f7?w=1920"
+  },
+  {
+    "slug": "iphone-17-air",
+    "status": "no-color",
+    "count": 76
+  },
+  {
+    "slug": "iphone-16e",
+    "status": "ok",
+    "file": "iphone-16e.webp",
+    "source": "apple-iphone-16e-white-67b604b7ea5197dd36a30b7c?w=1920"
+  },
+  {
+    "slug": "iphone-18-pro",
+    "status": "ok",
+    "file": "iphone-18-pro.webp",
+    "source": "apple-iphone-18-pro-burgundy-6aa1c000420fe43083954f64?w=1920"
+  },
+  {
+    "slug": "iphone-18-pro-max",
+    "status": "ok",
+    "file": "iphone-18-pro-max.webp",
+    "source": "apple-iphone-18-pro-max-burgundy-6aa1c0fa420fe43083954f70?w=1920"
+  },
+  {
+    "slug": "galaxy-s25-ultra",
+    "status": "ok",
+    "file": "galaxy-s25-ultra.webp",
+    "source": "samsung-galaxy-s25-ultra-black-6791f141902ce99e63fe388e?w=1920"
+  },
+  {
+    "slug": "galaxy-s24-ultra",
+    "status": "ok",
+    "file": "galaxy-s24-ultra.webp",
+    "source": "samsung-galaxy-s24-ultra-back-panel-right-edge-buttons-blue-66446e704b10d5a6894b5c0c?w=1920"
+  },
+  {
+    "slug": "galaxy-a56",
+    "status": "ok",
+    "file": "galaxy-a56.webp",
+    "source": "samsung-galaxy-a56-pink-67c43dd407196c81a71d4982?w=1920"
+  },
+  {
+    "slug": "galaxy-s26-fe",
+    "status": "no-color",
+    "count": 42
+  },
+  {
+    "slug": "galaxy-z-fold8",
+    "status": "ok",
+    "file": "galaxy-z-fold8.webp",
+    "source": "samsung-galaxy-z-fold8-lavender-6a60d0c5d755c293cec031ee?w=1920"
+  },
+  {
+    "slug": "galaxy-z-flip8",
+    "status": "ok",
+    "file": "galaxy-z-flip8.webp",
+    "source": "samsung-galaxy-z-flip8-pink-6a60d192d755c293cec031f2?w=1920"
+  },
+  {
+    "slug": "galaxy-f70",
+    "status": "no-color",
+    "count": 15
+  },
+  {
+    "slug": "galaxy-a18",
+    "status": "no-color",
+    "count": 0
+  },
+  {
+    "slug": "galaxy-m08",
+    "status": "no-color",
+    "count": 26
+  },
+  {
+    "slug": "galaxy-f08",
+    "status": "no-color",
+    "count": 47
+  },
+  {
+    "slug": "xiaomi-14t",
+    "status": "ok",
+    "file": "xiaomi-14t.webp",
+    "source": "xiaomi-14t-blue-66f5865f4469dc406340f649?w=128"
+  },
+  {
+    "slug": "xiaomi-14",
+    "status": "ok",
+    "file": "xiaomi-14.webp",
+    "source": "xiaomi-14-green-65dd8d4a412e5bb22d866261?w=1920"
+  },
+  {
+    "slug": "xiaomi-18-pro-max",
+    "status": "ok",
+    "file": "xiaomi-18-pro-max.webp",
+    "source": "xiaomi-18-pro-max-pink-6ab4cc7faa5f75743619139f?w=128"
+  },
+  {
+    "slug": "xiaomi-18-pro",
+    "status": "ok",
+    "file": "xiaomi-18-pro.webp",
+    "source": "xiaomi-18-pro-pink-6ab4cbb6aa5f757436191398?w=128"
+  },
+  {
+    "slug": "xiaomi-redmi-k100",
+    "status": "no-color",
+    "count": 48
+  },
+  {
+    "slug": "xiaomi-redmi-m100-pro",
+    "status": "no-color",
+    "count": 47
+  },
+  {
+    "slug": "xiaomi-poco-x8",
+    "status": "ok",
+    "file": "xiaomi-poco-x8.webp",
+    "source": "xiaomi-poco-x8-white-6a97f05c420fe43083953120?w=1920"
+  },
+  {
+    "slug": "xiaomi-poco-x8s",
+    "status": "no-color",
+    "count": 33
+  },
+  {
+    "slug": "xiaomi-poco-f9-ultra",
+    "status": "ok",
+    "file": "xiaomi-poco-f9-ultra.webp",
+    "source": "xiaomi-poco-f9-ultra-dark-cherry-6a96e581420fe43083952f39?w=1920"
+  },
+  {
+    "slug": "xiaomi-poco-c95-pro",
+    "status": "ok",
+    "file": "xiaomi-poco-c95-pro.webp",
+    "source": "xiaomi-poco-c95-pro-green-6aabefb1c71e632bae4fe893?w=1920"
+  }
+]

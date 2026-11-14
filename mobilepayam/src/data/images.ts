@@ -5,12 +5,15 @@
  *
  * Products without an entry fall back to the shared `ProductArt` line art.
  */
+import { EXTRA_PHONE_IMAGES } from "@/data/phones-extra";
+
 export const PRODUCT_IMAGES: Record<string, string> = {
+  ...EXTRA_PHONE_IMAGES,
   "iphone-16-pro-max": "/images/products/iphone-16-pro-max.webp",
   "iphone-16": "/images/products/iphone-16.webp",
   "iphone-15": "/images/products/iphone-15.webp",
   "galaxy-s25-ultra": "/images/products/galaxy-s25-ultra.webp",
-  "galaxy-s24-ultra": "/images/products/galaxy-s24-ultra.webp",
+  "galaxy-s24-ultra": "/images/products/galaxy-s24-ultra.jpg",
   "galaxy-a56": "/images/products/galaxy-a56.webp",
   "xiaomi-14t": "/images/products/xiaomi-14t.webp",
   "xiaomi-14": "/images/products/xiaomi-14.webp",

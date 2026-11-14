@@ -1,4 +1,5 @@
 import type { Category, Product, Variant } from "@/lib/types";
+import { EXTRA_PHONES } from "@/data/phones-extra";
 
 /* ─────────────────────────────────────────────────────────────
    The only seed. The store copies this into localStorage on first
@@ -27,7 +28,7 @@ const P = (p: Omit<Product, "createdAt"> & { createdAt?: string }): Product => (
   ...p,
 });
 
-export const PRODUCTS: Product[] = [
+const SEED_PRODUCTS: Product[] = [
   /* ── موبایل ─────────────────────────────────────────────── */
   P({
     id: "p-iphone-16-pro-max",
@@ -676,6 +677,8 @@ export const PRODUCTS: Product[] = [
 ];
 
 /* ── selectors (pure, no storage) ─────────────────────────── */
+
+export const PRODUCTS: Product[] = [...SEED_PRODUCTS, ...EXTRA_PHONES];
 
 export function categoryById(id: string): Category | undefined {
   return CATEGORIES.find((c) => c.id === id);
