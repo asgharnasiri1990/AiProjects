@@ -9,13 +9,14 @@
 | Area | Decision |
 | --- | --- |
 | Visual direction | **Digikala style** — `../mockups/mobilepayam/digikala.html` |
+| Brand color | **Navy `#102a54`** (chosen from `../mockups/mobilepayam/colors.html`); hover `#0a1c3a`, soft `#e8eef7` |
 | Backend | **None for v1** — front-end + sample data |
 | Admin | **Real CRUD**, persisted in `localStorage` (device-local) |
 | Payment | Simulated gateway **and** SHEBA transfer + receipt upload |
 | Auth | Guest checkout + optional simulated login |
 | Catalog | 6 categories / 24 products |
 | Variants | Color & storage, each with its own price and stock |
-| Images | Generated photos for flagship products + graphic fallback |
+| Images | Real product photos (Zoomit/GSMArena samples) + line-art fallback |
 | Shipping | Tehran courier 89,000 / Tipax 145,000 / pickup free / free over 5,000,000 |
 | Language | Persian only (RTL); copy centralized for a later English version |
 | Location | `D:\0Term3-github\AiProjects\mobilepayam` |
@@ -93,6 +94,7 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 | Nav hydration mismatch on `/used` fixed (active state after hydration only) | ✅ |
 | 18 product images + 4 used images load (naturalWidth > 0), no broken images | ✅ |
 | Hero sits flush under the header (gap 0), 5 slides load, arrows advance | ✅ |
+| Navy palette applied (strip, logo, badges, CTAs, offer gradient); no `#ef4056` left | ✅ |
 
 Dev server: **port 3000 is occupied by `myportfolio3` (`next start`)** on this
 machine, so mobilepayam runs on **3001** (`npx next dev -p 3001`). If 3000 is

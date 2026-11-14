@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="red">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mobilepayam — مقایسهٔ رنگ</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  :root {
+    --canvas: #f5f5f6;
+    --surface: #ffffff;
+    --ink: #3f4064;
+    --ink-strong: #23243f;
+    --muted: #81858b;
+    --line: #e4e4e8;
+    --line-strong: #d2d3da;
+    --on-brand: #ffffff;
+  }
+  :root[data-theme="gold"] {
+    --brand: #b08d57;
+    --brand-dark: #8c6d3f;
+    --brand-soft: #f7f1e6;
+    --brand-ink: #7a5c33;
+    --on-brand: #241c10;
+  }
+  :root[data-theme="emerald"] {
+    --brand: #047857;
+    --brand-dark: #065f46;
+    --brand-soft: #ecfdf5;
+    --brand-ink: #065f46;
+  }
+  :root[data-theme="terracotta"] {
+    --brand: #c2410c;
+    --brand-dark: #9a3412;
+    --brand-soft: #fff1e9;
+    --brand-ink: #a63a0c;
+  }
+  :root[data-theme="burgundy"] {
+    --brand: #800020;
+    --brand-dark: #5c0017;
+    --brand-soft: #f9edf0;
+    --brand-ink: #6b001b;
+  }
+  :root[data-theme="burgundy-light"] {
+    --brand: #932641;
+    --brand-dark: #6e1c30;
+    --brand-soft: #faeef2;
+    --brand-ink: #7a1f36;
+  }
+  :root[data-theme="albaloo"] {
+    --brand: #9c1c2c;
+    --brand-dark: #7a1522;
+    --brand-soft: #fcecef;
+    --brand-ink: #831728;
+  }
+  :root[data-theme="lime"] {
+    --brand: #b7e33b;
+    --brand-dark: #9ccb26;
+    --brand-soft: #f3fadf;
+    --brand-ink: #5d7a12;
+    --on-brand: #1a1f14;
+    --canvas: #f2f4ef;
+  }
+  :root[data-theme="espresso"] {
+    --brand: #4a3228;
+    --brand-dark: #33221b;
+    --brand-soft: #f3ece6;
+    --brand-ink: #3f2a21;
+    --on-brand: #f7f1e8;
+    --canvas: #f4efe8;
+  }
+  :root[data-theme="mono"] {
+    --brand: #17181c;
+    --brand-dark: #000000;
+    --brand-soft: #eef0f3;
+    --brand-ink: #17181c;
+    --on-brand: #ffffff;
+  }
+  :root[data-theme="sky"] {
+    --brand: #0ea5e9;
+    --brand-dark: #0284c7;
+    --brand-soft: #e6f6fe;
+    --brand-ink: #0369a1;
+    --on-brand: #062a3a;
+  }
+  :root[data-theme="navy"] {
+    --brand: #102a54;
+    --brand-dark: #0a1c3a;
+    --brand-soft: #e8eef7;
+    --brand-ink: #14345f;
+    --on-brand: #ffffff;
+  }
+  :root[data-theme="red"] {
+    --brand: #ef4056;
+    --brand-dark: #d92c42;
+    --brand-soft: #fdeef0;
+    --brand-ink: #cf2e44;
+  }
+  :root[data-theme="turquoise"] {
+    --brand: #0f9e93;
+    --brand-dark: #0b7f76;
+    --brand-soft: #e6f8f6;
+    --brand-ink: #0b7a72;
+  }
+  :root[data-theme="pistachio"] {
+    --brand: #7f9f3a;
+    --brand-dark: #66812d;
+    --brand-soft: #f1f7e4;
+    --brand-ink: #5f7a28;
+  }
+  :root[data-theme="indigo"] {
+    --brand: #4f46e5;
+    --brand-dark: #4338ca;
+    --brand-soft: #eef2ff;
+    --brand-ink: #4338ca;
+  }
+  :root[data-theme="royal"] {
+    --brand: #1d4ed8;
+    --brand-dark: #1e40af;
+    --brand-soft: #e8efff;
+    --brand-ink: #1e40af;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #eceef1;
+    color: var(--ink);
+    font-family: Vazirmatn, "Segoe UI", Tahoma, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* theme switcher */
+  .switcher {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    padding: 10px;
+    background: rgba(236,238,241,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #d8dbe0;
+  }
+  .switcher button {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 34px; padding: 0 14px;
+    border: 1px solid #cfd3da; border-radius: 999px;
+    background: #fff; color: var(--ink-strong);
+    font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer;
+  }
+  .switcher button.on { background: var(--ink-strong); color: #fff; border-color: var(--ink-strong); }
+  .switcher i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .sw-red { background: #ef4056; }
+  .sw-turq { background: #0f9e93; }
+  .sw-pis { background: #7f9f3a; }
+  .sw-indigo { background: #4f46e5; }
+  .sw-royal { background: #1d4ed8; }
+  .sw-gold { background: #b08d57; }
+  .sw-emerald { background: #047857; }
+  .sw-terra { background: #c2410c; }
+  .sw-burgundy { background: #800020; }
+  .sw-burgundy-light { background: #932641; }
+  .sw-albaloo { background: #9c1c2c; }
+  .sw-lime { background: #b7e33b; }
+  .sw-espresso { background: #4a3228; }
+  .sw-mono { background: #17181c; }
+  .sw-sky { background: #0ea5e9; }
+  .sw-navy { background: #102a54; }
+
+  .preview { width: min(1180px, calc(100% - 32px)); margin: 18px auto 48px; background: var(--canvas); }
+
+  /* announcement + header */
+  .strip { background: var(--brand); color: var(--on-brand); text-align: center; font-size: 10.5px; padding: 5px; }
+  .topbar { background: #fff; border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; }
+  .logo { background: var(--brand); color: var(--on-brand); font-weight: 900; font-size: 15px; padding: 7px 12px; border-radius: 8px; direction: ltr; }
+  .search { flex: 1; height: 38px; border-radius: 8px; background: var(--canvas); display: flex; align-items: center; padding: 0 12px; color: var(--muted); font-size: 11.5px; }
+  .icons { display: flex; align-items: center; gap: 8px; margin-right: auto; }
+  .icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; color: var(--ink); font-size: 15px; }
+  .cart { height: 36px; display: flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); border-radius: 8px; padding: 0 10px; font-size: 11px; font-weight: 700; }
+  .cart b { background: var(--brand); color: var(--on-brand); border-radius: 999px; min-width: 18px; height: 18px; display: grid; place-items: center; font-size: 10px; }
+  .nav { display: flex; align-items: center; gap: 14px; padding: 7px 14px; border-top: 1px solid #f0f0f2; font-size: 11.5px; color: #61638a; }
+  .nav .active { color: var(--brand-ink); font-weight: 800; }
+  .nav .cats { display: flex; align-items: center; gap: 5px; color: var(--ink-strong); font-weight: 800; margin-left: 6px; }
+
+  /* hero */
+  .hero { position: relative; background: #0b0b12; }
+  .hero img { width: 100%; height: 300px; object-fit: cover; display: block; }
+
+  /* categories */
+  .cats-row { background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-top: 8px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; padding: 10px 6px; }
+  .cat { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px; border-radius: 10px; }
+  .cat:hover { background: var(--brand-soft); }
+  .cat i { width: 48px; height: 48px; border-radius: 50%; background: var(--canvas); display: grid; place-items: center; font-style: normal; font-size: 18px; color: #5b5d7e; }
+  .cat b { font-size: 11px; }
+  .cat span { font-size: 9.5px; color: var(--muted); }
+
+  /* section + cards */
+  .panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-top: 8px; padding: 14px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 12px; }
+  .panel-head h2 { margin: 0; font-size: 15px; font-weight: 900; color: var(--ink-strong); display: flex; align-items: center; gap: 8px; }
+  .panel-head h2::before { content: ""; width: 4px; height: 18px; border-radius: 2px; background: var(--brand); }
+  .panel-head a { font-size: 11px; font-weight: 700; color: var(--brand-ink); }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+  .thumb { position: relative; aspect-ratio: 1; display: grid; place-items: center; padding: 14px; }
+  .thumb img { max-height: 100%; max-width: 100%; object-fit: contain; }
+  .off { position: absolute; top: 8px; right: 8px; background: var(--brand); color: var(--on-brand); font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+  .card-body { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 4px; }
+  .brandline { font-size: 9.5px; color: var(--muted); }
+  .card h3 { margin: 0; font-size: 12px; font-weight: 700; color: var(--ink-strong); line-height: 1.9; min-height: 45px; }
+  .price { display: flex; align-items: baseline; gap: 4px; }
+  .price b { font-size: 14px; font-weight: 900; color: var(--ink-strong); }
+  .price span { font-size: 9.5px; color: var(--muted); }
+  .rate { font-size: 10px; color: var(--muted); }
+  .rate b { color: var(--ink); }
+  .add { border: 0; border-top: 1px solid var(--line); background: #fff; color: var(--brand-ink); font: inherit; font-size: 11px; font-weight: 800; padding: 9px; cursor: pointer; }
+  .add:hover { background: var(--brand-soft); }
+
+  /* offer */
+  .offer { position: relative; margin-top: 8px; border-radius: 12px; padding: 22px 26px; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: linear-gradient(115deg, var(--brand-dark), var(--brand)); }
+  .offer small { display: block; font-size: 10px; opacity: .8; }
+  .offer h2 { margin: 4px 0 2px; font-size: 19px; font-weight: 900; }
+  .offer p { margin: 0; font-size: 10.5px; opacity: .85; max-width: 46ch; }
+  .offer .timer { position: absolute; top: 12px; left: 16px; background: rgba(0,0,0,.2); padding: 3px 9px; border-radius: 6px; font-size: 10.5px; letter-spacing: .12em; direction: ltr; }
+  .offer .cta { background: #fff; color: var(--brand-ink); font-size: 11.5px; font-weight: 800; padding: 9px 16px; border-radius: 8px; white-space: nowrap; }
+
+  /* footer */
+  .foot { margin-top: 8px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; gap: 16px; font-size: 10px; color: var(--muted); }
+  .foot b { color: var(--ink-strong); }
+
+  .palette { display: flex; gap: 6px; justify-content: center; padding: 8px 0 0; }
+  .palette span { width: 26px; height: 26px; border-radius: 6px; }
+  .note { max-width: 1180px; margin: 0 auto 24px; font-size: 10.5px; color: #6b6d7a; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  <button type="button" data-set="red" class="on"><i class="sw-red"></i> قرمز فعلی</button>
+  <button type="button" data-set="turquoise"><i class="sw-turq"></i> فیروزه‌ای</button>
+  <button type="button" data-set="pistachio"><i class="sw-pis"></i> مغز پسته‌ای</button>
+  <button type="button" data-set="indigo"><i class="sw-indigo"></i> نیلی</button>
+  <button type="button" data-set="royal"><i class="sw-royal"></i> آبی سلطنتی</button>
+  <button type="button" data-set="gold"><i class="sw-gold"></i> طلایی</button>
+  <button type="button" data-set="emerald"><i class="sw-emerald"></i> زمردی</button>
+  <button type="button" data-set="terracotta"><i class="sw-terra"></i> کهربایی</button>
+  <button type="button" data-set="burgundy"><i class="sw-burgundy"></i> بورگاندی</button>
+  <button type="button" data-set="burgundy-light"><i class="sw-burgundy-light"></i> بورگاندی +۱۵٪</button>
+  <button type="button" data-set="albaloo"><i class="sw-albaloo"></i> آلبالویی</button>
+  <button type="button" data-set="lime"><i class="sw-lime"></i> لیمویی</button>
+  <button type="button" data-set="espresso"><i class="sw-espresso"></i> قهوه‌ای</button>
+  <button type="button" data-set="mono"><i class="sw-mono"></i> تک‌رنگ</button>
+  <button type="button" data-set="sky"><i class="sw-sky"></i> آبی روشن</button>
+  <button type="button" data-set="navy"><i class="sw-navy"></i> سرمه‌ای</button>
+</div>
+
+<div class="preview">
+  <div class="strip">ارسال رایگان برای سفارش‌های بالای ۵ میلیون تومان — ضمانت اصالت کالا</div>
+
+  <div class="topbar">
+    <div class="bar">
+      <span class="logo">mobilepayam.</span>
+      <span class="search">جستجوی محصول…</span>
+      <span class="icons">
+        <span class="icon">⌕</span>
+        <span class="icon">◯</span>
+        <span class="cart">🛒 سبد خرید <b>۴</b></span>
+      </span>
+    </div>
+    <div class="nav">
+      <span class="cats">☰ دسته‌بندی محصولات ⌄</span>
+      <span class="active">خانه</span>
+      <span>فروشگاه</span>
+      <span>کارکرده</span>
+      <span>دسته‌بندی‌ها</span>
+      <span>درباره ما</span>
+      <span>تماس با ما</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <img src="../../mobilepayam/public/images/hero/1.webp" alt="بنر هیرو">
+  </div>
+
+  <div class="cats-row">
+    <a class="cat" href="#"><i>▯</i><b>موبایل</b><span>۶ کالا</span></a>
+    <a class="cat" href="#"><i>⌚</i><b>ساعت هوشمند</b><span>۴ کالا</span></a>
+    <a class="cat" href="#"><i>🎧</i><b>هدفون و ایرپاد</b><span>۵ کالا</span></a>
+    <a class="cat" href="#"><i>⚡</i><b>شارژر و کابل</b><span>۳ کالا</span></a>
+    <a class="cat" href="#"><i>🔋</i><b>پاوربانک</b><span>۳ کالا</span></a>
+    <a class="cat" href="#"><i>🛡</i><b>قاب و گلس</b><span>۳ کالا</span></a>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>پرفروش‌های این هفته</h2>
+      <a href="#">مشاهدهٔ همه ←</a>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="thumb"><span class="off">٪۵</span><img src="../../mobilepayam/public/images/products/iphone-16-pro-max.webp" alt="آیفون ۱۶ پرو مکس"></div>
+        <div class="card-body">
+          <span class="brandline">Apple · موبایل</span>
+          <h3>آیفون ۱۶ پرو مکس — ۲۵۶ گیگ</h3>
+          <div class="price"><b>۹۶٬۵۰۰٬۰۰۰</b><span>تومان</span></div>
+          <div class="rate">★★★★★ <b>۴٫۹</b> (۳۱۲)</div>
+        </div>
+        <button class="add">افزودن به سبد</button>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="../../mobilepayam/public/images/products/galaxy-s25-ultra.webp" alt="گلکسی S25 اولترا"></div>
+        <div class="card-body">
+          <span class="brandline">Samsung · موبایل</span>
+          <h3>سامسونگ گلکسی S25 اولترا</h3>
+          <div class="price"><b>۷۸٬۹۰۰٬۰۰۰</b><span>تومان</span></div>
+          <div class="rate">★★★★★ <b>۴٫۸</b> (۲۰۴)</div>
+        </div>
+        <button class="add">افزودن به سبد</button>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><span class="off">٪۱۱</span><img src="../../mobilepayam/public/images/products/airpods-pro-2.webp" alt="ایرپاد پرو ۲"></div>
+        <div class="card-body">
+          <span class="brandline">Apple · هدفون</span>
+          <h3>ایرپاد پرو ۲ — USB-C</h3>
+          <div class="price"><b>۱۲٬۹۰۰٬۰۰۰</b><span>تومان</span></div>
+          <div class="rate">★★★★★ <b>۴٫۹</b> (۴۲۱)</div>
+        </div>
+        <button class="add">افزودن به سبد</button>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="../../mobilepayam/public/images/products/apple-watch-10-46.webp" alt="اپل واچ سری ۱۰"></div>
+        <div class="card-body">
+          <span class="brandline">Apple · ساعت هوشمند</span>
+          <h3>اپل واچ سری ۱۰ — ۴۶ مم</h3>
+          <div class="price"><b>۲۴٬۵۰۰٬۰۰۰</b><span>تومان</span></div>
+          <div class="rate">★★★★☆ <b>۴٫۷</b> (۹۸)</div>
+        </div>
+        <button class="add">افزودن به سبد</button>
+      </article>
+    </div>
+  </div>
+
+  <div class="offer">
+    <span class="timer">۰۲ : ۱۴ : ۳۶</span>
+    <div>
+      <small>پیشنهاد محدود</small>
+      <h2>لوازم جانبی اصل، تا ۳۰٪ کمتر</h2>
+      <p>شارژرهای GaN، کابل‌های فست‌شارژ و پاوربانک‌های سبک — تا پایان هفته.</p>
+    </div>
+    <span class="cta">دیدن پیشنهادها ←</span>
+  </div>
+
+  <div class="palette" aria-hidden="true">
+    <span style="background: var(--brand)"></span>
+    <span style="background: var(--brand-dark)"></span>
+    <span style="background: var(--brand-soft)"></span>
+    <span style="background: var(--brand-ink)"></span>
+  </div>
+
+  <div class="foot">
+    <span><b>mobilepayam.</b> — موبایل و لوازم جانبی اورجینال</span>
+    <span>پنل مدیریت · قوانین و بازگشت</span>
+  </div>
+</div>
+
+<p class="note">کلیدهای رنگ: اصلی، تیره، پس‌زمینهٔ ملایم، متن روی سفید — هر سه نسخه با همان تصاویر و چیدمان.</p>
+
+<script>
+  const root = document.documentElement;
+  document.querySelectorAll(".switcher button").forEach((button) => {
+    button.addEventListener("click", () => {
+      root.dataset.theme = button.dataset.set;
+      document.querySelectorAll(".switcher button").forEach((item) => item.classList.remove("on"));
+      button.classList.add("on");
+    });
+  });
+</script>
+</body>
+</html>

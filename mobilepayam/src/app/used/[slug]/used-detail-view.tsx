@@ -131,7 +131,7 @@ export function UsedDetailView({ slug }: { slug: string }) {
             <span>· {listing.city}</span>
           </div>
 
-          <div className="mt-3 flex flex-wrap items-baseline gap-2 rounded-lg bg-[linear-gradient(115deg,#f3efff,#fff5fa)] px-4 py-3">
+          <div className="mt-3 flex flex-wrap items-baseline gap-2 rounded-lg bg-[linear-gradient(115deg,#eef2f8,#f7f9fc)] px-4 py-3">
             {listing.oldPrice ? (
               <s className="text-xs text-muted">{faNum(listing.oldPrice)}</s>
             ) : null}

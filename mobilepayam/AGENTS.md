@@ -39,11 +39,12 @@ npm run build        # the real gate
 
 - The two other mockups (`lux.html`, `energetic.html`) were **rejected** — do not
   copy their styling.
-- Palette: brand `#ef4056`, canvas `#f5f5f6`, surface white, ink `#3f4064`,
-  ink-strong `#23243f`, muted `#81858b`, line `#e4e4e8`.
+- Palette: brand navy `#102a54` (hover `#0a1c3a`, soft `#e8eef7`),
+  canvas `#f5f5f6`, surface white, ink `#3f4064`, ink-strong `#23243f`,
+  muted `#81858b`, line `#e4e4e8`.
 - Tokens live **only** in `src/app/globals.css` (`@theme`). Do not hard-code
   hex values in components.
-- Density matters: compact cards, 8–12px radius, thin borders, red only for
+- Density matters: compact cards, 8–12px radius, thin borders, navy only for
   price/discount/CTA.
 
 ## Architecture (no backend)

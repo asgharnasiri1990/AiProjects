@@ -160,7 +160,7 @@ export function HomeView() {
 
       {/* Offer */}
       <section className={`${container} mt-3`}>
-        <div className="relative flex flex-col items-start justify-between gap-4 overflow-hidden rounded-card bg-[linear-gradient(115deg,#d92c42_0%,#ef4056_55%,#ff6a4d_100%)] px-5 py-6 text-white sm:flex-row sm:items-center sm:px-7">
+        <div className="relative flex flex-col items-start justify-between gap-4 overflow-hidden rounded-card bg-[linear-gradient(115deg,#0a1c3a_0%,#102a54_55%,#1d3f6e_100%)] px-5 py-6 text-white sm:flex-row sm:items-center sm:px-7">
           <span className="absolute left-4 top-4 rounded-md bg-black/20 px-2 py-1 text-[11px] font-bold tracking-widest">
             ۰۲ : ۱۴ : ۳۶
           </span>
