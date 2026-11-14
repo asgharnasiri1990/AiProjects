@@ -67,7 +67,12 @@ const FILE = path.join(process.cwd(), ".data", "stats.json");
 const VISITS_FILE = path.join(process.cwd(), ".data", "visits.json");
 const KV_VISITS = "stats:visits";
 
-const CHROMIUM_BRANDS = ["chromium", "not a brand", "not)a;brand", "not/a)brand"];
+const CHROMIUM_BRANDS = ["chromium"];
+
+/** Chrome sends greased brands like "Not A(Brand"; they carry fake versions. */
+function isGreaseBrand(brand: string) {
+  return /not.?a.?brand/.test(brand.toLowerCase());
+}
 
 function majorVersion(value: string | undefined) {
   if (!value) return "";
@@ -128,7 +133,9 @@ export function classifyUserAgent(
             : "other";
 
   const brand = hints.brands?.find(
-    (item) => !CHROMIUM_BRANDS.includes(item.brand.toLowerCase()),
+    (item) =>
+      !CHROMIUM_BRANDS.includes(item.brand.toLowerCase()) &&
+      !isGreaseBrand(item.brand),
   );
 
   const browser = brand
