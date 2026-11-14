@@ -115,7 +115,7 @@ export function SiteHeader() {
         ارسال رایگان برای سفارش‌های بالای ۵ میلیون تومان — ضمانت اصالت کالا
       </div>
 
-      <div className="mx-auto flex w-full max-w-[1180px] items-center gap-3 px-4 py-2.5">
+      <div className="mx-auto flex w-full max-w-[1560px] items-center gap-3 px-4 py-2.5">
         <Link
           href="/"
           dir="ltr"
@@ -160,7 +160,7 @@ export function SiteHeader() {
       </div>
 
       <div className="border-t border-line/70">
-        <div className="mx-auto flex w-full max-w-[1180px] flex-wrap items-center gap-1 px-4 py-1.5">
+        <div className="mx-auto flex w-full max-w-[1560px] flex-wrap items-center gap-1 px-4 py-1.5">
           <div className="relative shrink-0" ref={menuRef}>
             <button
               type="button"

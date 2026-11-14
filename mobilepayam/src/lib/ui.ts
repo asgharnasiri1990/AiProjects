@@ -1,6 +1,6 @@
-/** Shared class strings so the Digikala palette stays consistent. */
+﻿/** Shared class strings so the Digikala palette stays consistent. */
 
-export const container = "mx-auto w-full max-w-[1180px] px-4";
+export const container = "mx-auto w-full max-w-[1560px] px-4";
 
 export const card =
   "rounded-card border border-line bg-surface";

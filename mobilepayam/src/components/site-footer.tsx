@@ -34,7 +34,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="mt-6 border-t border-line bg-surface">
-      <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 py-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid w-full max-w-[1560px] gap-6 px-4 py-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link
             href="/"
@@ -77,7 +77,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto flex w-full max-w-[1180px] flex-wrap items-center justify-between gap-2 px-4 py-3 text-[10.5px] text-muted">
+        <div className="mx-auto flex w-full max-w-[1560px] flex-wrap items-center justify-between gap-2 px-4 py-3 text-[10.5px] text-muted">
           <span>© ۱۴۰۴ mobilepayam — همهٔ حقوق محفوظ است.</span>
           <span className="flex items-center gap-3">
             <Link href="/admin" className="hover:text-brand">

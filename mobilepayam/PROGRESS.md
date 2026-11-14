@@ -45,6 +45,8 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   (gallery, video, description, specs, contact CTA); 5 seeded listings.
 - Home: the header stays **on top** and the hero sits directly under it with a
   zero gap (SiteShell); other pages keep the same header with no hero.
+- Content width is **1560px** (container, header and footer aligned; was 1180)
+  so wide screens get much smaller side margins.
 - Floating support widget (bottom-right): phone/email actions + hours, no fake chat.
 - Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
   images in `public/images/hero/`) flush under the header, with dots/arrows

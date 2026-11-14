@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import { LoginView } from "./login-view";
 
@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <main className="mx-auto w-full max-w-[1180px] px-4 py-16 text-sm text-muted">
+        <main className="mx-auto w-full max-w-[1560px] px-4 py-16 text-sm text-muted">
           در حال بارگذاری…
         </main>
       }
