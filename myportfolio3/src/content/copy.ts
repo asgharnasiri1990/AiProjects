@@ -74,6 +74,7 @@ export interface Copy {
 
   footerRights: string;
   footerCredit: string;
+  footerStats: string;
 
   notFoundTitle: string;
   notFoundBody: string;
@@ -217,13 +218,14 @@ export const copy: Record<Locale, Copy> = {
 
     footerRights: "PORTFOLIO. ALL RIGHTS RESERVED",
     footerCredit: "DESIGNED & BUILT BY ASGHAR NASIRI",
+    footerStats: "STATS",
 
     notFoundTitle: "This page could not be found",
     notFoundBody: "The address may have changed, or the page may have been removed.",
     notFoundCta: "Back to home",
 
     stats: {
-      label: "Private",
+      label: "Live",
       back: "Back to portfolio",
       title: "Visitor stats",
       lead: "Aggregate counts only. No IP addresses, raw user agents or cookies are stored.",
@@ -262,7 +264,7 @@ export const copy: Record<Locale, Copy> = {
       },
       notConfiguredTitle: "Storage is not configured.",
       notConfiguredBody:
-        "Connect an Upstash Redis store to this Vercel project and set STATS_TOKEN. Locally the counts are written to .data/stats.json.",
+        "Connect an Upstash Redis store to this Vercel project. Locally the counts are written to .data/stats.json.",
     },
   },
 
@@ -382,6 +384,7 @@ export const copy: Record<Locale, Copy> = {
 
     footerRights: "پورتفولیو. تمام حقوق محفوظ است",
     footerCredit: "طراحی و ساخت: اصغر نصیری",
+    footerStats: "آمار",
 
     notFoundTitle: "این صفحه پیدا نشد",
     notFoundBody: "شاید نشانی عوض شده یا این صفحه دیگر وجود ندارد.",
@@ -427,7 +430,7 @@ export const copy: Record<Locale, Copy> = {
       },
       notConfiguredTitle: "ذخیره‌سازی تنظیم نشده است.",
       notConfiguredBody:
-        "یک دیتابیس Upstash Redis به پروژه‌ی Vercel وصل کن و STATS_TOKEN را تنظیم کن. در حالت محلی شمارش‌ها در .data/stats.json نوشته می‌شوند.",
+        "یک دیتابیس Upstash Redis به پروژه‌ی Vercel وصل کن. در حالت محلی شمارش‌ها در .data/stats.json نوشته می‌شوند.",
     },
   },
 };

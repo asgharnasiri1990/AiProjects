@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { copy } from "@/content/copy";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/lib/i18n";
@@ -114,7 +115,15 @@ export function ContactBand({ locale }: { locale: Locale }) {
           <span>
             {c.footerRights} © {year}
           </span>
-          <span>{c.footerCredit}</span>
+          <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link
+              href={`/${locale}/stats`}
+              className={`rounded transition-colors hover:text-signal ${focusRing}`}
+            >
+              {c.footerStats}
+            </Link>
+            <span>{c.footerCredit}</span>
+          </span>
         </div>
         </Reveal>
       </div>

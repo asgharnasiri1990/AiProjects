@@ -68,16 +68,14 @@ npm start
   Enable **Web Analytics** in the Vercel project to see devices, browsers,
   countries and page views.
 - **Device counter + `/stats`:** create an **Upstash Redis** store in Vercel
-  (Storage → Upstash), connect it to the project, then set `STATS_TOKEN`.
-  Open `/en/stats/unlock?token=...` once — it sets an http-only cookie and
-  redirects to `/en/stats`, which then offers today / 7 / 30 days / all time.
-  Locally, set `STATS_TOKEN` in `.env.local`; counts are written to
-  `.data/stats.json`.
+  (Storage → Upstash) and connect it to the project. `/en/stats` (or `/fa/stats`)
+  is public and linked from the footer, with today / 7 / 30 days / all time.
+  Locally the counts are written to `.data/stats.json`.
 - **Umami / Plausible** are optional. Set the matching env vars from
   `.env.example` and enable **only one**; both would double-count.
 - Only aggregate device/OS/browser counts are stored — no IP addresses, raw user
-  agents or cookies. The `/stats` page is `noindex` and returns 404 without the
-  token.
+  agents or cookies. The public `/stats` page is `noindex`; a secret
+  `/[locale]/s/<STATS_PATH>` alias exists for the owner's bookmark.
 
 ## Routes
 

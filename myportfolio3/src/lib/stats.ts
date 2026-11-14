@@ -36,9 +36,6 @@ export interface StatsSnapshot {
 
 const FILE = path.join(process.cwd(), ".data", "stats.json");
 
-/** Cookie planted by /[locale]/stats/unlock; its value is the STATS_TOKEN. */
-export const STATS_COOKIE = "stats_auth";
-
 /** Returns null for bots and empty agents so they never enter the counts. */
 export function classifyUserAgent(ua: string): Classification | null {
   if (!ua) return null;

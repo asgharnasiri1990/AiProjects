@@ -134,13 +134,12 @@ known-good tag; before a risky update, restore/fork with
   Vercel KV / Upstash REST when `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the
   `UPSTASH_*` pair) exist, and a gitignored `.data/stats.json` locally. On
   Vercel without KV it stores nothing.
-- **View:** open `/en/stats/unlock?token=...` **once**. That route handler plants
-  an http-only `stats_auth` cookie (30 days) and redirects to the clean
-  `/en/stats` (or `/fa/stats`). The page itself never reads the token from the
-  query string, so the secret never reaches the browser address bar or Vercel
-  Analytics. No/wrong cookie → 404, and the page is `noindex`. Changing
-  `STATS_TOKEN` revokes every existing cookie. Never store IPs, raw user agents
-  or cookies in the stats store.
+- **The stats screen is public:** `/[locale]/stats` (linked from the closing band
+  footer as `STATS` / `آمار`) with today / 7 / 30 days / all-time ranges. Because
+  it is public it must stay `noindex` and must never show anything but aggregate
+  buckets — never IPs, raw user agents or cookies. `/[locale]/s/<STATS_PATH>` is
+  a secret alias kept for the owner's bookmark; the slug lives in an env var
+  because this repository is public.
 
 ### Verify
 
