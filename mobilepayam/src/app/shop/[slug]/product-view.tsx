@@ -11,6 +11,7 @@ import {
   categoryById,
 } from "@/data/catalog";
 import { discountPercent, faNum } from "@/lib/format";
+import { productImage } from "@/data/images";
 import { ProductArt } from "@/components/product-art";
 import { ProductCard } from "@/components/product-card";
 import { QuantityStepper } from "@/components/quantity-stepper";
@@ -36,6 +37,8 @@ export function ProductView({ slug }: { slug: string }) {
       </main>
     );
   }
+
+  const image = productImage(product.slug, product.image);
 
   const storages = [
     ...new Set(
@@ -118,10 +121,10 @@ export function ProductView({ slug }: { slug: string }) {
       <div className={`${card} grid gap-6 p-4 lg:grid-cols-[380px_minmax(0,1fr)] lg:p-5`}>
         <div>
           <div className="relative grid aspect-square place-items-center overflow-hidden rounded-lg border border-line bg-surface p-4">
-            {product.image ? (
+            {image ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={product.image}
+                src={image}
                 alt={product.name}
                 className="h-full w-full object-contain"
               />
@@ -137,21 +140,34 @@ export function ProductView({ slug }: { slug: string }) {
               </span>
             ) : null}
           </div>
-          <div className="mt-2 grid grid-cols-4 gap-2">
-            {[0, 1, 2, 3].map((index) => (
-              <span
-                key={index}
-                className={`grid aspect-square place-items-center rounded-lg border bg-surface ${
-                  index === 0 ? "border-brand" : "border-line"
-                }`}
-              >
-                <ProductArt
-                  icon={product.icon}
-                  className="h-1/2 w-auto text-[#6b6d8f]"
+          {image ? (
+            <div className="mt-2 grid grid-cols-4 gap-2">
+              <span className="grid aspect-square place-items-center overflow-hidden rounded-lg border border-brand bg-surface">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image}
+                  alt=""
+                  className="h-full w-full object-contain p-1"
                 />
               </span>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="mt-2 grid grid-cols-4 gap-2">
+              {[0, 1, 2, 3].map((index) => (
+                <span
+                  key={index}
+                  className={`grid aspect-square place-items-center rounded-lg border bg-surface ${
+                    index === 0 ? "border-brand" : "border-line"
+                  }`}
+                >
+                  <ProductArt
+                    icon={product.icon}
+                    className="h-1/2 w-auto text-[#6b6d8f]"
+                  />
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div>

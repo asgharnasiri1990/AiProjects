@@ -110,8 +110,11 @@ UI                 src/components, src/app
 5. **Persian numerals in UI**, but phone numbers and IBAN stay LTR (`.ltr`).
 6. **localStorage is untrusted input:** parse defensively, fall back to the seed
    on any error.
-7. **Images:** `/images/products/*`; when missing, render the shared
-   `ProductArt` SVG fallback rather than a broken image.
+7. **Images resolve through `productImage(slug, override)`** in
+   `src/data/images.ts`; files live in `public/images/products/` and missing
+   ones fall back to `ProductArt`. Source list: `docs/image-sources.json`.
+   These photos came from Zoomit for the demo — replace them with
+   owned/licensed assets before launch.
 
 ## Gotchas
 

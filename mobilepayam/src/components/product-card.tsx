@@ -5,6 +5,7 @@ import { useState } from "react";
 import { cheapestAvailableVariant, totalStock } from "@/data/catalog";
 import { discountPercent, faNum } from "@/lib/format";
 import { addToCart } from "@/lib/cart";
+import { productImage } from "@/data/images";
 import type { Product } from "@/lib/types";
 import { ProductArt } from "@/components/product-art";
 
@@ -13,16 +14,17 @@ export function ProductCard({ product }: { product: Product }) {
   const price = variant.price;
   const off = discountPercent(price, product.oldPrice);
   const stock = totalStock(product);
+  const image = productImage(product.slug, product.image);
   const [added, setAdded] = useState(false);
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-shadow hover:shadow-[0_10px_24px_-18px_rgba(35,36,63,0.45)]">
       <Link href={`/shop/${product.slug}`} className="flex flex-1 flex-col">
         <div className="relative grid aspect-square place-items-center overflow-hidden bg-surface p-3">
-          {product.image ? (
+          {image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={product.image}
+              src={image}
               alt={product.name}
               className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.04]"
             />

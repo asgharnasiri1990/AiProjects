@@ -53,18 +53,16 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 
 **Not done / blocked**
 
-- **Product photos:** still not wired. Three sources were tried on 2026-11-14:
-  - Digikala API/CDN — search/product endpoints return 404 to non-browser
-    clients (WAF); the site HTML does not embed product data.
-  - Wikimedia Commons — downloads worked but the matches were unusable as
-    product shots (hands, boxes, other brands, screen close-ups); all were
-    deleted, `public/images/products/` is empty.
-  - The image-generation tool still reports `quota exceeded` (free tier,
-    retry ~2026-11-15).
-
-  Until then every product renders the `ProductArt` line-art fallback. The
-  admin "آدرس تصویر" field and `public/images/products/` both work as soon as
-  real files exist. Used listings already accept image/video URLs.
+- **Product photos:** 18 of 24 products now use real (official-style) product
+  photos from Zoomit product pages, wired through `src/data/images.ts` and
+  stored in `public/images/products/*.webp`. 4 of the 5 used-phone listings
+  have photos in `public/images/used/`. The remaining 6 accessories fall back
+  to the `ProductArt` line art:
+  Apple 20W adapter, Xiaomi 20000 power bank, Baseus cable, iPhone 16 case,
+  Galaxy S25 case, ceramic glass (no matching product page on Zoomit).
+  Source list: `docs/image-sources.json`.
+  **Licensing:** these are third-party press images used as samples; replace
+  them with owned/licensed photos before a commercial launch.
 - Real IBAN / brand details: checkout shows the placeholder
   `IR000000000000000000000000` (owner `mobilepayam`, bank ملت).
 - Nothing is committed yet; `shop/`, `myportfolio3/` etc. are untouched.
@@ -90,6 +88,7 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 | Used detail renders specs + `tel:` CTA | ✅ |
 | Admin used: listing with image URL + mp4 → detail shows `<img>` and `<video>` | ✅ |
 | Nav hydration mismatch on `/used` fixed (active state after hydration only) | ✅ |
+| 18 product images + 4 used images load (naturalWidth > 0), no broken images | ✅ |
 
 Dev server: **port 3000 is occupied by `myportfolio3` (`next start`)** on this
 machine, so mobilepayam runs on **3001** (`npx next dev -p 3001`). If 3000 is
@@ -97,11 +96,10 @@ free, plain `npm run dev` picks it.
 
 ## Next steps
 
-1. Product photos: retry the image tool after the quota resets (~2026-11-15),
-   **or** drop the owner's files into `public/images/products/` and set `image`
-   per product (admin field or seed). Do not scrape Digikala/Wikimedia again —
-   both produced unusable results. Used listings already accept image/video
-   URLs and need no code change.
+1. Photos: 18/24 products and 4/5 used listings are wired. The six leftovers
+   (Apple 20W, Xiaomi 20000, Baseus cable, two cases, glass) can stay as line
+   art or get owner-supplied shots. Replace the Zoomit samples with licensed
+   photos before launch.
 2. Replace the placeholder IBAN + brand contact details with real values.
 3. Optional polish: product reviews section, wishlist, search suggestions,
    coupon persistence already works.

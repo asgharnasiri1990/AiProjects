@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { removeLine, setLineQty, useResolvedCart } from "@/lib/cart";
+import { useResolvedCart, setLineQty, removeLine } from "@/lib/cart";
 import { applyCoupon, clearCoupon, useCoupon } from "@/lib/store";
 import { faNum } from "@/lib/format";
+import { productImage } from "@/data/images";
 import { shippingFor } from "@/lib/shipping";
 import { ProductArt } from "@/components/product-art";
 import { QuantityStepper } from "@/components/quantity-stepper";
@@ -48,10 +49,10 @@ export default function CartPage() {
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <span className="grid h-16 w-16 shrink-0 place-items-center rounded-lg border border-line bg-surface">
-                    {product.image ? (
+                    {productImage(product.slug, product.image) ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={product.image}
+                        src={productImage(product.slug, product.image)}
                         alt={product.name}
                         className="h-full w-full object-contain p-1"
                       />

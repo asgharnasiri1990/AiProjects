@@ -10,7 +10,7 @@ const ORDERS_KEY = "mobilepayam.orders.v1";
 const USER_KEY = "mobilepayam.user.v1";
 const COUPON_KEY = "mobilepayam.coupon.v1";
 const ADMIN_KEY = "mobilepayam.admin.v1";
-const USED_KEY = "mobilepayam.used.v1";
+const USED_KEY = "mobilepayam.used.v2";
 
 /**
  * Demo-only gate for /admin. This is NOT security: it runs in the browser and

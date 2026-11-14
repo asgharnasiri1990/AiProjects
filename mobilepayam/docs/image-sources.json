@@ -1,0 +1,177 @@
+[
+  {
+    "slug": "iphone-16-pro-max",
+    "status": "ok",
+    "page": "apple-iphone-16-pro-max",
+    "image": "https://api2.zoomit.ir/media/apple-iphone-16-pro-max-front-and-back-logo-camera-black-titanium-66df4d952d36dcc78153ee3f?w=1920&q=75",
+    "file": "iphone-16-pro-max.webp",
+    "bytes": 11144,
+    "type": "image/webp"
+  },
+  {
+    "slug": "iphone-16",
+    "status": "ok",
+    "page": "apple-iphone-16",
+    "image": "https://api2.zoomit.ir/media/apple-iphone-16-ultramarine-66dff64ce404d665a09e05f6?w=1920&q=75",
+    "file": "iphone-16.webp",
+    "bytes": 12340,
+    "type": "image/webp"
+  },
+  {
+    "slug": "galaxy-s25-ultra",
+    "status": "ok",
+    "page": "samsung-galaxy-s25-ultra",
+    "image": "https://api2.zoomit.ir/media/samsung-galaxy-s25-ultra-silverblue-67913d5b902ce99e63fe354d?w=1920&q=75",
+    "file": "galaxy-s25-ultra.webp",
+    "bytes": 9748,
+    "type": "image/webp"
+  },
+  {
+    "slug": "galaxy-a56",
+    "status": "ok",
+    "page": "samsung-galaxy-a56",
+    "image": "https://api2.zoomit.ir/media/samsung-galaxy-a56-olive-67c43dd407196c81a71d497c?w=1920&q=75",
+    "file": "galaxy-a56.webp",
+    "bytes": 7526,
+    "type": "image/webp"
+  },
+  {
+    "slug": "xiaomi-14t",
+    "status": "ok",
+    "page": "xiaomi-14t",
+    "image": "https://api2.zoomit.ir/media/xiaomi-14t-lemon-green-66f586654469dc406340f651?w=1920&q=75",
+    "file": "xiaomi-14t.webp",
+    "bytes": 28152,
+    "type": "image/webp"
+  },
+  {
+    "slug": "pixel-9",
+    "status": "ok",
+    "page": "google-pixel-9",
+    "image": "https://api2.zoomit.ir/media/google-pixel-9-peony-66bc59a9d12e6e08a5782518?w=1920&q=75",
+    "file": "pixel-9.webp",
+    "bytes": 13366,
+    "type": "image/webp"
+  },
+  {
+    "slug": "mi-smart-band-9",
+    "status": "ok",
+    "page": "xiaomi-smart-band-9",
+    "image": "https://api2.zoomit.ir/media/xiaomi-smart-band-9-black-669ba343983309f76cc078e4?w=1920&q=75",
+    "file": "mi-smart-band-9.webp",
+    "bytes": 14424,
+    "type": "image/webp"
+  },
+  {
+    "slug": "huawei-watch-fit-3",
+    "status": "ok",
+    "page": "huawei-watch-fit-3",
+    "image": "https://api2.zoomit.ir/media/huawei-watch-fit-3-663b586ba55162c757fca4c4?w=1920&q=75",
+    "file": "huawei-watch-fit-3.webp",
+    "bytes": 19544,
+    "type": "image/webp"
+  },
+  {
+    "slug": "airpods-pro-2",
+    "status": "ok",
+    "page": "apple-airpods-pro-2nd-generation",
+    "image": "https://api2.zoomit.ir/media/2022-9-apple-airpods-pro-2nd-generation-652d04f2eb21a6b54f508481?w=1920&q=75",
+    "file": "airpods-pro-2.webp",
+    "bytes": 6678,
+    "type": "image/webp"
+  },
+  {
+    "slug": "airpods-4",
+    "status": "ok",
+    "page": "apple-airpods-4",
+    "image": "https://api2.zoomit.ir/media/airpods-4-apple-66df4e062d36dcc78153ee60?w=1920&q=75",
+    "file": "airpods-4.webp",
+    "bytes": 6354,
+    "type": "image/webp"
+  },
+  {
+    "slug": "galaxy-buds3",
+    "status": "ok",
+    "page": "samsung-galaxy-buds3",
+    "image": "https://api2.zoomit.ir/media/samsung-galaxy-buds3-white-668ea754772792639decb155?w=1920&q=75",
+    "file": "galaxy-buds3.webp",
+    "bytes": 9920,
+    "type": "image/webp"
+  },
+  {
+    "slug": "jbl-tune-520bt",
+    "status": "ok",
+    "page": "jbl-tune-520bt",
+    "image": "https://api2.zoomit.ir/media/jbl-tune-520bt-66f035ac13775b7b568866b9?w=1920&q=75",
+    "file": "jbl-tune-520bt.webp",
+    "bytes": 14106,
+    "type": "image/webp"
+  },
+  {
+    "slug": "sony-wh-ch720n",
+    "status": "ok",
+    "page": "sony-wh-ch720n",
+    "image": "https://api2.zoomit.ir/media/sony-wh-ch720n-blue-66a2c4c5d73f03d2a399406d?w=1920&q=75",
+    "file": "sony-wh-ch720n.webp",
+    "bytes": 11562,
+    "type": "image/webp"
+  },
+  {
+    "slug": "apple-watch-10-46",
+    "status": "ok",
+    "page": "apple-watch-series-10-46mm-aluminum",
+    "image": "https://api2.zoomit.ir/media/apple-watch-series-10-aluminum-black-66dff8ade404d665a09e0656?w=1920&q=75",
+    "match": "exact",
+    "file": "apple-watch-10-46.webp",
+    "bytes": 13320,
+    "type": "image/webp"
+  },
+  {
+    "slug": "galaxy-watch7-44",
+    "status": "ok",
+    "page": "samsung-galaxy-watch-7-44mm",
+    "image": "https://api2.zoomit.ir/media/samsung-galaxy-watch-7-44mm-silver-668ea13b772792639decb0df?w=1920&q=75",
+    "match": "exact",
+    "file": "galaxy-watch7-44.webp",
+    "bytes": 17846,
+    "type": "image/webp"
+  },
+  {
+    "slug": "anker-65w-gan",
+    "status": "ok",
+    "page": "anker-nano-70w-a121a",
+    "image": "https://api2.zoomit.ir/media/anker-nano-70w-a121a-green-6a204685b4388c93920f08ec?w=1920&q=75",
+    "match": "nearest",
+    "file": "anker-65w-gan.webp",
+    "bytes": 16728,
+    "type": "image/webp"
+  },
+  {
+    "slug": "apple-20w-adapter",
+    "status": "miss"
+  },
+  {
+    "slug": "xiaomi-powerbank-20000",
+    "status": "miss"
+  },
+  {
+    "slug": "anker-magsafe-10000",
+    "status": "ok",
+    "page": "anker-nano-5k-maggo-a1665-5000mah",
+    "image": "https://api2.zoomit.ir/media/anker-nano-5k-maggo-a1665-5000mah-black-68fab23db2559db5eb000f8a?w=1920&q=75",
+    "match": "nearest",
+    "file": "anker-magsafe-10000.webp",
+    "bytes": 10698,
+    "type": "image/webp"
+  },
+  {
+    "slug": "baseus-powerbank-30000",
+    "status": "ok",
+    "page": "baseus-bipow-digital-display-20w-20000mah",
+    "image": "https://api2.zoomit.ir/media/baseus-ppbd050501-bipow-digital-display-20000mah-678e6535d976f35f821128f1?w=1920&q=75",
+    "match": "nearest",
+    "file": "baseus-powerbank-30000.webp",
+    "bytes": 28652,
+    "type": "image/webp"
+  }
+]
