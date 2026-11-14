@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
+import { SiteShell } from "@/components/site-shell";
 import { SiteFooter } from "@/components/site-footer";
+import { SupportWidget } from "@/components/support-widget";
 
 export const metadata: Metadata = {
   title: {
@@ -26,9 +27,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="flex min-h-dvh flex-col">
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
+        <SiteShell>{children}</SiteShell>
         <SiteFooter />
+        <SupportWidget />
       </body>
     </html>
   );

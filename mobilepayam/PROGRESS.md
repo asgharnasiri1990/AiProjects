@@ -43,6 +43,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   `mobilepayam.admin.v1`, "قفل پنل" button to lock again. Not security.
 - Used phones: `/used` (brand/condition/sort filters) and `/used/[slug]`
   (gallery, video, description, specs, contact CTA); 5 seeded listings.
+- Home: the hero renders **above the site header** (SiteShell) on `/` only;
+  the navbar sticks under it while scrolling. Other pages keep the header on top.
+- Floating support widget (bottom-right): phone/email actions + hours, no fake chat.
 - Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
   images in `public/images/hero/`) flush under the header, with dots/arrows
   and 6s auto-rotate; the section below sits 8px under it.
@@ -99,6 +102,8 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 | 18 product images + 4 used images load (naturalWidth > 0), no broken images | ✅ |
 | Hero sits flush under the header (gap 0), 5 slides load, arrows advance | ✅ |
 | Navy palette applied (strip, logo, badges, CTAs, offer gradient); no `#ef4056` left | ✅ |
+| Home hero sits above the header; `/shop` still starts with the header | ✅ |
+| Support widget opens with the phone `tel:` link and closes | ✅ |
 
 Dev server: **port 3000 is occupied by `myportfolio3` (`next start`)** on this
 machine, so mobilepayam runs on **3001** (`npx next dev -p 3001`). If 3000 is

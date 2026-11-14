@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useCatalog, useUsedListings } from "@/lib/store";
 import { ProductCard } from "@/components/product-card";
 import { UsedCard } from "@/components/used-card";
-import { HeroSlider } from "@/components/hero-slider";
 import { ProductArt } from "@/components/product-art";
 import { container, card, sectionTitle, btnOnBrand } from "@/lib/ui";
 
@@ -65,9 +64,6 @@ export function HomeView() {
 
   return (
     <main className="pb-4">
-      {/* Hero — one full-bleed slider */}
-      <HeroSlider />
-
       {/* Categories */}
       <section className={`${container} mt-2`}>
         <div className={`${card} grid grid-cols-3 gap-1 px-2 py-3 sm:grid-cols-6`}>
