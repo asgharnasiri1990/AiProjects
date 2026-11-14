@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>mobilepayam — موکاپ سبک دیجی‌کالا</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="digikala.css">
+</head>
+<body>
+
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <!-- ui icons -->
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4-4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.9-5.2 2.9 1-5.9L3.5 9.8l5.9-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m14 7-5 5 5 5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h11v10H2z"/><path d="M13 9h4l4 3.5V16h-8"/><circle cx="6" cy="18.5" r="1.6"/><circle cx="17" cy="18.5" r="1.6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6v5.5c0 4.2-2.9 7.4-7 9-4.1-1.6-7-4.8-7-9V6z"/><path d="m9 11.8 2.1 2.2L15.2 10"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4.5V9h-4.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l.8 12.1a2 2 0 0 0 2 1.9h5.4a2 2 0 0 0 2-1.9L17.5 7"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="m14.5 5.5 4 4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5S4.5 15 4.5 9.8A3.8 3.8 0 0 1 12 7.6a3.8 3.8 0 0 1 7.5 2.2c0 5.2-7.5 9.7-7.5 9.7z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.7 2 2 0 0 1 5 3.5z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6.5-6.1 6.5-11a6.5 6.5 0 1 0-13 0C5.5 14.9 12 21 12 21z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8 12 4l8.5 4v8L12 20l-8.5-4z"/><path d="M3.5 8 12 12l8.5-4M12 12v8"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 3.5H20V11l-8.5 8.5L3.5 12z"/><circle cx="16.5" cy="7.5" r="1.3"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12.5 16V8M17 16v-6"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3"/><path d="M15 8.5 19 12l-4 3.5M19 12H9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+
+  <!-- device line art (160x200) -->
+  <symbol id="d-phone" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="46" y="22" width="68" height="156" rx="16"/>
+    <rect x="52" y="28" width="56" height="144" rx="11"/>
+    <rect x="68" y="34" width="24" height="7" rx="3.5"/>
+    <path d="M70 166h20"/>
+    <path d="M114 62v14M114 86v10"/>
+  </symbol>
+  <symbol id="d-watch" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="50" y="54" width="60" height="92" rx="20"/>
+    <path d="M64 54V30h32v24M64 146v24h32v-24"/>
+    <circle cx="80" cy="100" r="20"/>
+    <path d="M110 88v10M114 88v10"/>
+  </symbol>
+  <symbol id="d-earbuds" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="34" y="92" width="92" height="64" rx="20"/>
+    <path d="M34 114h92"/>
+    <path d="M56 92V70a10 10 0 0 1 20 0v22M84 92V70a10 10 0 0 1 20 0v22"/>
+    <path d="M66 128h28"/>
+  </symbol>
+  <symbol id="d-charger" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="44" y="58" width="72" height="72" rx="18"/>
+    <path d="M62 58V38M98 58V38"/>
+    <path d="M86 78l-12 18h12l-6 16"/>
+    <rect x="70" y="112" width="20" height="7" rx="2"/>
+  </symbol>
+  <symbol id="d-cable" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="64" y="20" width="32" height="38" rx="7"/>
+    <path d="M72 30h16M72 38h16"/>
+    <path d="M80 58v18c0 28 28 22 28 46v10"/>
+    <rect x="94" y="132" width="28" height="38" rx="7"/>
+    <path d="M102 142h12M102 150h12"/>
+  </symbol>
+  <symbol id="d-powerbank" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="50" y="28" width="60" height="144" rx="14"/>
+    <circle cx="66" cy="46" r="3"/><circle cx="78" cy="46" r="3"/><circle cx="90" cy="46" r="3"/>
+    <path d="M86 82 74 104h12l-6 18"/>
+    <rect x="60" y="150" width="16" height="7" rx="2"/><rect x="84" y="150" width="16" height="7" rx="2"/>
+  </symbol>
+  <symbol id="d-case" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="46" y="22" width="68" height="156" rx="18"/>
+    <rect x="54" y="30" width="34" height="34" rx="10"/>
+    <circle cx="64" cy="40" r="4.5" stroke-dasharray="0 0"/>
+    <circle cx="76" cy="52" r="4.5"/>
+    <path d="M106 60v10"/>
+  </symbol>
+  <symbol id="d-protector" viewBox="0 0 160 200" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="46" y="22" width="68" height="156" rx="12"/>
+    <path d="M56 156 106 44M72 166 118 60"/>
+    <path d="M54 34h14"/>
+  </symbol>
+</svg>
+
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="#home">mobile<span>payam</span><i>.</i></a>
+    <nav class="nav">
+      <div class="catmenu">
+        <button class="catmenu-btn" type="button" aria-expanded="false" aria-controls="cat-panel">
+          <svg><use href="#i-menu"/></svg>
+          <span>دسته‌بندی محصولات</span>
+          <svg class="cm-caret"><use href="#i-down"/></svg>
+        </button>
+        <div class="catmenu-panel" id="cat-panel">
+          <ul class="catmenu-list">
+            <li><button type="button" data-cat="mobile" class="on"><svg><use href="#d-phone"/></svg> موبایل <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+            <li><button type="button" data-cat="watch"><svg><use href="#d-watch"/></svg> ساعت هوشمند <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+            <li><button type="button" data-cat="audio"><svg><use href="#d-earbuds"/></svg> هدفون و ایرپاد <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+            <li><button type="button" data-cat="power"><svg><use href="#d-charger"/></svg> شارژر و کابل <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+            <li><button type="button" data-cat="bank"><svg><use href="#d-powerbank"/></svg> پاوربانک <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+            <li><button type="button" data-cat="cover"><svg><use href="#d-case"/></svg> قاب و گلس <svg class="cm-arrow"><use href="#i-chev"/></svg></button></li>
+          </ul>
+          <div class="catmenu-subs">
+            <div class="cm-sub on" data-sub="mobile">
+              <b>موبایل</b>
+              <div class="cm-links"><a href="#shop">آیفون</a><a href="#shop">سامسونگ</a><a href="#shop">شیائومی</a><a href="#shop">پرچمدارها</a><a href="#shop">گوشی اقتصادی</a></div>
+              <a class="cm-all" href="#shop">همهٔ موبایل‌ها</a>
+            </div>
+            <div class="cm-sub" data-sub="watch">
+              <b>ساعت هوشمند</b>
+              <div class="cm-links"><a href="#shop">اپل واچ</a><a href="#shop">گلکسی واچ</a><a href="#shop">مچ‌بند</a><a href="#shop">بند ساعت</a></div>
+              <a class="cm-all" href="#shop">همهٔ ساعت‌ها</a>
+            </div>
+            <div class="cm-sub" data-sub="audio">
+              <b>هدفون و ایرپاد</b>
+              <div class="cm-links"><a href="#shop">ایرپاد</a><a href="#shop">هندزفری بلوتوث</a><a href="#shop">هدفون سیمی</a><a href="#shop">اسپیکر</a></div>
+              <a class="cm-all" href="#shop">همهٔ صوتی‌ها</a>
+            </div>
+            <div class="cm-sub" data-sub="power">
+              <b>شارژر و کابل</b>
+              <div class="cm-links"><a href="#shop">شارژر دیواری</a><a href="#shop">کابل تایپ‌سی</a><a href="#shop">شارژر بی‌سیم</a><a href="#shop">شارژر خودرو</a></div>
+              <a class="cm-all" href="#shop">همهٔ شارژرها</a>
+            </div>
+            <div class="cm-sub" data-sub="bank">
+              <b>پاوربانک</b>
+              <div class="cm-links"><a href="#shop">پاوربانک ۱۰۰۰۰</a><a href="#shop">پاوربانک ۲۰۰۰۰</a><a href="#shop">پاوربانک مگ‌سیف</a></div>
+              <a class="cm-all" href="#shop">همهٔ پاوربانک‌ها</a>
+            </div>
+            <div class="cm-sub" data-sub="cover">
+              <b>قاب و گلس</b>
+              <div class="cm-links"><a href="#shop">قاب مگ‌سیف</a><a href="#shop">قاب شفاف</a><a href="#shop">گلس سرامیکی</a><a href="#shop">گلس حریم شخصی</a></div>
+              <a class="cm-all" href="#shop">همهٔ قاب و گلس‌ها</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#home" data-nav="home">خانه</a>
+      <a href="#shop" data-nav="shop">فروشگاه</a>
+      <a href="#about" data-nav="about">درباره ما</a>
+      <a href="#account" data-nav="account">حساب من</a>
+    </nav>
+    <div class="tools">
+      <label class="search">
+        <svg><use href="#i-search"/></svg>
+        <input type="search" placeholder="جستجوی محصول…">
+      </label>
+      <a class="icon-btn" href="#account" aria-label="حساب کاربری"><svg><use href="#i-user"/></svg></a>
+      <a class="cart-pill" href="#cart"><svg><use href="#i-cart"/></svg><span>سبد خرید</span><b id="cart-count">۰</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════ خانه ══════════ -->
+  <section class="screen" id="home">
+        <div class="wrap dk-top">
+      <div class="dk-slider">
+        <a class="dk-slide" href="#product">
+          <div class="dk-slide-copy">
+            <span class="dk-tag">پیشنهاد ویژهٔ این هفته</span>
+            <h2>آیفون ۱۶ پرو مکس</h2>
+            <p>تیتانیوم طبیعی · گارانتی ۱۸ ماهه · ارسال رایگان</p>
+            <b>از ۹۶٬۵۰۰٬۰۰۰ تومان</b>
+            <span class="dk-cta">مشاهدهٔ محصول</span>
+          </div>
+          <div class="dk-slide-art"><svg class="art"><use href="#d-phone"/></svg></div>
+        </a>
+        <div class="dk-dots"><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="dk-side">
+        <a class="dk-banner b1" href="#shop">
+          <div><b>لوازم جانبی اصل</b><span>شارژر، کابل و پاوربانک — تا ۳۰٪ تخفیف</span></div>
+          <svg class="art"><use href="#d-charger"/></svg>
+        </a>
+        <a class="dk-banner b2" href="#shop">
+          <div><b>ساعت هوشمند</b><span>سری جدید اپل واچ و گلکسی واچ</span></div>
+          <svg class="art"><use href="#d-watch"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="wrap cats">
+      <a class="cat" href="#shop"><svg><use href="#d-phone"/></svg><b>موبایل</b><span>۴۲ مدل</span></a>
+      <a class="cat" href="#shop"><svg><use href="#d-watch"/></svg><b>ساعت هوشمند</b><span>۱۸ مدل</span></a>
+      <a class="cat" href="#shop"><svg><use href="#d-earbuds"/></svg><b>هدفون و ایرپاد</b><span>۲۴ مدل</span></a>
+      <a class="cat" href="#shop"><svg><use href="#d-charger"/></svg><b>شارژر</b><span>۳۱ مدل</span></a>
+      <a class="cat" href="#shop"><svg><use href="#d-powerbank"/></svg><b>پاوربانک</b><span>۱۲ مدل</span></a>
+      <a class="cat" href="#shop"><svg><use href="#d-case"/></svg><b>قاب و گلس</b><span>۵۶ مدل</span></a>
+    </div>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><span class="kicker">انتخاب سردبیر</span><h2>پرفروش‌های این هفته</h2></div>
+          <a class="link-more" href="#shop">مشاهدهٔ همه <svg><use href="#i-chev"/></svg></a>
+        </div>
+        <div class="grid grid-4" data-products="featured"></div>
+      </div>
+    </section>
+
+    <div class="wrap brands">
+      <span>Apple</span><span>Samsung</span><span>Xiaomi</span><span>Anker</span><span>JBL</span><span>Baseus</span>
+    </div>
+
+    <section class="band features-band">
+      <div class="wrap features">
+        <div class="feature"><svg><use href="#i-shield"/></svg><b>ضمانت اصالت کالا</b><span>با کد رهگیری رسمی</span></div>
+        <div class="feature"><svg><use href="#i-truck"/></svg><b>ارسال سریع</b><span>تهران: همان روز</span></div>
+        <div class="feature"><svg><use href="#i-refresh"/></svg><b>۷ روز بازگشت</b><span>بدون پرسش</span></div>
+        <div class="feature"><svg><use href="#i-lock"/></svg><b>پرداخت امن</b><span>درگاه بانکی معتبر</span></div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="offer">
+        <div class="offer-copy">
+          <span class="kicker">پیشنهاد محدود</span>
+          <h3>لوازم جانبی اصل،<br>تا ۳۰٪ کمتر</h3>
+          <p>شارژرهای GaN، کابل‌های فست‌شارژ و پاوربانک‌های سبک — تا پایان هفته.</p>
+          <a class="btn" href="#shop">دیدن پیشنهادها <svg class="btn-arrow"><use href="#i-chev"/></svg></a>
+        </div>
+        <div class="offer-art">
+          <svg class="art"><use href="#d-charger"/></svg>
+          <svg class="art"><use href="#d-powerbank"/></svg>
+          <svg class="art"><use href="#d-cable"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ فروشگاه ══════════ -->
+  <section class="screen" id="shop">
+    <div class="wrap page-head">
+      <span class="kicker">فروشگاه</span>
+      <h1>همهٔ محصولات</h1>
+      <p class="sub">۱۲۸ کالا در ۸ دسته‌بندی — موبایل، پوشیدنی و لوازم جانبی.</p>
+    </div>
+    <div class="wrap shop-layout">
+      <aside class="filters">
+        <div class="filter-head"><b>فیلترها</b><button class="text-btn" onclick="toast('فیلترها پاک شدند')">پاک کردن</button></div>
+        <div class="filter"><b>دسته‌بندی</b>
+          <label><input type="checkbox" checked> موبایل <span>۴۲</span></label>
+          <label><input type="checkbox"> ساعت هوشمند <span>۱۸</span></label>
+          <label><input type="checkbox"> هدفون و ایرپاد <span>۲۴</span></label>
+          <label><input type="checkbox"> شارژر و کابل <span>۳۱</span></label>
+          <label><input type="checkbox"> قاب و گلس <span>۵۶</span></label>
+        </div>
+        <div class="filter"><b>برند</b>
+          <label><input type="checkbox" checked> Apple <span>۳۶</span></label>
+          <label><input type="checkbox"> Samsung <span>۲۸</span></label>
+          <label><input type="checkbox"> Xiaomi <span>۲۲</span></label>
+          <label><input type="checkbox"> Anker <span>۱۹</span></label>
+          <label><input type="checkbox"> Baseus <span>۱۴</span></label>
+        </div>
+        <div class="filter"><b>محدودهٔ قیمت</b>
+          <div class="range-row"><input type="number" placeholder="از" value="500000"><input type="number" placeholder="تا" value="100000000"></div>
+          <div class="range-bar"><i></i></div>
+        </div>
+        <div class="filter"><b>سایر</b>
+          <label><input type="checkbox"> فقط کالاهای موجود</label>
+          <label><input type="checkbox"> دارای تخفیف</label>
+          <label><input type="checkbox"> ارسال رایگان</label>
+        </div>
+      </aside>
+      <div class="shop-main">
+        <div class="toolbar">
+          <span class="count">نمایش <b>۹</b> محصول از <b>۱۲۸</b></span>
+          <div class="toolbar-right">
+            <label class="sort">مرتب‌سازی:
+              <select><option>پرفروش‌ترین</option><option>ارزان‌ترین</option><option>گران‌ترین</option><option>جدیدترین</option></select>
+            </label>
+          </div>
+        </div>
+        <div class="grid grid-3" data-products="all"></div>
+        <div class="pager"><a class="on" href="#shop">۱</a><a href="#shop">۲</a><a href="#shop">۳</a><a href="#shop">…</a><a href="#shop">۱۴</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ محصول ══════════ -->
+  <section class="screen" id="product">
+    <div class="wrap crumb"><a href="#home">خانه</a><span>/</span><a href="#shop">موبایل</a><span>/</span><b>iPhone 16 Pro Max</b></div>
+    <div class="wrap product-layout">
+      <div class="gallery">
+        <div class="gallery-main"><svg class="art art-lg"><use href="#d-phone"/></svg><span class="gal-badge">اورجینال</span></div>
+        <div class="thumbs">
+          <button class="thumb-btn on"><svg><use href="#d-phone"/></svg></button>
+          <button class="thumb-btn"><svg><use href="#d-case"/></svg></button>
+          <button class="thumb-btn"><svg><use href="#d-charger"/></svg></button>
+          <button class="thumb-btn"><svg><use href="#d-protector"/></svg></button>
+        </div>
+      </div>
+      <div class="pinfo">
+        <span class="kicker">Apple · سری ۱۶</span>
+        <h1>آیفون ۱۶ پرو مکس — ۲۵۶ گیگابایت</h1>
+        <div class="rate-line"><span class="stars">★★★★★</span> <b>۴٫۹</b> <span class="muted">(۳۱۲ نظر)</span> <span class="dot">·</span> <span class="ok">موجود در انبار</span></div>
+        <div class="price-block">
+          <s>۱۰۲٬۰۰۰٬۰۰۰</s>
+          <b>۹۶٬۵۰۰٬۰۰۰</b><span>تومان</span>
+          <i class="off">۵٪ تخفیف</i>
+        </div>
+        <p class="desc">تیتانیوم طبیعی، تراشهٔ A18 Pro و دوربین سه‌گانهٔ ۴۸ مگاپیکسل. گارانتی ۱۸ ماههٔ شرکتی با خدمات پس از فروش رسمی.</p>
+        <div class="opt">
+          <b>رنگ</b>
+          <div class="swatches"><i class="sw on" style="--c:#3f3f42"></i><i class="sw" style="--c:#c9c2b6"></i><i class="sw" style="--c:#5b6b74"></i><i class="sw" style="--c:#e6e2da"></i></div>
+        </div>
+        <div class="opt">
+          <b>حافظه</b>
+          <div class="chips"><button class="chip">۱۲۸ گیگ</button><button class="chip on">۲۵۶ گیگ</button><button class="chip">۵۱۲ گیگ</button></div>
+        </div>
+        <div class="buy-row">
+          <div class="stepper"><button onclick="pq(-1)">−</button><b id="p-qty">۱</b><button onclick="pq(1)">+</button></div>
+          <button class="btn grow" onclick="addToCart(1, document.getElementById('p-qty').textContent)">افزودن به سبد خرید</button>
+          <button class="icon-btn bordered" onclick="toast('به علاقه‌مندی‌ها اضافه شد')"><svg><use href="#i-heart"/></svg></button>
+        </div>
+        <ul class="assure">
+          <li><svg><use href="#i-shield"/></svg> گارانتی ۱۸ ماههٔ رسمی</li>
+          <li><svg><use href="#i-truck"/></svg> ارسال رایگان بالای ۵ میلیون</li>
+          <li><svg><use href="#i-refresh"/></svg> بازگشت ۷ روزه</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="tabs">
+        <button class="tab on" data-tab="specs">مشخصات فنی</button>
+        <button class="tab" data-tab="reviews">نظرات (۳۱۲)</button>
+        <button class="tab" data-tab="shipping">ارسال و گارانتی</button>
+      </div>
+      <div class="tab-panel on" id="tab-specs">
+        <table class="specs">
+          <tr><th>صفحه‌نمایش</th><td>۶٫۹ اینچ Super Retina XDR، 120Hz</td></tr>
+          <tr><th>تراشه</th><td>Apple A18 Pro</td></tr>
+          <tr><th>حافظه</th><td>۲۵۶ گیگابایت / ۸ گیگ رم</td></tr>
+          <tr><th>دوربین</th><td>سه‌گانه ۴۸ + ۴۸ + ۱۲ مگاپیکسل</td></tr>
+          <tr><th>باتری</th><td>۴۶۸۵ میلی‌آمپرساعت، شارژ ۳۰ وات</td></tr>
+          <tr><th>ساخت</th><td>تیتانیوم درجه ۵</td></tr>
+        </table>
+      </div>
+      <div class="tab-panel" id="tab-reviews">
+        <div class="review"><div class="rev-head"><b>سارا م.</b><span class="stars">★★★★★</span><span class="muted">۲ روز پیش</span></div><p>کیفیت ساخت عالی، بسته‌بندی سالم رسید. دوربین در نور کم واقعاً تفاوت دارد.</p></div>
+        <div class="review"><div class="rev-head"><b>امیر ک.</b><span class="stars">★★★★☆</span><span class="muted">۵ روز پیش</span></div><p>ارسال سریع بود؛ فقط رنگ تیتانیوم طبیعی کمی تیره‌تر از عکس است.</p></div>
+      </div>
+      <div class="tab-panel" id="tab-shipping">
+        <p class="desc">ارسال تهران با پیک همان روز (سفارش تا ساعت ۱۴). شهرستان ۲ تا ۴ روز کاری با تیپاکس. گارانتی ۱۸ ماههٔ شرکتی و ۷ روز بازگشت بدون قید و شرط.</p>
+      </div>
+
+      <div class="sec-head related-head"><div><span class="kicker">شاید بپسندید</span><h2>محصولات مرتبط</h2></div></div>
+      <div class="grid grid-4" data-products="related"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ سبد ══════════ -->
+  <section class="screen" id="cart">
+    <div class="wrap page-head"><span class="kicker">مرحله ۱ از ۳</span><h1>سبد خرید</h1></div>
+    <div class="wrap cart-layout">
+      <div class="cart-main">
+        <div class="cart-head"><span>محصول</span><span>تعداد</span><span>قیمت</span><span></span></div>
+        <div id="cart-rows"></div>
+        <div class="coupon">
+          <input type="text" placeholder="کد تخفیف دارید؟">
+          <button class="btn ghost" onclick="toast('کد تخفیف «PAYAM10» اعمال شد')">اعمال</button>
+        </div>
+        <a class="back-link" href="#shop"><svg><use href="#i-chev"/></svg> ادامهٔ خرید</a>
+      </div>
+      <aside class="summary">
+        <b class="summary-title">خلاصهٔ سفارش</b>
+        <div class="sum-row"><span>جمع کالاها</span><b id="sum-sub">—</b></div>
+        <div class="sum-row"><span>تخفیف</span><b class="ok">—</b></div>
+        <div class="sum-row"><span>هزینهٔ ارسال</span><b id="sum-ship">—</b></div>
+        <div class="sum-divider"></div>
+        <div class="sum-row total"><span>مبلغ قابل پرداخت</span><b id="sum-total">—</b></div>
+        <a class="btn full" href="#checkout">ادامهٔ فرآیند خرید</a>
+        <p class="sum-note"><svg><use href="#i-lock"/></svg> پرداخت امن از طریق درگاه بانکی</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════ پرداخت ══════════ -->
+  <section class="screen" id="checkout">
+    <div class="wrap page-head"><span class="kicker">مرحله ۳ از ۳</span><h1>تکمیل سفارش</h1></div>
+    <div class="wrap steps">
+      <div class="step done"><i><svg><use href="#i-check"/></svg></i><b>سبد خرید</b></div>
+      <div class="step done"><i><svg><use href="#i-check"/></svg></i><b>اطلاعات ارسال</b></div>
+      <div class="step on"><i>۳</i><b>پرداخت</b></div>
+    </div>
+    <div class="wrap cart-layout">
+      <div class="cart-main form-card">
+        <b class="summary-title">اطلاعات گیرنده</b>
+        <div class="form-grid">
+          <label>نام و نام خانوادگی<input type="text" value="امیر پاکزاد"></label>
+          <label>شمارهٔ موبایل<input type="text" value="۰۹۱۲۳۴۵۶۷۸۹" dir="ltr"></label>
+          <label>استان<select><option>تهران</option><option>البرز</option><option>اصفهان</option></select></label>
+          <label>شهر<select><option>تهران</option><option>کرج</option></select></label>
+          <label class="span2">آدرس کامل<textarea rows="2">خیابان ولیعصر، بالاتر از پارک ساعی، پلاک ۱۲، واحد ۴</textarea></label>
+          <label>کد پستی<input type="text" value="۱۹۶۸۷۴۳۲۱۱" dir="ltr"></label>
+          <label>کد تخفیف<input type="text" placeholder="اختیاری"></label>
+        </div>
+        <b class="summary-title mt">روش ارسال</b>
+        <div class="radios">
+          <label class="radio on"><input type="radio" name="ship" checked><div><b>پیک همان روز — تهران</b><span>تحویل تا ۶ ساعت پس از تأیید</span></div><b class="radio-price">۸۹٬۰۰۰</b></label>
+          <label class="radio"><input type="radio" name="ship"><div><b>تیپاکس — شهرستان</b><span>۲ تا ۴ روز کاری</span></div><b class="radio-price">۱۴۵٬۰۰۰</b></label>
+          <label class="radio"><input type="radio" name="ship"><div><b>تحویل حضوری</b><span>فروشگاه مرکزی، ولیعصر</span></div><b class="radio-price">رایگان</b></label>
+        </div>
+        <b class="summary-title mt">روش پرداخت</b>
+        <div class="radios">
+          <label class="radio on"><input type="radio" name="pay" checked><div><b>درگاه اینترنتی (زرین‌پال)</b><span>پرداخت امن با کارت‌های شتاب</span></div><svg><use href="#i-lock"/></svg></label>
+          <label class="radio"><input type="radio" name="pay"><div><b>کارت به کارت</b><span>ارسال فیش پس از واریز</span></div></label>
+        </div>
+      </div>
+      <aside class="summary">
+        <b class="summary-title">سفارش شما</b>
+        <div id="co-items" class="co-items"></div>
+        <div class="sum-divider"></div>
+        <div class="sum-row"><span>جمع کالاها</span><b id="co-sub">—</b></div>
+        <div class="sum-row"><span>هزینهٔ ارسال</span><b id="co-ship">—</b></div>
+        <div class="sum-row total"><span>قابل پرداخت</span><b id="co-total">—</b></div>
+        <button class="btn full" onclick="toast('سفارش ثبت شد — انتقال به درگاه پرداخت')">پرداخت و ثبت سفارش</button>
+        <p class="sum-note"><svg><use href="#i-shield"/></svg> با ثبت سفارش، قوانین فروشگاه را می‌پذیرید.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════ حساب کاربری ══════════ -->
+  <section class="screen" id="account">
+    <div class="wrap page-head"><span class="kicker">حساب من</span><h1>سلام، امیر 👋</h1></div>
+    <div class="wrap account-layout">
+      <aside class="account-nav">
+        <div class="user-card"><div class="avatar">ا</div><div><b>امیر پاکزاد</b><span>۰۹۱۲۳۴۵۶۷۸۹</span></div></div>
+        <a class="on" href="#account"><svg><use href="#i-grid"/></svg> پیشخوان</a>
+        <a href="#account"><svg><use href="#i-box"/></svg> سفارش‌های من <i>۲</i></a>
+        <a href="#account"><svg><use href="#i-heart"/></svg> علاقه‌مندی‌ها</a>
+        <a href="#account"><svg><use href="#i-pin"/></svg> آدرس‌ها</a>
+        <a href="#admin"><svg><use href="#i-chart"/></svg> پنل مدیریت</a>
+        <a href="#home"><svg><use href="#i-logout"/></svg> خروج</a>
+      </aside>
+      <div class="account-main">
+        <div class="stat-row">
+          <div class="stat"><span>سفارش‌ها</span><b>۲</b></div>
+          <div class="stat"><span>در انتظار ارسال</span><b>۱</b></div>
+          <div class="stat"><span>کیف پول</span><b>۰ تومان</b></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><b>آخرین سفارش‌ها</b><a class="link-more" href="#account">همهٔ سفارش‌ها <svg><use href="#i-chev"/></svg></a></div>
+          <table class="table">
+            <thead><tr><th>شماره</th><th>تاریخ</th><th>مبلغ</th><th>وضعیت</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>MP-10482</td><td>۱۲ آبان ۱۴۰۴</td><td>۹۹٬۴۰۰٬۰۰۰</td><td><span class="status ok">ارسال شده</span></td><td><a href="#account">جزئیات</a></td></tr>
+              <tr><td>MP-10310</td><td>۲ مهر ۱۴۰۴</td><td>۳٬۲۰۰٬۰۰۰</td><td><span class="status">در حال پردازش</span></td><td><a href="#account">جزئیات</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><b>اطلاعات حساب</b><button class="text-btn" onclick="toast('حالت ویرایش فعال شد')">ویرایش</button></div>
+          <div class="kv"><span>ایمیل</span><b>amir@example.com</b></div>
+          <div class="kv"><span>تاریخ عضویت</span><b>فروردین ۱۴۰۳</b></div>
+          <div class="kv"><span>آدرس پیش‌فرض</span><b>تهران، ولیعصر، پلاک ۱۲</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ درباره ما ══════════ -->
+  <section class="screen" id="about">
+    <div class="wrap about-hero">
+      <span class="kicker">دربارهٔ ما</span>
+      <h1>فروشگاهی برای کسانی که<br><em>جزئیات را می‌بینند.</em></h1>
+      <p class="lead">mobilepayam از سال ۱۳۹۸ موبایل و لوازم جانبی اورجینال را با قیمت شفاف و مشاورهٔ واقعی عرضه می‌کند. هدف ما ساده است: خرید یک گوشی نباید استرس داشته باشد.</p>
+    </div>
+    <div class="wrap stats-row">
+      <div><b>۷</b><span>سال تجربه</span></div>
+      <div><b>۲۴٬۰۰۰</b><span>سفارش موفق</span></div>
+      <div><b>۴٫۸/۵</b><span>رضایت مشتریان</span></div>
+      <div><b>۱۸۰+</b><span>مدل موجود</span></div>
+    </div>
+    <div class="wrap values">
+      <div class="value"><span>۰۱</span><b>اصالت، بدون استثنا</b><p>هر کالا با کد رهگیری رسمی و گارانتی معتبر عرضه می‌شود.</p></div>
+      <div class="value"><span>۰۲</span><b>قیمت شفاف</b><p>بدون هزینهٔ پنهان؛ قیمت نهایی همان است که می‌بینید.</p></div>
+      <div class="value"><span>۰۳</span><b>مشاورهٔ انسانی</b><p>کارشناس واقعی، نه ربات؛ پیش از خرید راهنمایی می‌گیرید.</p></div>
+      <div class="value"><span>۰۴</span><b>پشتیبانی پس از فروش</b><p>خدمات نصب، انتقال داده و پیگیری گارانتی در فروشگاه.</p></div>
+    </div>
+    <div class="wrap contact">
+      <div><span class="kicker">ارتباط با ما</span><h2>تهران، ولیعصر، بالاتر از پارک ساعی، پلاک ۱۲</h2>
+        <p class="desc">شنبه تا پنجشنبه، ۱۰ تا ۲۰</p></div>
+      <div class="contact-lines">
+        <a href="#about"><svg><use href="#i-phone"/></svg> ۰۲۱ - ۸۸۷۷ ۶۶۵۵</a>
+        <a href="#about"><svg><use href="#i-mail"/></svg> hello@mobilepayam.ir</a>
+        <a href="#about"><svg><use href="#i-pin"/></svg> مسیریابی فروشگاه</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ پنل مدیریت ══════════ -->
+  <section class="screen" id="admin">
+    <div class="wrap page-head"><span class="kicker">پنل مدیریت</span><h1>محصولات</h1>
+      <p class="sub">افزودن، ویرایش و حذف کالا — این صفحه در موکاپ کاملاً تعاملی است.</p></div>
+    <div class="wrap">
+      <div class="stat-row">
+        <div class="stat"><span>کل محصولات</span><b id="st-products">—</b></div>
+        <div class="stat"><span>سفارش‌های امروز</span><b>۱۴</b></div>
+        <div class="stat"><span>درآمد امروز</span><b>۱۲۸٬۴۰۰٬۰۰۰</b></div>
+        <div class="stat"><span>موجودی کم</span><b class="warn">۳</b></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><b>لیست محصولات</b><button class="btn small" onclick="document.getElementById('add-form').scrollIntoView({behavior:'smooth'})"><svg><use href="#i-plus"/></svg> افزودن محصول</button></div>
+        <table class="table admin-table">
+          <thead><tr><th>محصول</th><th>دسته</th><th>برند</th><th>قیمت</th><th>موجودی</th><th>عملیات</th></tr></thead>
+          <tbody id="admin-rows"></tbody>
+        </table>
+      </div>
+      <div class="panel" id="add-form">
+        <div class="panel-head"><b>افزودن محصول جدید</b></div>
+        <form class="form-grid" onsubmit="addProduct(event)">
+          <label>نام محصول<input id="np-name" required placeholder="مثلاً ایرپاد پرو ۳"></label>
+          <label>برند<input id="np-brand" required placeholder="Apple"></label>
+          <label>دسته‌بندی<select id="np-cat"><option>موبایل</option><option>ساعت هوشمند</option><option>هدفون</option><option>شارژر</option><option>کابل</option><option>پاوربانک</option><option>قاب</option><option>گلس</option></select></label>
+          <label>قیمت (تومان)<input id="np-price" type="number" required placeholder="2450000"></label>
+          <label>آیکن محصول<select id="np-icon"><option value="phone">موبایل</option><option value="watch">ساعت</option><option value="earbuds">ایرپاد</option><option value="charger">شارژر</option><option value="cable">کابل</option><option value="powerbank">پاوربانک</option><option value="case">قاب</option><option value="protector">گلس</option></select></label>
+          <label>موجودی<input id="np-stock" type="number" value="12"></label>
+          <div class="span2"><button class="btn" type="submit">ذخیرهٔ محصول</button> <span class="muted small-note">در نسخهٔ واقعی به دیتابیس ذخیره می‌شود.</span></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#home">mobile<span>payam</span><i>.</i></a>
+      <p>موبایل و لوازم جانبی اورجینال، با ضمانت اصالت و پشتیبانی واقعی.</p>
+    </div>
+    <div><b>فروشگاه</b><a href="#shop">موبایل</a><a href="#shop">ساعت هوشمند</a><a href="#shop">شارژر و کابل</a><a href="#shop">قاب و گلس</a></div>
+    <div><b>حساب</b><a href="#account">سفارش‌ها</a><a href="#cart">سبد خرید</a><a href="#about">درباره ما</a><a href="#admin">پنل مدیریت</a></div>
+    <div><b>پشتیبانی</b><a href="#about">تماس با ما</a><a href="#about">شرایط بازگشت</a><a href="#about">گارانتی</a><a href="#about">سؤالات متداول</a></div>
+  </div>
+  <div class="wrap foot-bottom"><span>© ۱۴۰۴ mobilepayam — موکاپ طراحی</span><span>طراحی و توسعه: نمونهٔ اولیه</span></div>
+</footer>
+
+<div class="mockbar">
+  <b>موکاپ: سبک دیجی‌کالا</b>
+  <a href="lux.html">لوکس</a>
+  <a href="energetic.html">پرانرژی</a>
+  <a href="#admin">پنل مدیریت</a>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ───── داده‌ها ───── */
+const fmt = n => Number(n).toLocaleString('fa-IR');
+const PRODUCTS = [
+  { id: 1, name: 'آیفون ۱۶ پرو مکس — ۲۵۶ گیگ', brand: 'Apple', cat: 'موبایل', price: 96500000, old: 102000000, rating: 4.9, reviews: 312, icon: 'phone', stock: 8, badge: 'پرفروش' },
+  { id: 2, name: 'سامسونگ گلکسی S25 اولترا', brand: 'Samsung', cat: 'موبایل', price: 78900000, old: 0, rating: 4.8, reviews: 204, icon: 'phone', stock: 11, badge: 'جدید' },
+  { id: 3, name: 'اپل واچ سری ۱۰ — ۴۶ مم', brand: 'Apple', cat: 'ساعت هوشمند', price: 24500000, old: 0, rating: 4.7, reviews: 98, icon: 'watch', stock: 6 },
+  { id: 4, name: 'ایرپاد پرو ۲ — USB-C', brand: 'Apple', cat: 'هدفون', price: 12900000, old: 14500000, rating: 4.9, reviews: 421, icon: 'earbuds', stock: 15, badge: 'تخفیف' },
+  { id: 5, name: 'شارژر ۶۵ وات GaN انکر', brand: 'Anker', cat: 'شارژر', price: 2450000, old: 0, rating: 4.6, reviews: 156, icon: 'charger', stock: 32 },
+  { id: 6, name: 'کابل تایپ‌سی به لایتنینگ ۱ متری', brand: 'Baseus', cat: 'کابل', price: 690000, old: 850000, rating: 4.4, reviews: 88, icon: 'cable', stock: 60, badge: 'تخفیف' },
+  { id: 7, name: 'پاوربانک ۲۰۰۰۰ شیائومی', brand: 'Xiaomi', cat: 'پاوربانک', price: 3200000, old: 0, rating: 4.5, reviews: 132, icon: 'powerbank', stock: 20, badge: 'پرفروش' },
+  { id: 8, name: 'قاب مگ‌سیف شفاف آیفون ۱۶', brand: 'Apple', cat: 'قاب', price: 1450000, old: 0, rating: 4.3, reviews: 64, icon: 'case', stock: 40 },
+  { id: 9, name: 'گلس سرامیکی تمام‌چسب', brand: 'Green Lion', cat: 'گلس', price: 450000, old: 0, rating: 4.1, reviews: 51, icon: 'protector', stock: 90 }
+];
+
+/* ───── رندر کارت محصول ───── */
+function art(icon, cls = '') {
+  return `<svg class="art ${cls}" aria-hidden="true"><use href="#d-${icon}"/></svg>`;
+}
+function card(p) {
+  const off = p.old ? Math.round((1 - p.price / p.old) * 100) : 0;
+  return `<article class="card">
+    <a class="card-link" href="#product">
+      <div class="thumb">
+        ${art(p.icon)}
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        ${off ? `<span class="badge off">٪${fmt(off)}</span>` : ''}
+      </div>
+      <div class="card-body">
+        <span class="eyebrow">${p.brand} · ${p.cat}</span>
+        <h3>${p.name}</h3>
+        <div class="price">
+          ${p.old ? `<s>${fmt(p.old)}</s>` : ''}
+          <b>${fmt(p.price)}</b><span>تومان</span>
+        </div>
+        <div class="rate-line small"><span class="stars">★★★★★</span><span class="muted">${p.rating.toLocaleString('fa-IR')} (${fmt(p.reviews)})</span></div>
+      </div>
+    </a>
+    <button class="card-add" onclick="addToCart(${p.id})">افزودن به سبد</button>
+  </article>`;
+}
+function renderGrids() {
+  document.querySelectorAll('[data-products]').forEach(box => {
+    const mode = box.dataset.products;
+    const list = mode === 'featured' ? PRODUCTS.slice(0, 4)
+      : mode === 'related' ? PRODUCTS.slice(1, 5)
+      : PRODUCTS;
+    box.innerHTML = list.map(card).join('');
+  });
+  const st = document.getElementById('st-products');
+  if (st) st.textContent = fmt(PRODUCTS.length);
+}
+
+/* ───── سبد خرید ───── */
+let cart = [
+  { id: 1, qty: 1 },
+  { id: 5, qty: 2 },
+  { id: 9, qty: 1 }
+];
+const findP = id => PRODUCTS.find(p => p.id === Number(id));
+
+function addToCart(id, qty = '۱') {
+  const q = Math.max(1, parseInt(String(qty).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)), 10) || 1);
+  const line = cart.find(l => l.id === Number(id));
+  if (line) line.qty += q; else cart.push({ id: Number(id), qty: q });
+  renderCart();
+  toast(`«${findP(id).name}» به سبد اضافه شد`);
+}
+function chg(id, d) {
+  const line = cart.find(l => l.id === Number(id));
+  if (!line) return;
+  line.qty = Math.max(0, line.qty + d);
+  if (line.qty === 0) cart = cart.filter(l => l !== line);
+  renderCart();
+}
+function rm(id) {
+  cart = cart.filter(l => l.id !== Number(id));
+  renderCart();
+  toast('محصول از سبد حذف شد');
+}
+function totals() {
+  const sub = cart.reduce((s, l) => s + findP(l.id).price * l.qty, 0);
+  const ship = sub === 0 ? 0 : (sub >= 5000000 ? 0 : 89000);
+  return { sub, ship, total: sub + ship, count: cart.reduce((s, l) => s + l.qty, 0) };
+}
+function renderCart() {
+  const t = totals();
+  document.getElementById('cart-count').textContent = fmt(t.count);
+
+  const rows = document.getElementById('cart-rows');
+  if (rows) {
+    rows.innerHTML = cart.length ? cart.map(l => {
+      const p = findP(l.id);
+      return `<div class="cart-row">
+        <div class="cart-prod">
+          <div class="cart-thumb">${art(p.icon)}</div>
+          <div><b>${p.name}</b><span class="muted">${p.brand} · ${p.cat}</span>
+            <button class="text-btn danger" onclick="rm(${p.id})">حذف</button></div>
+        </div>
+        <div class="stepper"><button onclick="chg(${p.id},-1)">−</button><b>${fmt(l.qty)}</b><button onclick="chg(${p.id},1)">+</button></div>
+        <b class="cart-price">${fmt(p.price * l.qty)} <span>تومان</span></b>
+        <button class="icon-btn plain" onclick="rm(${p.id})" aria-label="حذف"><svg><use href="#i-trash"/></svg></button>
+      </div>`;
+    }).join('') : `<div class="empty">سبد خرید خالی است. <a href="#shop">رفتن به فروشگاه</a></div>`;
+  }
+
+  if (document.getElementById('sum-sub')) {
+    document.getElementById('sum-sub').textContent = fmt(t.sub) + ' تومان';
+    document.getElementById('sum-ship').textContent = t.ship ? fmt(t.ship) + ' تومان' : 'رایگان';
+    document.getElementById('sum-total').textContent = fmt(t.total) + ' تومان';
+  }
+  if (document.getElementById('co-sub')) {
+    document.getElementById('co-sub').textContent = fmt(t.sub) + ' تومان';
+    document.getElementById('co-ship').textContent = t.ship ? fmt(t.ship) + ' تومان' : 'رایگان';
+    document.getElementById('co-total').textContent = fmt(t.total) + ' تومان';
+    document.getElementById('co-items').innerHTML = cart.map(l => {
+      const p = findP(l.id);
+      return `<div class="co-item"><span>${p.name} × ${fmt(l.qty)}</span><b>${fmt(p.price * l.qty)}</b></div>`;
+    }).join('') || '<p class="muted">سبد خالی است.</p>';
+  }
+}
+
+/* ───── مدیریت ───── */
+function renderAdmin() {
+  const body = document.getElementById('admin-rows');
+  if (!body) return;
+  body.innerHTML = PRODUCTS.map((p, i) => `<tr>
+    <td><div class="tp"><span class="tp-art">${art(p.icon)}</span><b>${p.name}</b></div></td>
+    <td>${p.cat}</td>
+    <td>${p.brand}</td>
+    <td>${fmt(p.price)}</td>
+    <td>${p.stock > 10 ? fmt(p.stock) : `<span class="status warn">${fmt(p.stock)}</span>`}</td>
+    <td class="row-actions">
+      <button class="icon-btn plain" onclick="toast('فرم ویرایش «${p.name}» باز می‌شود')"><svg><use href="#i-edit"/></svg></button>
+      <button class="icon-btn plain danger" onclick="delProduct(${p.id})"><svg><use href="#i-trash"/></svg></button>
+    </td>
+  </tr>`).join('');
+  const st = document.getElementById('st-products');
+  if (st) st.textContent = fmt(PRODUCTS.length);
+}
+function delProduct(id) {
+  const i = PRODUCTS.findIndex(p => p.id === id);
+  if (i < 0) return;
+  const name = PRODUCTS[i].name;
+  PRODUCTS.splice(i, 1);
+  cart = cart.filter(l => l.id !== id);
+  renderAdmin(); renderGrids(); renderCart();
+  toast(`«${name}» حذف شد`);
+}
+function addProduct(e) {
+  e.preventDefault();
+  const p = {
+    id: Date.now(),
+    name: document.getElementById('np-name').value.trim(),
+    brand: document.getElementById('np-brand').value.trim(),
+    cat: document.getElementById('np-cat').value,
+    price: Number(document.getElementById('np-price').value),
+    old: 0, rating: 0, reviews: 0,
+    icon: document.getElementById('np-icon').value,
+    stock: Number(document.getElementById('np-stock').value) || 0,
+    badge: 'جدید'
+  };
+  PRODUCTS.unshift(p);
+  e.target.reset();
+  renderAdmin(); renderGrids(); renderCart();
+  toast(`«${p.name}» اضافه شد`);
+}
+
+/* ───── کنترل‌های صفحه ───── */
+let pqty = 1;
+function pq(d) {
+  pqty = Math.min(5, Math.max(1, pqty + d));
+  document.getElementById('p-qty').textContent = fmt(pqty);
+}
+
+/* تب‌های محصول */
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('tab-' + btn.dataset.tab)?.classList.add('on');
+  });
+});
+
+/* گالری و رنگ و حافظه */
+document.querySelectorAll('.thumb-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.thumb-btn').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+}));
+document.querySelectorAll('.sw').forEach(s => s.addEventListener('click', () => {
+  document.querySelectorAll('.sw').forEach(x => x.classList.remove('on'));
+  s.classList.add('on');
+}));
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
+  c.classList.add('on');
+}));
+document.querySelectorAll('.radio input').forEach(r => r.addEventListener('change', () => {
+  r.closest('.radios').querySelectorAll('.radio').forEach(x => x.classList.remove('on'));
+  r.closest('.radio').classList.add('on');
+}));
+
+/* ───── مگامنوی دسته‌بندی ───── */
+const catMenu = document.querySelector('.catmenu');
+const catBtn = document.querySelector('.catmenu-btn');
+if (catMenu && catBtn) {
+  const closeMenu = () => {
+    catMenu.classList.remove('open');
+    catBtn.setAttribute('aria-expanded', 'false');
+  };
+  const activateCat = (cat, btn) => {
+    catMenu.querySelectorAll('.catmenu-list button').forEach(x => x.classList.toggle('on', x === btn));
+    catMenu.querySelectorAll('.cm-sub').forEach(s => s.classList.toggle('on', s.dataset.sub === cat));
+  };
+  catBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = catMenu.classList.toggle('open');
+    catBtn.setAttribute('aria-expanded', String(open));
+  });
+  catMenu.querySelectorAll('.catmenu-list button').forEach(b => {
+    b.addEventListener('mouseenter', () => activateCat(b.dataset.cat, b));
+    b.addEventListener('focus', () => activateCat(b.dataset.cat, b));
+    b.addEventListener('click', () => {
+      activateCat(b.dataset.cat, b);
+      closeMenu();
+      location.hash = '#shop';
+    });
+  });
+  catMenu.querySelectorAll('.cm-links a, .cm-all').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('click', e => { if (!catMenu.contains(e.target)) closeMenu(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+}
+
+/* ───── روتینگ نمایش صفحه ───── */
+const SCREENS = ['home', 'shop', 'product', 'cart', 'checkout', 'account', 'about', 'admin'];
+function route() {
+  const id = (location.hash || '#home').slice(1);
+  const target = SCREENS.includes(id) ? id : 'home';
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === target));
+  document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === target));
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/* ───── توست ───── */
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+/* ───── اجرا ───── */
+renderGrids();
+renderAdmin();
+renderCart();
+route();
+window.addEventListener('hashchange', route);
+</script>
+</body>
+</html>

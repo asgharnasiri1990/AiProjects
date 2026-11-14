@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mobilepayam — انتخاب مسیر طراحی</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  :root {
+    --ink: #12141f;
+    --muted: #757a90;
+    --line: #e6e8f2;
+    --paper: #f6f7fb;
+    --violet: #6c4cff;
+    --pink: #ff4d9d;
+    --gold: #9d7b4d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Vazirmatn, "Segoe UI", Tahoma, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1080px, calc(100% - 48px)); margin-inline: auto; }
+  header { padding-block: 46px 8px; text-align: center; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -.02em; direction: ltr; }
+  .logo span { font-weight: 400; color: var(--muted); }
+  .logo i { font-style: normal; color: var(--violet); }
+  header h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -.03em; margin: 26px 0 8px; }
+  header p { color: var(--muted); font-size: 14px; margin: 0 auto; max-width: 60ch; }
+  .tag {
+    display: inline-block; margin-top: 16px; padding: 5px 14px; border-radius: 999px;
+    background: #eef0fb; color: #4c5270; font-size: 11.5px; font-weight: 600;
+  }
+  .choose { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 18px; margin-block: 40px 46px; }
+  .opt {
+    display: flex; flex-direction: column; border-radius: 24px; overflow: hidden;
+    background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 2px 6px rgba(16,20,45,.04), 0 24px 50px -38px rgba(30,20,80,.5);
+    transition: .25s;
+  }
+  .opt:hover { transform: translateY(-4px); box-shadow: 0 10px 26px -14px rgba(30,20,80,.25), 0 30px 60px -40px rgba(30,20,80,.55); }
+  .preview { height: 210px; position: relative; overflow: hidden; padding: 20px; }
+  .preview.lux { background: linear-gradient(165deg, #efe9dd, #faf8f3 60%, #e9e2d4); }
+  .preview.energy { background: linear-gradient(150deg, #241a52, #160f38 60%, #0d0a24); }
+  .preview.dk { background: #f5f5f6; }
+  .preview.dk::before {
+    content: ""; position: absolute; inset: 0 0 auto; height: 26px; background: #ef4056;
+  }
+  .preview.dk .bar-mock { background: #ef4056; opacity: 1; height: 7px; margin-top: 8px; width: 34%; }
+  .preview.dk .plate-mock { background: linear-gradient(120deg, #0d2b5c, #2f80d8); border-radius: 6px; }
+  .preview.dk .chip-mock { background: #ef4056; border-radius: 6px; }
+  .bar-mock { height: 8px; width: 42%; border-radius: 6px; background: currentColor; opacity: .18; }
+  .line-mock { height: 6px; border-radius: 6px; background: currentColor; opacity: .12; margin-top: 8px; }
+  .hero-mock { display: flex; align-items: flex-end; gap: 14px; margin-top: 26px; }
+  .plate-mock { flex: 1; height: 104px; border-radius: 10px; }
+  .lux .plate-mock { border: 1px solid rgba(23,22,20,.18); background: linear-gradient(160deg, #fffdf8, #e9e2d4); }
+  .energy .plate-mock { background: linear-gradient(160deg, #5b3bff, #ff4d9d); }
+  .chip-mock { width: 54px; height: 54px; border-radius: 8px; }
+  .lux .chip-mock { border: 1px solid rgba(23,22,20,.16); }
+  .energy .chip-mock { background: rgba(255,255,255,.14); border-radius: 14px; }
+  .lux .preview { color: #171614; }
+  .energy .preview { color: #fff; }
+  .opt-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .opt-body .pill { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; }
+  .lux .pill { color: var(--gold); }
+  .energy .pill { color: var(--violet); }
+  .opt-body h2 { margin: 2px 0 0; font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+  .opt-body p { margin: 0; font-size: 13px; color: var(--muted); }
+  .opt-body ul { margin: 10px 0 16px; padding: 0; list-style: none; display: grid; gap: 5px; font-size: 12px; color: #4c5270; }
+  .opt-body li::before { content: "— "; color: var(--muted); }
+  .go {
+    margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 46px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  }
+  .lux .go { background: #171614; color: #f7f4ef; }
+  .energy .go { background: linear-gradient(115deg, #6c4cff, #ff4d9d); color: #fff; }
+  .go span { transform: rotate(180deg); }
+
+  .screens { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 28px 30px; margin-bottom: 22px; }
+  .screens h2 { font-size: 16px; font-weight: 800; margin: 0 0 4px; }
+  .screens p { margin: 0 0 18px; font-size: 12.5px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span { padding: 6px 14px; border-radius: 999px; background: #f4f5fb; border: 1px solid var(--line); font-size: 12px; color: #3e4460; }
+  .next { background: #12141f; color: #d8dcee; border-radius: 24px; padding: 28px 30px; margin-bottom: 60px; }
+  .next h2 { margin: 0 0 14px; font-size: 16px; font-weight: 800; color: #fff; }
+  .next ol { margin: 0; padding-inline-start: 20px; font-size: 13px; display: grid; gap: 7px; }
+  .next b { color: #fff; font-weight: 700; }
+  footer { border-top: 1px solid var(--line); padding-block: 20px 40px; font-size: 11.5px; color: var(--muted); text-align: center; }
+  @media (max-width: 620px) {
+    .preview { height: 170px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="logo">mobile<span>payam</span><i>.</i></div>
+    <h1>سه مسیر طراحی، یک فروشگاه</h1>
+    <p>هر سه موکاپ کامل و کلیک‌پذیرند: هشت صفحه، دادهٔ نمونه و پنل مدیریت. فقط حس بصری و لحن برند فرق دارد. یکی را انتخاب کن یا ترکیبی از هر سه را بگو.</p>
+    <span class="tag">موکاپ استاتیک — هنوز هیچ کد نهایی/دیتابیسی ساخته نشده</span>
+  </header>
+
+  <div class="choose">
+    <a class="opt" href="lux.html">
+      <div class="preview lux">
+        <div class="bar-mock"></div>
+        <div class="line-mock" style="width:26%"></div>
+        <div class="hero-mock">
+          <div class="plate-mock"></div>
+          <div class="chip-mock"></div>
+        </div>
+      </div>
+      <div class="opt-body">
+        <span class="pill">گزینهٔ ۱ — لوکس و مینیمال</span>
+        <h2>آرام، کاغذی، متمرکز روی محصول</h2>
+        <p>لحن فروشگاهی-ویرایشی؛ سفید گرم، مرکب، لهجهٔ طلایی محو. مناسب برند پریمیوم و مشتری‌ای که به جزئیات نگاه می‌کند.</p>
+        <ul>
+          <li>تایپوگرافی بزرگ و فضای سفید زیاد</li>
+          <li>دکمه‌ها و کارت‌های تخت با خطوط نازک</li>
+          <li>بدون شلوغی و افکت اضافه</li>
+        </ul>
+        <div class="go">دیدن موکاپ لوکس <span>←</span></div>
+      </div>
+    </a>
+
+    <a class="opt" href="energetic.html">
+      <div class="preview energy">
+        <div class="bar-mock"></div>
+        <div class="line-mock" style="width:26%"></div>
+        <div class="hero-mock">
+          <div class="plate-mock"></div>
+          <div class="chip-mock"></div>
+        </div>
+      </div>
+      <div class="opt-body">
+        <span class="pill">گزینهٔ ۲ — پرانرژی و رنگی</span>
+        <h2>فروشگاهی، سریع، با انرژی تخفیف</h2>
+        <p>گرادیان بنفش و صورتی، کارت‌های گِرد، بج‌های تخفیف و بنر پیشنهاد. مناسب فروشگاه موبایل با حجم بالای بازدید.</p>
+        <ul>
+          <li>نوار اعلان و تخفیف در بالای صفحه</li>
+          <li>آیکن و دسته‌بندی‌های رنگی و متفاوت</li>
+          <li>تمرکز روی قیمت، تخفیف و CTA</li>
+        </ul>
+        <div class="go">دیدن موکاپ پرانرژی <span>←</span></div>
+      </div>
+    </a>
+
+    <a class="opt" href="digikala.html">
+      <div class="preview dk">
+        <div class="bar-mock"></div>
+        <div class="line-mock" style="width:22%"></div>
+        <div class="hero-mock">
+          <div class="plate-mock"></div>
+          <div class="chip-mock"></div>
+        </div>
+      </div>
+      <div class="opt-body">
+        <span class="pill" style="color:#ef4056">گزینهٔ ۳ — سبک دیجی‌کالا</span>
+        <h2>متراکم، آشنا، فروش‌محور</h2>
+        <p>الگوی آشنای بازار ایران: هدر قرمز، جستجوی بزرگ، اسلایدر و بنر، کارت‌های متراکم با بج تخفیف قرمز و قیمت درشت.</p>
+        <ul>
+          <li>بیشترین تراکم محصول در یک صفحه</li>
+          <li>مسیر خرید بسیار واضح برای کاربر</li>
+          <li>حس «همان فروشگاهی که می‌شناسم»</li>
+        </ul>
+        <div class="go" style="background:#ef4056">دیدن موکاپ دیجی‌کالا <span>←</span></div>
+      </div>
+    </a>
+  </div>
+
+  <div class="screens">
+    <h2>در هر دو موکاپ چه چیزی هست؟</h2>
+    <p>همهٔ صفحه‌ها از نوار بالای صفحه قابل دسترسی‌اند و بخشی از تعامل‌ها واقعی کار می‌کند.</p>
+    <div class="chips">
+      <span>خانه</span><span>لیست محصول + فیلتر</span><span>صفحهٔ محصول</span><span>سبد خرید</span>
+      <span>پرداخت</span><span>حساب کاربری</span><span>دربارهٔ ما</span><span>پنل مدیریت</span>
+      <span>افزودن به سبد (واقعی)</span><span>حذف محصول در پنل (واقعی)</span><span>افزودن محصول (واقعی)</span>
+    </div>
+  </div>
+
+  <div class="next">
+    <h2>قدم بعدی — بعد از انتخاب مسیر</h2>
+    <ol>
+      <li><b>انتخاب پوسته:</b> لوکس، پرانرژی، سبک دیجی‌کالا، یا ترکیب (مثلاً ساختار دیجی‌کالا + تایپوگرافی لوکس).</li>
+      <li><b>بک‌اند:</b> ادامه با API عمومی <code>practice.amirm.me</code> یا دیتابیس واقعی (Supabase/Postgres) با پنل مدیریت واقعی.</li>
+      <li><b>پرداخت:</b> شبیه‌سازی، زرین‌پال یا فعلاً بدون پرداخت.</li>
+      <li><b>جزئیات برند:</b> لوگو، رنگ نهایی، شمارهٔ تماس، آدرس، متن‌های حقوقی.</li>
+      <li><b>سپس</b> — و فقط با تأیید تو — نسخهٔ واقعی Next.js ساخته می‌شود.</li>
+    </ol>
+  </div>
+
+  <footer>موکاپ طراحی mobilepayam — فایل‌های موکاپ در پوشهٔ <code>mockups/mobilepayam/</code></footer>
+</div>
+
+</body>
+</html>

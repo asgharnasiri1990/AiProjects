@@ -1,6 +1,6 @@
 # AiProjects
 
-Six **independent** Next.js apps in one git repo. There is no workspace tooling, no
+Seven **independent** Next.js apps in one git repo. There is no workspace tooling, no
 root `package.json`, and no shared code: each app owns its `package.json`,
 `node_modules`, and `AGENTS.md`. Always `cd` into the app directory before running
 anything — `npm install` / `npm run dev` at the repo root does nothing useful.
@@ -13,8 +13,9 @@ anything — `npm install` / `npm run dev` at the repo root does nothing useful.
 | `archive/myportfolio2/` | `portfolio-v2` | **Archived** second portfolio attempt (ink-on-paper, tilted hero ribbon); superseded by `myportfolio3/`. |
 | `myportfolio3/` | `portfolio-v3` | **The live portfolio** — monochrome, reference-style single page, English default with a Persian RTL version. Paper/ink themes, scroll reveal, animated counters. Content in `src/content/`. See `myportfolio3/AGENTS.md`. |
 | `price-compare/` | `price-compare` | **Phone price comparator** — Persian RTL; one model across Technolife, Farnaa and user-supplied URLs. Prices are scraped live; a broken shop shows an error row, never a fake price. See `price-compare/AGENTS.md` and `price-compare/PROGRESS.md`. |
+| `mobilepayam/` | `mobilepayam` | **MobilePayam** — Digikala-style Persian storefront for phones and accessories. Front-end only for v1: 6 categories / 24 products seeded from `src/data/catalog.ts` and persisted in `localStorage`, including a working in-browser admin. See `mobilepayam/AGENTS.md` and `PROGRESS.md`. |
 
-All six apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
+All seven apps use the same stack: **Next.js 16.4.3 (App Router) · React 19.3 · TypeScript 5 · Tailwind CSS v4**.
 
 ## Read the framework first
 
