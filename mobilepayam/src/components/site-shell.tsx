@@ -10,8 +10,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {isHome ? <HeroSlider /> : null}
       <SiteHeader />
+      {isHome ? <HeroSlider /> : null}
       <div className="flex-1">{children}</div>
     </>
   );
