@@ -51,7 +51,7 @@ export const USED_LISTINGS: UsedListing[] = [
       { label: "سلامت باتری", value: "۸۵٪" },
       { label: "لوازم همراه", value: "کابل و قلم" },
     ],
-    images: [],
+    images: ["/images/used/galaxy-s21-ultra-256.jpg"],
     status: "available",
     createdAt: "2026-11-06",
   },

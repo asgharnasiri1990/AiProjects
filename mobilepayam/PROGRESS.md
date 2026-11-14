@@ -55,9 +55,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 
 - **Product photos:** 18 of 24 products now use real (official-style) product
   photos from Zoomit product pages, wired through `src/data/images.ts` and
-  stored in `public/images/products/*.webp`. 4 of the 5 used-phone listings
-  have photos in `public/images/used/`. The remaining 6 accessories fall back
-  to the `ProductArt` line art:
+  stored in `public/images/products/*.webp`. **All 5** used-phone listings now
+  have photos in `public/images/used/` (the Galaxy S21 Ultra one came from
+  GSMArena). The remaining 6 accessories fall back to the `ProductArt` line art:
   Apple 20W adapter, Xiaomi 20000 power bank, Baseus cable, iPhone 16 case,
   Galaxy S25 case, ceramic glass (no matching product page on Zoomit).
   Source list: `docs/image-sources.json`.
