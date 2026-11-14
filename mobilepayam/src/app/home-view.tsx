@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCatalog, useUsedListings } from "@/lib/store";
 import { ProductCard } from "@/components/product-card";
 import { UsedCard } from "@/components/used-card";
+import { HeroSlider } from "@/components/hero-slider";
 import { ProductArt } from "@/components/product-art";
 import { container, card, sectionTitle, btnOnBrand } from "@/lib/ui";
 
@@ -64,71 +65,11 @@ export function HomeView() {
 
   return (
     <main className="pb-4">
-      {/* Hero + side banners */}
-      <section className={`${container} mt-4`}>
-        <div className="grid gap-3 md:grid-cols-[1fr_296px]">
-          <div className="relative overflow-hidden rounded-card bg-[linear-gradient(115deg,#0d2b5c_0%,#1c4fa0_55%,#2f80d8_100%)] px-5 py-7 text-white sm:px-7 sm:py-8">
-            <span className="inline-block rounded-md bg-white/15 px-2 py-1 text-[10.5px] font-semibold">
-              پیشنهاد ویژهٔ این هفته
-            </span>
-            <h1 className="mt-4 text-2xl font-black leading-tight sm:text-3xl">
-              آیفون ۱۶ پرو مکس
-            </h1>
-            <p className="mt-2 max-w-[34ch] text-[11.5px] text-white/80 sm:text-xs">
-              تیتانیوم طبیعی · گارانتی ۱۸ ماهه · ارسال رایگان
-            </p>
-            <b className="mt-4 block text-sm font-extrabold">
-              از ۹۶٬۵۰۰٬۰۰۰ تومان
-            </b>
-            <Link
-              href="/shop/iphone-16-pro-max"
-              className="mt-4 inline-flex h-9 items-center rounded-md bg-white px-4 text-xs font-bold text-brand transition-colors hover:bg-brand-soft"
-            >
-              مشاهدهٔ محصول
-            </Link>
-            <ProductArt
-              icon="phone"
-              className="pointer-events-none absolute -left-2 top-1/2 hidden h-44 -translate-y-1/2 text-white/90 sm:block md:h-56"
-            />
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
-            <Link
-              href="/shop?cat=power"
-              className="group flex items-center justify-between gap-2 overflow-hidden rounded-card bg-[linear-gradient(120deg,#ef4056,#ff7a59)] px-4 py-4 text-white"
-            >
-              <span>
-                <b className="block text-sm font-extrabold">لوازم جانبی اصل</b>
-                <span className="mt-1 block text-[10.5px] text-white/85">
-                  شارژر، کابل و پاوربانک — تا ۳۰٪ تخفیف
-                </span>
-              </span>
-              <ProductArt
-                icon="charger"
-                className="h-14 w-auto shrink-0 text-white/90 transition-transform group-hover:scale-105"
-              />
-            </Link>
-            <Link
-              href="/shop?cat=watch"
-              className="group flex items-center justify-between gap-2 overflow-hidden rounded-card bg-[linear-gradient(120deg,#7a3ff2,#b06bff)] px-4 py-4 text-white"
-            >
-              <span>
-                <b className="block text-sm font-extrabold">ساعت هوشمند</b>
-                <span className="mt-1 block text-[10.5px] text-white/85">
-                  سری جدید اپل واچ و گلکسی واچ
-                </span>
-              </span>
-              <ProductArt
-                icon="watch"
-                className="h-14 w-auto shrink-0 text-white/90 transition-transform group-hover:scale-105"
-              />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Hero — one full-bleed slider */}
+      <HeroSlider />
 
       {/* Categories */}
-      <section className={`${container} mt-3`}>
+      <section className={`${container} mt-2`}>
         <div className={`${card} grid grid-cols-3 gap-1 px-2 py-3 sm:grid-cols-6`}>
           {categories.map((category) => {
             const count = products.filter(

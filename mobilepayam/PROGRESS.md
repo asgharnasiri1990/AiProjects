@@ -42,6 +42,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   `mobilepayam.admin.v1`, "قفل پنل" button to lock again. Not security.
 - Used phones: `/used` (brand/condition/sort filters) and `/used/[slug]`
   (gallery, video, description, specs, contact CTA); 5 seeded listings.
+- Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
+  images in `public/images/hero/`) flush under the header, with dots/arrows
+  and 6s auto-rotate; the section below sits 8px under it.
 - Used admin: add/edit/delete listings with multiple image URLs, a video URL
   (mp4 or YouTube/Aparat) and descriptions; persisted in `mobilepayam.used.v1`.
 - Checkout: address + shipping + gateway **or** SHEBA with receipt upload;
@@ -89,6 +92,7 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 | Admin used: listing with image URL + mp4 → detail shows `<img>` and `<video>` | ✅ |
 | Nav hydration mismatch on `/used` fixed (active state after hydration only) | ✅ |
 | 18 product images + 4 used images load (naturalWidth > 0), no broken images | ✅ |
+| Hero sits flush under the header (gap 0), 5 slides load, arrows advance | ✅ |
 
 Dev server: **port 3000 is occupied by `myportfolio3` (`next start`)** on this
 machine, so mobilepayam runs on **3001** (`npx next dev -p 3001`). If 3000 is
