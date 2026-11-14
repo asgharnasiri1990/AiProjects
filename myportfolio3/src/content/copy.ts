@@ -97,6 +97,12 @@ export interface StatsCopy {
   ranges: Record<"today" | "week" | "month" | "all", string>;
   groups: Record<"device" | "os" | "browser", string>;
   labels: Record<string, string>;
+  visitsTitle: string;
+  visitsEmpty: string;
+  colTime: string;
+  colDevice: string;
+  colSystem: string;
+  colBrowser: string;
   notConfiguredTitle: string;
   notConfiguredBody: string;
 }
@@ -228,7 +234,7 @@ export const copy: Record<Locale, Copy> = {
       label: "Live",
       back: "Back to portfolio",
       title: "Visitor stats",
-      lead: "Aggregate counts only. No IP addresses, raw user agents or cookies are stored.",
+      lead: "Live counts from this site. No IP address, raw user agent, cookie or identifier is stored, so no two visits can be traced back to the same person.",
       total: "total visits",
       storage: "Storage",
       storageKv: "Vercel KV",
@@ -262,6 +268,12 @@ export const copy: Record<Locale, Copy> = {
         edge: "Edge",
         samsung: "Samsung Internet",
       },
+      visitsTitle: "Recent visits",
+      visitsEmpty: "No visits recorded yet.",
+      colTime: "Time",
+      colDevice: "Device",
+      colSystem: "System",
+      colBrowser: "Browser",
       notConfiguredTitle: "Storage is not configured.",
       notConfiguredBody:
         "Connect an Upstash Redis store to this Vercel project. Locally the counts are written to .data/stats.json.",
@@ -394,7 +406,7 @@ export const copy: Record<Locale, Copy> = {
       label: "خصوصی",
       back: "بازگشت به نمونه‌کار",
       title: "آمار بازدید",
-      lead: "فقط شمارش تجمیعی. هیچ نشانی IP، User-Agent خام یا کوکی ذخیره نمی‌شود.",
+      lead: "شمارش زنده‌ی همین سایت. هیچ نشانی IP، User-Agent خام، کوکی یا شناسه‌ای ذخیره نمی‌شود، بنابراین هیچ دو بازدیدی به یک نفر نسبت داده نمی‌شود.",
       total: "بازدید",
       storage: "ذخیره‌سازی",
       storageKv: "Vercel KV",
@@ -428,6 +440,12 @@ export const copy: Record<Locale, Copy> = {
         edge: "اج",
         samsung: "سامسونگ اینترنت",
       },
+      visitsTitle: "بازدیدهای اخیر",
+      visitsEmpty: "هنوز بازدیدی ثبت نشده است.",
+      colTime: "زمان",
+      colDevice: "دستگاه",
+      colSystem: "سیستم",
+      colBrowser: "مرورگر",
       notConfiguredTitle: "ذخیره‌سازی تنظیم نشده است.",
       notConfiguredBody:
         "یک دیتابیس Upstash Redis به پروژه‌ی Vercel وصل کن. در حالت محلی شمارش‌ها در .data/stats.json نوشته می‌شوند.",

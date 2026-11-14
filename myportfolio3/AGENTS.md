@@ -128,18 +128,22 @@ known-good tag; before a risky update, restore/fork with
   (`NEXT_PUBLIC_UMAMI_SRC` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID`,
   `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`). Do not enable both at once.
 - **Custom device counter:** `components/visit-tracker.tsx` posts once per page
-  load to `/api/visit`; `lib/stats.ts` classifies the user-agent and increments
-  aggregate counts only — a lifetime counter plus a per-UTC-day bucket
-  (`stats:day:YYYY-MM-DD`) so the page can show today / 7 / 30 days. It uses
-  Vercel KV / Upstash REST when `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the
-  `UPSTASH_*` pair) exist, and a gitignored `.data/stats.json` locally. On
-  Vercel without KV it stores nothing.
+  load to `/api/visit` with the browser's own device hints (Chrome UA-CH:
+  `model`, `platform`, `platformVersion`, `fullVersionList`); `lib/stats.ts`
+  classifies the user-agent and stores aggregate counts — a lifetime counter, a
+  per-UTC-day bucket (`stats:day:YYYY-MM-DD`) and a capped 100-entry visit log
+  (`stats:visits`, model + OS + browser + server timestamp). It uses Vercel KV /
+  Upstash REST when `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the `UPSTASH_*`
+  pair) exist, and gitignored `.data/stats.json` + `.data/visits.json` locally.
+  On Vercel without KV it stores nothing.
 - **The stats screen is public:** `/[locale]/stats` (linked from the closing band
-  footer as `STATS` / `آمار`) with today / 7 / 30 days / all-time ranges. Because
-  it is public it must stay `noindex` and must never show anything but aggregate
-  buckets — never IPs, raw user agents or cookies. `/[locale]/s/<STATS_PATH>` is
-  a secret alias kept for the owner's bookmark; the slug lives in an env var
-  because this repository is public.
+  footer as `STATS` / `آمار`) with today / 7 / 30 days / all-time ranges plus a
+  table of the last 100 visits (time, device model, OS, browser) rendered in
+  Tehran time (Jalali in Persian). Because it is public it must stay `noindex`
+  and must never store or show IP addresses, raw user agents, cookies or any id
+  that links two visits. `/[locale]/s/<STATS_PATH>` is a secret alias kept for
+  the owner's bookmark; the slug lives in an env var because this repository is
+  public.
 
 ### Verify
 

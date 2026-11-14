@@ -34,6 +34,15 @@ export async function StatsView({
 
   const s = copy[locale].stats;
   const number = new Intl.NumberFormat(locale === "fa" ? "fa-IR" : "en-US");
+  const stamp = new Intl.DateTimeFormat(locale === "fa" ? "fa-IR" : "en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Tehran",
+  });
   const percent = (part: number, whole: number) => {
     const value = whole ? Math.round((part / whole) * 100) : 0;
     return locale === "fa"
@@ -158,6 +167,66 @@ export async function StatsView({
               );
             })}
           </div>
+
+          <section className="mt-14">
+            <h2
+              className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
+            >
+              {s.visitsTitle}
+            </h2>
+
+            {stats.visits.length === 0 ? (
+              <p className="mt-4 text-sm text-soft">{s.visitsEmpty}</p>
+            ) : (
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full min-w-[36rem] border-collapse text-start text-[12px]">
+                  <thead>
+                    <tr
+                      className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
+                    >
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colTime}
+                      </th>
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colDevice}
+                      </th>
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colSystem}
+                      </th>
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colBrowser}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stats.visits.map((visit, index) => (
+                      <tr
+                        key={`${visit.at}-${index}`}
+                        className="border-b border-line/60"
+                      >
+                        <td className="whitespace-nowrap py-2 pe-4 tabular-nums text-soft">
+                          {stamp.format(new Date(visit.at))}
+                        </td>
+                        <td className="whitespace-nowrap py-2 pe-4">
+                          {visit.model || s.labels[visit.device] || visit.device}
+                        </td>
+                        <td className="whitespace-nowrap py-2 pe-4 text-soft">
+                          {s.labels[visit.os] ?? visit.os}
+                          {visit.osVersion ? ` ${visit.osVersion}` : ""}
+                        </td>
+                        <td className="whitespace-nowrap py-2 text-soft">
+                          {s.labels[visit.browser] ?? visit.browser}
+                          {visit.browserVersion
+                            ? ` ${visit.browserVersion}`
+                            : ""}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
         </>
       )}
     </div>

@@ -19,10 +19,35 @@ const RANGE_DAYS: Record<Exclude<StatsRange, "all">, number> = {
   month: 30,
 };
 
+/** How many individual visits the log keeps. */
+const VISIT_LOG_SIZE = 100;
+
+export interface ClientHints {
+  mobile?: boolean;
+  model?: string;
+  platform?: string;
+  platformVersion?: string;
+  brands?: { brand: string; version: string }[];
+}
+
 export interface Classification {
   device: string;
   os: string;
+  osVersion: string;
   browser: string;
+  browserVersion: string;
+  model: string;
+}
+
+export interface VisitRecord {
+  /** Server clock, ISO 8601. */
+  at: string;
+  device: string;
+  model: string;
+  os: string;
+  osVersion: string;
+  browser: string;
+  browserVersion: string;
 }
 
 export interface StatsSnapshot {
@@ -32,50 +57,129 @@ export interface StatsSnapshot {
     id: StatsGroup;
     rows: { id: string; count: number }[];
   }[];
+  visits: VisitRecord[];
 }
 
 const FILE = path.join(process.cwd(), ".data", "stats.json");
+const VISITS_FILE = path.join(process.cwd(), ".data", "visits.json");
+const KV_VISITS = "stats:visits";
 
-/** Returns null for bots and empty agents so they never enter the counts. */
-export function classifyUserAgent(ua: string): Classification | null {
+const CHROMIUM_BRANDS = ["chromium", "not a brand", "not)a;brand", "not/a)brand"];
+
+function majorVersion(value: string | undefined) {
+  if (!value) return "";
+  return value.split(".")[0] ?? "";
+}
+
+/**
+ * Turns the user-agent string plus optional Chrome device hints into the few
+ * categories the stats page shows. Returns null for bots and empty agents.
+ */
+export function classifyUserAgent(
+  ua: string,
+  hints: ClientHints = {},
+): Classification | null {
   if (!ua) return null;
   if (/bot|crawler|spider|slurp|bingpreview|headless|facebookexternalhit/i.test(ua)) {
     return null;
   }
 
-  const device = /ipad|tablet|playbook|silk/i.test(ua)
-    ? "tablet"
-    : /mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua)
-      ? "mobile"
-      : /windows|macintosh|mac os x|linux|cros/i.test(ua)
-        ? "desktop"
-        : "other";
+  const hintedPlatform = hints.platform?.toLowerCase() ?? "";
 
-  const os = /iphone|ipad|ipod/i.test(ua)
-    ? "ios"
-    : /android/i.test(ua)
-      ? "android"
-      : /windows/i.test(ua)
+  const os = hintedPlatform.includes("android")
+    ? "android"
+    : hintedPlatform === "ios"
+      ? "ios"
+      : hintedPlatform === "windows"
         ? "windows"
-        : /macintosh|mac os x/i.test(ua)
+        : hintedPlatform === "macos"
           ? "macos"
-          : /linux|cros/i.test(ua)
+          : hintedPlatform === "linux"
             ? "linux"
+            : /iphone|ipad|ipod/i.test(ua)
+              ? "ios"
+              : /android/i.test(ua)
+                ? "android"
+                : /windows/i.test(ua)
+                  ? "windows"
+                  : /macintosh|mac os x/i.test(ua)
+                    ? "macos"
+                    : /linux|cros/i.test(ua)
+                      ? "linux"
+                      : "other";
+
+  const mobileHint = hints.mobile;
+  const device =
+    typeof mobileHint === "boolean"
+      ? /ipad|tablet/i.test(ua) || /ipad/i.test(hints.model ?? "")
+        ? "tablet"
+        : mobileHint
+          ? "mobile"
+          : "desktop"
+      : /ipad|tablet|playbook|silk/i.test(ua)
+        ? "tablet"
+        : /mobi|iphone|ipod|android.*mobile|windows phone/i.test(ua)
+          ? "mobile"
+          : /windows|macintosh|mac os x|linux|cros/i.test(ua)
+            ? "desktop"
             : "other";
 
-  const browser = /edg\//i.test(ua)
-    ? "edge"
-    : /samsungbrowser/i.test(ua)
-      ? "samsung"
-      : /firefox|fxios/i.test(ua)
-        ? "firefox"
-        : /chrome|crios/i.test(ua)
-          ? "chrome"
-          : /safari/i.test(ua)
-            ? "safari"
-            : "other";
+  const brand = hints.brands?.find(
+    (item) => !CHROMIUM_BRANDS.includes(item.brand.toLowerCase()),
+  );
 
-  return { device, os, browser };
+  const browser = brand
+    ? /edge/i.test(brand.brand)
+      ? "edge"
+      : /samsung/i.test(brand.brand)
+        ? "samsung"
+        : /opera|opr/i.test(brand.brand)
+          ? "other"
+          : "chrome"
+    : /edg\//i.test(ua)
+      ? "edge"
+      : /samsungbrowser/i.test(ua)
+        ? "samsung"
+        : /firefox|fxios/i.test(ua)
+          ? "firefox"
+          : /chrome|crios/i.test(ua)
+            ? "chrome"
+            : /safari/i.test(ua)
+              ? "safari"
+              : "other";
+
+  const uaBrowserVersion =
+    browser === "edge"
+      ? ua.match(/edg\/([\d.]+)/i)?.[1]
+      : browser === "samsung"
+        ? ua.match(/samsungbrowser\/([\d.]+)/i)?.[1]
+        : browser === "firefox"
+          ? ua.match(/(?:firefox|fxios)\/([\d.]+)/i)?.[1]
+          : browser === "chrome"
+            ? ua.match(/(?:chrome|crios)\/([\d.]+)/i)?.[1]
+            : browser === "safari"
+              ? ua.match(/version\/([\d.]+)/i)?.[1]
+              : undefined;
+
+  const model = (hints.model || ua.match(/Android[^;]*;\s*([^;)]+?)(?:\s+Build[/ ]|\))/i)?.[1] || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 40);
+
+  const osVersion =
+    hints.platformVersion?.replace(/_/g, ".").slice(0, 12) ||
+    (os === "android" ? ua.match(/Android\s+([\d.]+)/i)?.[1] : undefined) ||
+    (os === "ios" ? ua.match(/OS\s+([\d_]+)/i)?.[1]?.replace(/_/g, ".") : undefined) ||
+    "";
+
+  return {
+    device,
+    os,
+    osVersion: osVersion ?? "",
+    browser,
+    browserVersion: majorVersion(brand?.version) || majorVersion(uaBrowserVersion),
+    model: os === "ios" && !model ? (ua.match(/iPhone|iPad|iPod/i)?.[0] ?? "") : model,
+  };
 }
 
 function kvEnv() {
@@ -110,20 +214,17 @@ async function kvPipeline(commands: (string | number)[][]) {
   return (await response.json()) as { result: unknown }[];
 }
 
-async function readFileCounts(): Promise<Record<string, number>> {
+async function readJson<T>(file: string, fallback: T): Promise<T> {
   try {
-    return JSON.parse(await fs.readFile(FILE, "utf8")) as Record<
-      string,
-      number
-    >;
+    return JSON.parse(await fs.readFile(file, "utf8")) as T;
   } catch {
-    return {};
+    return fallback;
   }
 }
 
-async function writeFileCounts(counts: Record<string, number>) {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(counts, null, 2), "utf8");
+async function writeJson(file: string, value: unknown) {
+  await fs.mkdir(path.dirname(file), { recursive: true });
+  await fs.writeFile(file, JSON.stringify(value, null, 2), "utf8");
 }
 
 /** UTC day bucket, e.g. "2026-11-13". */
@@ -149,29 +250,50 @@ function fields(visit: Classification) {
   ];
 }
 
-export async function recordVisit(visit: Classification) {
+function toRecord(visit: Classification, at: Date): VisitRecord {
+  return {
+    at: at.toISOString(),
+    device: visit.device,
+    model: visit.model,
+    os: visit.os,
+    osVersion: visit.osVersion,
+    browser: visit.browser,
+    browserVersion: visit.browserVersion,
+  };
+}
+
+export async function recordVisit(visit: Classification, at = new Date()) {
   const mode = storageMode();
   if (mode === "none") return;
 
   const keys = fields(visit);
+  const record = toRecord(visit, at);
 
   if (mode === "kv") {
-    // One batched round trip: the lifetime counters plus today's bucket.
-    const day = dayKey();
+    // One batched round trip: lifetime counters, today's bucket and the log.
+    const day = dayKey(at);
     await kvPipeline([
       ...keys.map((key) => ["INCR", `stats:${key}`]),
       ...keys.map((key) => ["HINCRBY", day, key, 1]),
+      ["LPUSH", KV_VISITS, JSON.stringify(record)],
+      ["LTRIM", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
     ]);
     return;
   }
 
-  const counts = await readFileCounts();
+  const counts = await readJson<Record<string, number>>(FILE, {});
   for (const key of keys) {
     counts[key] = (counts[key] ?? 0) + 1;
-    const bucket = `${dayKey()}:${key}`;
+    const bucket = `${dayKey(at)}:${key}`;
     counts[bucket] = (counts[bucket] ?? 0) + 1;
   }
-  await writeFileCounts(counts);
+  await writeJson(FILE, counts);
+
+  const visits = await readJson<VisitRecord[]>(VISITS_FILE, []);
+  await writeJson(
+    VISITS_FILE,
+    [record, ...visits].slice(0, VISIT_LOG_SIZE),
+  );
 }
 
 async function readKvDay(day: string) {
@@ -188,6 +310,7 @@ async function readKvDay(day: string) {
 export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
   const mode = storageMode();
   const counts: Record<string, number> = {};
+  let visits: VisitRecord[] = [];
 
   if (mode === "kv") {
     if (range === "all") {
@@ -197,13 +320,15 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
           STAT_GROUPS[group].map((value) => `${group}:${value}`),
         ),
       ];
-      const results = await kvPipeline(
-        keys.map((key) => ["GET", `stats:${key}`]),
-      );
+      const results = await kvPipeline([
+        ...keys.map((key) => ["GET", `stats:${key}`]),
+        ["LRANGE", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
+      ]);
       keys.forEach((key, index) => {
         const value = Number(results[index]?.result ?? 0);
         counts[key] = Number.isFinite(value) ? value : 0;
       });
+      visits = parseVisits(results[keys.length]?.result);
     } else {
       const days = await Promise.all(
         dayList(RANGE_DAYS[range]).map((day) => readKvDay(day)),
@@ -213,9 +338,13 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
           counts[key] = (counts[key] ?? 0) + value;
         }
       }
+      const [log] = await kvPipeline([
+        ["LRANGE", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
+      ]);
+      visits = parseVisits(log?.result);
     }
   } else if (mode === "file") {
-    const all = await readFileCounts();
+    const all = await readJson<Record<string, number>>(FILE, {});
     if (range === "all") {
       Object.assign(counts, all);
     } else {
@@ -229,6 +358,7 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
         }
       }
     }
+    visits = await readJson<VisitRecord[]>(VISITS_FILE, []);
   }
 
   return {
@@ -241,5 +371,20 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
         count: counts[`${group}:${value}`] ?? 0,
       })),
     })),
+    visits,
   };
+}
+
+function parseVisits(raw: unknown): VisitRecord[] {
+  const items = Array.isArray(raw) ? raw : [];
+  const out: VisitRecord[] = [];
+  for (const item of items) {
+    try {
+      const parsed = JSON.parse(String(item)) as VisitRecord;
+      if (parsed?.at) out.push(parsed);
+    } catch {
+      // Skip malformed entries instead of failing the whole page.
+    }
+  }
+  return out;
 }
