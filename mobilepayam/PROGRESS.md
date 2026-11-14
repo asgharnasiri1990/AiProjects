@@ -40,6 +40,10 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   reset-to-seed — all persisted and reflected in the shop immediately
 - Admin demo gate: passcode screen (`1234`, hint shown), unlock persisted in
   `mobilepayam.admin.v1`, "قفل پنل" button to lock again. Not security.
+- Used phones: `/used` (brand/condition/sort filters) and `/used/[slug]`
+  (gallery, video, description, specs, contact CTA); 5 seeded listings.
+- Used admin: add/edit/delete listings with multiple image URLs, a video URL
+  (mp4 or YouTube/Aparat) and descriptions; persisted in `mobilepayam.used.v1`.
 - Checkout: address + shipping + gateway **or** SHEBA with receipt upload;
   order is created, cart cleared, result page shows the code
 - Track: order code lookup with a 4-step timeline (seed orders MP-10482 and
@@ -49,10 +53,18 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 
 **Not done / blocked**
 
-- **Product photos:** AI image generation failed — the provider returned
-  `quota exceeded` (free tier, retry in ~11h). The app therefore ships with the
-  `ProductArt` line-art fallback everywhere. Drop real files into
-  `public/images/products/` and set `image` on the product (via admin or seed).
+- **Product photos:** still not wired. Three sources were tried on 2026-11-14:
+  - Digikala API/CDN — search/product endpoints return 404 to non-browser
+    clients (WAF); the site HTML does not embed product data.
+  - Wikimedia Commons — downloads worked but the matches were unusable as
+    product shots (hands, boxes, other brands, screen close-ups); all were
+    deleted, `public/images/products/` is empty.
+  - The image-generation tool still reports `quota exceeded` (free tier,
+    retry ~2026-11-15).
+
+  Until then every product renders the `ProductArt` line-art fallback. The
+  admin "آدرس تصویر" field and `public/images/products/` both work as soon as
+  real files exist. Used listings already accept image/video URLs.
 - Real IBAN / brand details: checkout shows the placeholder
   `IR000000000000000000000000` (owner `mobilepayam`, bank ملت).
 - Nothing is committed yet; `shop/`, `myportfolio3/` etc. are untouched.
@@ -74,6 +86,10 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 | Checkout SHEBA → IBAN panel + blocks submit without receipt | ✅ |
 | Track `MP-10482` → shipped timeline | ✅ |
 | Admin gate: wrong code rejected, `1234` unlocks, "قفل پنل" locks again | ✅ |
+| `/used` renders 5 listings, brand/condition filters | ✅ |
+| Used detail renders specs + `tel:` CTA | ✅ |
+| Admin used: listing with image URL + mp4 → detail shows `<img>` and `<video>` | ✅ |
+| Nav hydration mismatch on `/used` fixed (active state after hydration only) | ✅ |
 
 Dev server: **port 3000 is occupied by `myportfolio3` (`next start`)** on this
 machine, so mobilepayam runs on **3001** (`npx next dev -p 3001`). If 3000 is
@@ -81,10 +97,11 @@ free, plain `npm run dev` picks it.
 
 ## Next steps
 
-1. Retry the product photo generation (quota) **or** drop the owner's photos in
-   `public/images/products/` and wire `image` fields. Flagship targets:
-   `iphone-16-pro-max`, `galaxy-s25-ultra`, `airpods-pro-2`,
-   `apple-watch-10`, `anker-65w`, `xiaomi-20000`.
+1. Product photos: retry the image tool after the quota resets (~2026-11-15),
+   **or** drop the owner's files into `public/images/products/` and set `image`
+   per product (admin field or seed). Do not scrape Digikala/Wikimedia again —
+   both produced unusable results. Used listings already accept image/video
+   URLs and need no code change.
 2. Replace the placeholder IBAN + brand contact details with real values.
 3. Optional polish: product reviews section, wishlist, search suggestions,
    coupon persistence already works.

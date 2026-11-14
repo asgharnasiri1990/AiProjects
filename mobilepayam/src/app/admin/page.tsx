@@ -20,6 +20,7 @@ import { faNum, orderDate } from "@/lib/format";
 import type { Category, IconKey, OrderStatus, Product } from "@/lib/types";
 import { ProductArt } from "@/components/product-art";
 import { AdminGate } from "@/components/admin-gate";
+import { AdminUsed } from "@/components/admin-used";
 import { container, card, input, label, btnPrimary, btnGhost } from "@/lib/ui";
 
 const ICONS: { id: IconKey; label: string }[] = [
@@ -59,7 +60,9 @@ export default function AdminPage() {
   const { products, categories } = useCatalog();
   const orders = useOrders();
   const unlocked = useAdminUnlocked();
-  const [tab, setTab] = useState<"products" | "orders" | "categories">("products");
+  const [tab, setTab] = useState<"products" | "orders" | "categories" | "used">(
+    "products",
+  );
   const [form, setForm] = useState<Form | null>(null);
   const [newCategory, setNewCategory] = useState({ name: "", icon: "phone" as IconKey });
   const [notice, setNotice] = useState("");
@@ -264,6 +267,7 @@ export default function AdminPage() {
         {(
           [
             ["products", "محصولات"],
+            ["used", "کارکرده‌ها"],
             ["orders", "سفارش‌ها"],
             ["categories", "دسته‌بندی‌ها"],
           ] as const
@@ -350,6 +354,8 @@ export default function AdminPage() {
           </table>
         </div>
       ) : null}
+
+      {tab === "used" ? <AdminUsed /> : null}
 
       {tab === "orders" ? (
         <div className={`${card} mt-3 overflow-x-auto p-3`}>

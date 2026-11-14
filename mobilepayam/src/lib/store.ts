@@ -2,13 +2,15 @@
 
 import { useSyncExternalStore } from "react";
 import { CATEGORIES, PRODUCTS } from "@/data/catalog";
-import type { Category, Order, OrderItem, Product } from "@/lib/types";
+import { USED_LISTINGS } from "@/data/used";
+import type { Category, Order, OrderItem, Product, UsedListing } from "@/lib/types";
 
 const CATALOG_KEY = "mobilepayam.catalog.v1";
 const ORDERS_KEY = "mobilepayam.orders.v1";
 const USER_KEY = "mobilepayam.user.v1";
 const COUPON_KEY = "mobilepayam.coupon.v1";
 const ADMIN_KEY = "mobilepayam.admin.v1";
+const USED_KEY = "mobilepayam.used.v1";
 
 /**
  * Demo-only gate for /admin. This is NOT security: it runs in the browser and
@@ -126,6 +128,7 @@ const ordersStore = createStore<Order[]>(ORDERS_KEY, SEED_ORDERS);
 const userStore = createStore<User | null>(USER_KEY, null);
 const couponStore = createStore<Coupon | null>(COUPON_KEY, null);
 const adminStore = createStore<boolean>(ADMIN_KEY, false);
+const usedStore = createStore<UsedListing[]>(USED_KEY, USED_LISTINGS);
 
 /* ── hooks ─────────────────────────────────────────────────── */
 
@@ -166,6 +169,14 @@ export function useAdminUnlocked(): boolean {
     adminStore.subscribe,
     adminStore.get,
     adminStore.getServer,
+  );
+}
+
+export function useUsedListings(): UsedListing[] {
+  return useSyncExternalStore(
+    usedStore.subscribe,
+    usedStore.get,
+    usedStore.getServer,
   );
 }
 
@@ -228,6 +239,23 @@ export function resetCatalog() {
   catalogStore.set(SEED_CATALOG);
   ordersStore.set(SEED_ORDERS);
   couponStore.set(null);
+  usedStore.set(USED_LISTINGS);
+}
+
+/* ── used phones ───────────────────────────────────────────── */
+
+export function addUsedListing(listing: UsedListing) {
+  usedStore.set([listing, ...usedStore.get()]);
+}
+
+export function updateUsedListing(listing: UsedListing) {
+  usedStore.set(
+    usedStore.get().map((item) => (item.id === listing.id ? listing : item)),
+  );
+}
+
+export function deleteUsedListing(id: string) {
+  usedStore.set(usedStore.get().filter((item) => item.id !== id));
 }
 
 /* ── orders ────────────────────────────────────────────────── */

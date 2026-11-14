@@ -59,8 +59,8 @@ UI                 src/components, src/app
   imports the seed. Editing a product in `/admin` must update `/shop` without a
   reload (same store instance).
 - **Persistence keys are versioned:** `mobilepayam.catalog.v1`,
-  `mobilepayam.cart.v1`, `mobilepayam.orders.v1`. Bump the version when the
-  shape changes; never migrate silently.
+  `mobilepayam.cart.v1`, `mobilepayam.orders.v1`, `mobilepayam.used.v1`.
+  Bump the version when the shape changes; never migrate silently.
 - **SSR safety:** render the seed on the server (`getServerSnapshot` = seed) and
   let `useSyncExternalStore` swap to stored data after hydration. Never read
   `localStorage` during render.
@@ -71,6 +71,10 @@ UI                 src/components, src/app
   `src/lib/store.ts`, unlock flag in `mobilepayam.admin.v1`). The gate is
   cosmetic, not security — it runs entirely in the browser. Real auth means a
   server session plus a role check on every mutation.
+- **Used phones** are their own collection (`UsedListing`): multiple images,
+  optional video (mp4 or YouTube/Aparat), free-text description and specs.
+  Images/videos are **URLs** entered in admin; there is no upload/storage. The
+  public detail page renders a placeholder when `images` is empty.
 
 ## Routes
 
@@ -79,6 +83,8 @@ UI                 src/components, src/app
 | `/` | server + client islands | home: slider, categories, featured, offer |
 | `/shop` | server shell | filters/sort live in the URL |
 | `/shop/[slug]` | dynamic | product detail; variants |
+| `/used` | server shell | used-phone listings, filters in the URL |
+| `/used/[slug]` | dynamic | gallery, video, description, specs |
 | `/cart` | client | qty steppers, coupon |
 | `/checkout` | client | address, shipping, gateway **or** SHEBA + receipt upload |
 | `/checkout/result` | client | success/failure, order code |

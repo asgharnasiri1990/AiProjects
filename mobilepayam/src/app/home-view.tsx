@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCatalog } from "@/lib/store";
+import { useCatalog, useUsedListings } from "@/lib/store";
 import { ProductCard } from "@/components/product-card";
+import { UsedCard } from "@/components/used-card";
 import { ProductArt } from "@/components/product-art";
 import { container, card, sectionTitle, btnOnBrand } from "@/lib/ui";
 
@@ -56,6 +57,7 @@ function TrustIcon({ name }: { name: (typeof TRUST)[number]["icon"] }) {
 
 export function HomeView() {
   const { products, categories } = useCatalog();
+  const used = useUsedListings();
   const featured = [...products]
     .sort((a, b) => b.reviews - a.reviews)
     .slice(0, 10);
@@ -168,6 +170,30 @@ export function HomeView() {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Used phones */}
+      <section className={`${container} mt-3`}>
+        <div className={`${card} px-4 py-4`}>
+          <div className="mb-3 flex items-center justify-between border-b border-line pb-3">
+            <h2 className={sectionTitle}>
+              <span className="h-5 w-1 rounded bg-brand" />
+              گوشی‌های کارکرده
+            </h2>
+            <Link href="/used" className="text-xs font-bold text-brand">
+              مشاهدهٔ همه ←
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {used.slice(0, 4).map((listing) => (
+              <UsedCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+          <p className="mt-3 text-[10.5px] text-muted">
+            همهٔ دستگاه‌ها کارشناسی‌شده‌اند؛ سلامت باتری و وضعیت بدنه در هر آگهی
+            مشخص است.
+          </p>
         </div>
       </section>
 

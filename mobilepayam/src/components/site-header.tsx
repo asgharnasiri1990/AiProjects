@@ -2,13 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useCatalog } from "@/lib/store";
 import { useCartCount } from "@/lib/cart";
+
+/* Route-based styles must not differ between the server and the first client
+   render, so the active state is applied only after hydration. */
+const noopSubscribe = () => () => {};
+const getTrue = () => true;
+const getFalse = () => false;
 
 const NAV = [
   { href: "/", label: "خانه" },
   { href: "/shop", label: "فروشگاه" },
+  { href: "/used", label: "کارکرده" },
   { href: "/categories", label: "دسته‌بندی‌ها" },
   { href: "/about", label: "درباره ما" },
   { href: "/contact", label: "تماس با ما" },
@@ -76,6 +83,7 @@ function Icon({
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const hydrated = useSyncExternalStore(noopSubscribe, getTrue, getFalse);
   const { categories } = useCatalog();
   const cartCount = useCartCount();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -227,9 +235,10 @@ export function SiteHeader() {
           <nav className="flex items-center gap-0.5">
             {NAV.map((item) => {
               const active =
-                item.href === "/"
+                hydrated &&
+                (item.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(item.href);
+                  : pathname.startsWith(item.href));
               return (
                 <Link
                   key={item.href}

@@ -8,6 +8,7 @@ const COLUMNS = [
       { href: "/shop?cat=watch", label: "ساعت هوشمند" },
       { href: "/shop?cat=audio", label: "هدفون و ایرپاد" },
       { href: "/shop?cat=power", label: "شارژر و کابل" },
+      { href: "/used", label: "گوشی کارکرده" },
     ],
   },
   {

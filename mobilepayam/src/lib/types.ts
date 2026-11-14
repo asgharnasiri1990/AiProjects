@@ -99,3 +99,34 @@ export type Order = {
   total: number;
   status: OrderStatus;
 };
+
+/* ── used phones ──────────────────────────────────────────── */
+
+export type UsedCondition = "like-new" | "excellent" | "good" | "fair";
+export type UsedStatus = "available" | "reserved" | "sold";
+
+export type UsedListing = {
+  id: string;
+  slug: string;
+  title: string;
+  brand: string;
+  model: string;
+  storage?: string;
+  color?: string;
+  condition: UsedCondition;
+  price: number;
+  oldPrice?: number;
+  /** 0–100, shown as ٪ */
+  batteryHealth?: number;
+  /** Shop warranty in months (0 = without warranty). */
+  warrantyMonths: number;
+  city: string;
+  description: string;
+  specs: Spec[];
+  /** One or more image URLs; the first is the cover. */
+  images: string[];
+  /** Direct mp4/webm URL or a YouTube/Aparat link. */
+  video?: string;
+  status: UsedStatus;
+  createdAt: string;
+};
