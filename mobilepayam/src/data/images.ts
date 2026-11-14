@@ -8,9 +8,13 @@
 export const PRODUCT_IMAGES: Record<string, string> = {
   "iphone-16-pro-max": "/images/products/iphone-16-pro-max.webp",
   "iphone-16": "/images/products/iphone-16.webp",
+  "iphone-15": "/images/products/iphone-15.webp",
   "galaxy-s25-ultra": "/images/products/galaxy-s25-ultra.webp",
+  "galaxy-s24-ultra": "/images/products/galaxy-s24-ultra.webp",
   "galaxy-a56": "/images/products/galaxy-a56.webp",
   "xiaomi-14t": "/images/products/xiaomi-14t.webp",
+  "xiaomi-14": "/images/products/xiaomi-14.webp",
+  "oneplus-12": "/images/products/oneplus-12.webp",
   "pixel-9": "/images/products/pixel-9.webp",
   "apple-watch-10-46": "/images/products/apple-watch-10-46.webp",
   "galaxy-watch7-44": "/images/products/galaxy-watch7-44.webp",

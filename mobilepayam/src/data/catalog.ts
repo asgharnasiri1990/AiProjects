@@ -212,6 +212,116 @@ export const PRODUCTS: Product[] = [
     ],
     createdAt: "2026-11-10",
   }),
+  P({
+    id: "p-iphone-15",
+    slug: "iphone-15",
+    name: "آیفون ۱۵",
+    brand: "Apple",
+    categoryId: "mobile",
+    icon: "phone",
+    rating: 4.7,
+    reviews: 356,
+    description:
+      "دوربین ۴۸ مگاپیکسل، پورت USB-C و طراحی سبک؛ گزینهٔ متعادل اکوسیستم اپل.",
+    specs: [
+      { label: "صفحه‌نمایش", value: "۶٫۱ اینچ Super Retina XDR" },
+      { label: "تراشه", value: "Apple A16 Bionic" },
+      { label: "دوربین", value: "۴۸ + ۱۲ مگاپیکسل" },
+    ],
+    variants: [
+      v("128-blue", 59_900_000, 6, {
+        color: "آبی",
+        colorHex: "#a9c0d4",
+        storage: "۱۲۸ گیگابایت",
+      }),
+      v("256-pink", 66_500_000, 3, {
+        color: "صورتی",
+        colorHex: "#f0c8cf",
+        storage: "۲۵۶ گیگابایت",
+      }),
+    ],
+    createdAt: "2026-09-20",
+  }),
+  P({
+    id: "p-galaxy-s24-ultra",
+    slug: "galaxy-s24-ultra",
+    name: "سامسونگ گلکسی S24 اولترا",
+    brand: "Samsung",
+    categoryId: "mobile",
+    icon: "phone",
+    rating: 4.8,
+    reviews: 287,
+    description:
+      "پرچمدار سال گذشتهٔ سامسونگ با دوربین ۲۰۰ مگاپیکسل و قلم S Pen؛ هنوز یکی از بهترین‌هاست.",
+    specs: [
+      { label: "صفحه‌نمایش", value: "۶٫۸ اینچ Dynamic AMOLED 2X" },
+      { label: "تراشه", value: "Snapdragon 8 Gen 3" },
+      { label: "دوربین", value: "۲۰۰ + ۵۰ + ۱۲ + ۱۰ مگاپیکسل" },
+    ],
+    variants: [
+      v("256-gray", 64_500_000, 5, {
+        color: "خاکستری",
+        colorHex: "#8b8d93",
+        storage: "۲۵۶ گیگابایت",
+      }),
+      v("512-black", 71_900_000, 2, {
+        color: "مشکی",
+        colorHex: "#1c1c1e",
+        storage: "۵۱۲ گیگابایت",
+      }),
+    ],
+    createdAt: "2026-09-12",
+  }),
+  P({
+    id: "p-xiaomi-14",
+    slug: "xiaomi-14",
+    name: "شیائومی ۱۴",
+    brand: "Xiaomi",
+    categoryId: "mobile",
+    icon: "phone",
+    rating: 4.6,
+    reviews: 164,
+    description:
+      "دوربین لایکا، شارژ سریع ۹۰ وات و بدنهٔ جمع‌وجور؛ یکی از بهترین انتخاب‌های ردهٔ قیمتی.",
+    specs: [
+      { label: "صفحه‌نمایش", value: "۶٫۳۶ اینچ AMOLED، 120Hz" },
+      { label: "تراشه", value: "Snapdragon 8 Gen 3" },
+      { label: "دوربین", value: "۵۰ + ۵۰ + ۵۰ مگاپیکسل" },
+    ],
+    variants: [
+      v("256-black", 38_900_000, 7, {
+        color: "مشکی",
+        colorHex: "#171717",
+        storage: "۲۵۶ گیگابایت",
+      }),
+    ],
+    createdAt: "2026-08-28",
+  }),
+  P({
+    id: "p-oneplus-12",
+    slug: "oneplus-12",
+    name: "وان‌پلاس ۱۲",
+    brand: "OnePlus",
+    categoryId: "mobile",
+    icon: "phone",
+    rating: 4.7,
+    reviews: 121,
+    description:
+      "شارژ سریع ۱۰۰ وات، نمایشگر ۱۲۰ هرتز و عملکرد روان؛ انتخاب علاقه‌مندان به سرعت.",
+    specs: [
+      { label: "صفحه‌نمایش", value: "۶٫۷ اینچ AMOLED، 120Hz" },
+      { label: "تراشه", value: "Snapdragon 8 Gen 3" },
+      { label: "شارژ", value: "۱۰۰ وات SuperVOOC" },
+    ],
+    variants: [
+      v("256-green", 42_500_000, 4, {
+        color: "سبز",
+        colorHex: "#3f5d4a",
+        storage: "۲۵۶ گیگابایت",
+      }),
+    ],
+    createdAt: "2026-08-15",
+  }),
 
   /* ── ساعت هوشمند ────────────────────────────────────────── */
   P({

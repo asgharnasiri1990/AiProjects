@@ -28,8 +28,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 **Done and verified**
 
 - Scaffold: Next 16.4.3, React 19.3, Tailwind v4, tokens in `globals.css`
-- Layout, sticky header with red strip + mega menu, footer
-- `src/data/catalog.ts` — 6 categories / 24 products with variants and specs
+- Layout, sticky header with navy strip + mega menu, footer
+- `src/data/catalog.ts` — 6 categories / 28 products with variants and specs
+  (mobile: 10 products, all with photos)
 - `src/lib/store.ts` — versioned localStorage stores (catalog, orders, user,
   coupon) on `useSyncExternalStore`, seed as server snapshot
 - `src/lib/cart.ts` — cart with stock/10 clamps; `useResolvedCart`
@@ -45,6 +46,11 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   (gallery, video, description, specs, contact CTA); 5 seeded listings.
 - Home: the header stays **on top** and the hero sits directly under it with a
   zero gap (SiteShell); other pages keep the same header with no hero.
+- Catalog starts at 6 categories; **mobile now has 10 products**, all with
+  local photos (added iPhone 15, Galaxy S24 Ultra, Xiaomi 14, OnePlus 12).
+- The other categories still have fewer than 10 products (watch 4, audio 5,
+  charger 3, power bank 3, case/glass 3); expanding them to 10 each is the
+  next step, phones first as requested.
 - Content width is **1560px** (container, header and footer aligned; was 1180)
   so wide screens get much smaller side margins.
 - Floating support widget (bottom-right): phone/email actions + hours, no fake chat.
