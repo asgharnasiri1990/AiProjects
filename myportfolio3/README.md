@@ -70,7 +70,8 @@ npm start
 - **Device counter + `/stats`:** create an **Upstash Redis** store in Vercel
   (Storage → Upstash) and connect it to the project. `/en/stats` (or `/fa/stats`)
   is public and linked from the footer, with today / 7 / 30 days / all time and
-  the last 100 visits (device model, OS, browser, Tehran time). Locally the
+  the last 100 visits (device model, OS, browser, country, Tehran time). Country
+  comes from Vercel's `x-vercel-ip-country` header, never the IP. Locally the
   counts are written to `.data/stats.json` and `.data/visits.json`.
 - **Umami / Plausible** are optional. Set the matching env vars from
   `.env.example` and enable **only one**; both would double-count.

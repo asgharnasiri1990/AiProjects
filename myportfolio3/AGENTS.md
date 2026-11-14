@@ -132,9 +132,11 @@ known-good tag; before a risky update, restore/fork with
   `model`, `platform`, `platformVersion`, `fullVersionList`); `lib/stats.ts`
   classifies the user-agent and stores aggregate counts — a lifetime counter, a
   per-UTC-day bucket (`stats:day:YYYY-MM-DD`) and a capped 100-entry visit log
-  (`stats:visits`, model + OS + browser + server timestamp). It uses Vercel KV /
-  Upstash REST when `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the `UPSTASH_*`
-  pair) exist, and gitignored `.data/stats.json` + `.data/visits.json` locally.
+  (`stats:visits`, model + OS + browser + country + server timestamp). The
+  country comes from Vercel's `x-vercel-ip-country` edge header — the IP itself
+  is never read or stored. It uses Vercel KV / Upstash REST when
+  `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or the `UPSTASH_*` pair) exist, and
+  gitignored `.data/stats.json` + `.data/visits.json` locally.
   On Vercel without KV it stores nothing.
 - **The stats screen is public:** `/[locale]/stats` (linked from the closing band
   footer as `STATS` / `آمار`) with today / 7 / 30 days / all-time ranges plus a

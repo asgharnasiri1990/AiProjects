@@ -61,10 +61,13 @@ export async function POST(request: Request) {
   }
 
   const classification = classifyUserAgent(ua, hints);
+  // Vercel resolves the country at the edge; we keep the two-letter code and
+  // never the address it came from.
+  const country = request.headers.get("x-vercel-ip-country") ?? "";
 
   if (classification) {
     try {
-      await recordVisit(classification);
+      await recordVisit(classification, country);
     } catch {
       // Analytics must never break a page view.
     }

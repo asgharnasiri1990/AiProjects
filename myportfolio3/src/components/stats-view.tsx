@@ -43,6 +43,16 @@ export async function StatsView({
     hour12: false,
     timeZone: "Asia/Tehran",
   });
+  const regionNames = new Intl.DisplayNames([locale === "fa" ? "fa" : "en"], {
+    type: "region",
+  });
+  const countryName = (code: string) => {
+    try {
+      return regionNames.of(code) ?? code;
+    } catch {
+      return code;
+    }
+  };
   const percent = (part: number, whole: number) => {
     const value = whole ? Math.round((part / whole) * 100) : 0;
     return locale === "fa"
@@ -122,7 +132,7 @@ export async function StatsView({
             </p>
           </div>
 
-          <div className="mt-10 grid gap-10 sm:grid-cols-3">
+          <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {stats.groups.map((group) => {
               const groupTotal = group.rows.reduce(
                 (sum, row) => sum + row.count,
@@ -166,6 +176,45 @@ export async function StatsView({
                 </section>
               );
             })}
+
+            {stats.countries.length > 0 ? (
+              <section>
+                <h2
+                  className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
+                >
+                  {s.countryGroup}
+                </h2>
+                <ul className="mt-4 space-y-3">
+                  {stats.countries.map((country) => {
+                    const share = stats.total
+                      ? Math.round((country.count / stats.total) * 100)
+                      : 0;
+
+                    return (
+                      <li key={country.code}>
+                        <div className="flex items-baseline justify-between gap-3 text-sm">
+                          <span className="truncate">
+                            {countryName(country.code)}
+                          </span>
+                          <span className="tabular-nums text-soft">
+                            {number.format(country.count)}
+                            <span className="ms-1 text-[10px]">
+                              ({percent(country.count, stats.total)})
+                            </span>
+                          </span>
+                        </div>
+                        <div className="mt-1.5 h-1 bg-line">
+                          <div
+                            className="h-full bg-ink"
+                            style={{ width: `${share}%` }}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ) : null}
           </div>
 
           <section className="mt-14">
@@ -179,7 +228,7 @@ export async function StatsView({
               <p className="mt-4 text-sm text-soft">{s.visitsEmpty}</p>
             ) : (
               <div className="mt-4 overflow-x-auto">
-                <table className="w-full min-w-[36rem] border-collapse text-start text-[12px]">
+                <table className="w-full min-w-[44rem] border-collapse text-start text-[12px]">
                   <thead>
                     <tr
                       className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
@@ -189,6 +238,9 @@ export async function StatsView({
                       </th>
                       <th className="border-b border-line py-2 text-start font-normal">
                         {s.colDevice}
+                      </th>
+                      <th className="border-b border-line py-2 text-start font-normal">
+                        {s.colCountry}
                       </th>
                       <th className="border-b border-line py-2 text-start font-normal">
                         {s.colSystem}
@@ -209,6 +261,9 @@ export async function StatsView({
                         </td>
                         <td className="whitespace-nowrap py-2 pe-4">
                           {visit.model || s.labels[visit.device] || visit.device}
+                        </td>
+                        <td className="whitespace-nowrap py-2 pe-4 text-soft">
+                          {visit.country ? countryName(visit.country) : "—"}
                         </td>
                         <td className="whitespace-nowrap py-2 pe-4 text-soft">
                           {s.labels[visit.os] ?? visit.os}

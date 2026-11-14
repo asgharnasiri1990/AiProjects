@@ -48,6 +48,8 @@ export interface VisitRecord {
   osVersion: string;
   browser: string;
   browserVersion: string;
+  /** ISO-3166 alpha-2, resolved from the edge header — the IP itself is never stored. */
+  country: string;
 }
 
 export interface StatsSnapshot {
@@ -57,6 +59,7 @@ export interface StatsSnapshot {
     id: StatsGroup;
     rows: { id: string; count: number }[];
   }[];
+  countries: { code: string; count: number }[];
   visits: VisitRecord[];
 }
 
@@ -250,7 +253,11 @@ function fields(visit: Classification) {
   ];
 }
 
-function toRecord(visit: Classification, at: Date): VisitRecord {
+function toRecord(
+  visit: Classification,
+  at: Date,
+  country: string,
+): VisitRecord {
   return {
     at: at.toISOString(),
     device: visit.device,
@@ -259,30 +266,45 @@ function toRecord(visit: Classification, at: Date): VisitRecord {
     osVersion: visit.osVersion,
     browser: visit.browser,
     browserVersion: visit.browserVersion,
+    country,
   };
 }
 
-export async function recordVisit(visit: Classification, at = new Date()) {
+/** Country lives in its own hash because the list of codes is open-ended. */
+const KV_COUNTRIES = "stats:countries";
+
+export async function recordVisit(
+  visit: Classification,
+  country = "",
+  at = new Date(),
+) {
   const mode = storageMode();
   if (mode === "none") return;
 
   const keys = fields(visit);
-  const record = toRecord(visit, at);
+  const code = country.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2);
+  const record = toRecord(visit, at, code);
 
   if (mode === "kv") {
     // One batched round trip: lifetime counters, today's bucket and the log.
     const day = dayKey(at);
-    await kvPipeline([
+    const commands: (string | number)[][] = [
       ...keys.map((key) => ["INCR", `stats:${key}`]),
       ...keys.map((key) => ["HINCRBY", day, key, 1]),
       ["LPUSH", KV_VISITS, JSON.stringify(record)],
       ["LTRIM", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
-    ]);
+    ];
+    if (code) {
+      commands.push(["HINCRBY", KV_COUNTRIES, code, 1]);
+      commands.push(["HINCRBY", day, `country:${code}`, 1]);
+    }
+    await kvPipeline(commands);
     return;
   }
 
   const counts = await readJson<Record<string, number>>(FILE, {});
-  for (const key of keys) {
+  const all = code ? [...keys, `country:${code}`] : keys;
+  for (const key of all) {
     counts[key] = (counts[key] ?? 0) + 1;
     const bucket = `${dayKey(at)}:${key}`;
     counts[bucket] = (counts[bucket] ?? 0) + 1;
@@ -322,13 +344,21 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
       ];
       const results = await kvPipeline([
         ...keys.map((key) => ["GET", `stats:${key}`]),
+        ["HGETALL", KV_COUNTRIES],
         ["LRANGE", KV_VISITS, 0, VISIT_LOG_SIZE - 1],
       ]);
       keys.forEach((key, index) => {
         const value = Number(results[index]?.result ?? 0);
         counts[key] = Number.isFinite(value) ? value : 0;
       });
-      visits = parseVisits(results[keys.length]?.result);
+      const flat = (results[keys.length]?.result ?? []) as string[];
+      for (let index = 0; index < flat.length; index += 2) {
+        const value = Number(flat[index + 1]);
+        if (flat[index] && Number.isFinite(value)) {
+          counts[`country:${flat[index]}`] = value;
+        }
+      }
+      visits = parseVisits(results[keys.length + 1]?.result);
     } else {
       const days = await Promise.all(
         dayList(RANGE_DAYS[range]).map((day) => readKvDay(day)),
@@ -361,6 +391,12 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
     visits = await readJson<VisitRecord[]>(VISITS_FILE, []);
   }
 
+  const countries = Object.entries(counts)
+    .filter(([key, value]) => key.startsWith("country:") && value > 0)
+    .map(([key, count]) => ({ code: key.slice("country:".length), count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 6);
+
   return {
     storage: mode,
     total: counts.total ?? 0,
@@ -371,6 +407,7 @@ export async function readStats(range: StatsRange): Promise<StatsSnapshot> {
         count: counts[`${group}:${value}`] ?? 0,
       })),
     })),
+    countries,
     visits,
   };
 }

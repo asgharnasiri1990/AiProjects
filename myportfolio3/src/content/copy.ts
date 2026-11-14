@@ -96,6 +96,8 @@ export interface StatsCopy {
   rangeLabel: string;
   ranges: Record<"today" | "week" | "month" | "all", string>;
   groups: Record<"device" | "os" | "browser", string>;
+  countryGroup: string;
+  colCountry: string;
   labels: Record<string, string>;
   visitsTitle: string;
   visitsEmpty: string;
@@ -234,7 +236,7 @@ export const copy: Record<Locale, Copy> = {
       label: "Live",
       back: "Back to portfolio",
       title: "Visitor stats",
-      lead: "Live counts from this site. No IP address, raw user agent, cookie or identifier is stored, so no two visits can be traced back to the same person.",
+      lead: "Live counts from this site. The country is resolved at the edge from the request and the IP itself is discarded — no IP address, raw user agent, cookie or identifier is stored, so no two visits can be traced back to the same person.",
       total: "total visits",
       storage: "Storage",
       storageKv: "Vercel KV",
@@ -252,6 +254,8 @@ export const copy: Record<Locale, Copy> = {
         os: "Operating systems",
         browser: "Browsers",
       },
+      countryGroup: "Countries",
+      colCountry: "Country",
       labels: {
         mobile: "Mobile",
         tablet: "Tablet",
@@ -406,7 +410,7 @@ export const copy: Record<Locale, Copy> = {
       label: "خصوصی",
       back: "بازگشت به نمونه‌کار",
       title: "آمار بازدید",
-      lead: "شمارش زنده‌ی همین سایت. هیچ نشانی IP، User-Agent خام، کوکی یا شناسه‌ای ذخیره نمی‌شود، بنابراین هیچ دو بازدیدی به یک نفر نسبت داده نمی‌شود.",
+      lead: "شمارش زنده‌ی همین سایت. کشور در لبه‌ی شبکه از همان درخواست استخراج می‌شود و خودِ IP دور ریخته می‌شود؛ نه User-Agent خام، نه کوکی و نه شناسه‌ای ذخیره نمی‌شود، بنابراین هیچ دو بازدیدی به یک نفر نسبت داده نمی‌شود.",
       total: "بازدید",
       storage: "ذخیره‌سازی",
       storageKv: "Vercel KV",
@@ -424,6 +428,8 @@ export const copy: Record<Locale, Copy> = {
         os: "سیستم‌عامل‌ها",
         browser: "مرورگرها",
       },
+      countryGroup: "کشورها",
+      colCountry: "کشور",
       labels: {
         mobile: "موبایل",
         tablet: "تبلت",

@@ -44,9 +44,10 @@ git switch -c before-updates v3-stable-2026-11-07
 - Public `/en/stats` (and `/fa/stats`): bilingual, linked from the closing band
   footer as `STATS` / `آمار`, with today / 7 days / 30 days / all-time ranges and
   a table of the last 100 visits (device model from Chrome's UA-CH hints, OS,
-  browser, Tehran time). Counts live in Vercel KV (or local JSON files); no IP,
-  raw user agent, cookie or identifier is stored. `/[locale]/s/<STATS_PATH>` is a
-  secret alias for the owner's bookmark.
+  browser, country, Tehran time). Counts live in Vercel KV (or local JSON
+  files); country is resolved from Vercel's edge header and no IP, raw user
+  agent, cookie or identifier is stored. `/[locale]/s/<STATS_PATH>` is a secret
+  alias for the owner's bookmark.
 - Fonts are self-hosted from npm (`@fontsource-variable/*`); Google Fonts is
   never requested. `npm run dev` works offline.
 - `tsc`, `lint` and `build` are clean.
