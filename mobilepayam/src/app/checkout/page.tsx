@@ -16,7 +16,7 @@ import type { Customer, Order, PaymentMethod } from "@/lib/types";
 import { container, card, btnPrimary, input, label } from "@/lib/ui";
 
 const IBAN = "IR000000000000000000000000";
-const IBAN_OWNER = "mobilepayam";
+const IBAN_OWNER = "موبایل پیام";
 const IBAN_BANK = "بانک ملت — حساب فروشگاه";
 
 export default function CheckoutPage() {

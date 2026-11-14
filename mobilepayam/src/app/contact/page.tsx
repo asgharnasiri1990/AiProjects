@@ -5,9 +5,24 @@ import { container, card } from "@/lib/ui";
 export const metadata: Metadata = { title: "تماس با ما" };
 
 const CHANNELS = [
-  { title: "تلفن فروشگاه", value: "۰۲۱-۸۸۷۷۶۶۵۵", note: "شنبه تا پنجشنبه، ۱۰ تا ۲۰" },
-  { title: "ایمیل", value: "hello@mobilepayam.ir", note: "پاسخ تا ۲۴ ساعت کاری" },
-  { title: "آدرس", value: "تهران، ولیعصر، بالاتر از پارک ساعی، پلاک ۱۲", note: "تحویل حضوری با هماهنگی" },
+  {
+    title: "تلفن فروشگاه",
+    value: "۰۴۵-۳۳۲۴۵۷۳۶",
+    href: "tel:+984533245736",
+    note: "شنبه تا پنجشنبه، ۱۰ تا ۲۰",
+  },
+  {
+    title: "ایمیل",
+    value: "hello@mobilepayam.ir",
+    href: "mailto:hello@mobilepayam.ir",
+    note: "پاسخ تا ۲۴ ساعت کاری",
+  },
+  {
+    title: "آدرس",
+    value: "اردبیل، بازار صفویه، موبایل پیام",
+    href: "https://maps.google.com/?q=اردبیل%20بازار%20صفویه%20موبایل%20پیام",
+    note: "تحویل حضوری با هماهنگی",
+  },
 ];
 
 export default function ContactPage() {
@@ -26,7 +41,17 @@ export default function ContactPage() {
             <b className="block text-xs font-extrabold text-ink-strong">
               {channel.title}
             </b>
-            <p className="mt-2 text-[12px] text-ink">{channel.value}</p>
+            {channel.href ? (
+              <a
+                href={channel.href}
+                className="mt-2 block text-[12px] text-ink transition-colors hover:text-brand"
+                dir={channel.href.startsWith("tel:") ? "ltr" : undefined}
+              >
+                {channel.value}
+              </a>
+            ) : (
+              <p className="mt-2 text-[12px] text-ink">{channel.value}</p>
+            )}
             <p className="mt-1 text-[10.5px] text-muted">{channel.note}</p>
           </div>
         ))}

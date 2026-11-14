@@ -46,6 +46,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 - Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
   images in `public/images/hero/`) flush under the header, with dots/arrows
   and 6s auto-rotate; the section below sits 8px under it.
+- Contact details are live: phone `۰۴۵-۳۳۲۴۵۷۳۶` (`tel:+984533245736`) and
+  «اردبیل، بازار صفویه، موبایل پیام» on `/contact`, the footer and the used
+  listings' contact CTA; the SHEBA owner is «موبایل پیام».
 - Used admin: add/edit/delete listings with multiple image URLs, a video URL
   (mp4 or YouTube/Aparat) and descriptions; persisted in `mobilepayam.used.v1`.
 - Checkout: address + shipping + gateway **or** SHEBA with receipt upload;
@@ -67,8 +70,9 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   Source list: `docs/image-sources.json`.
   **Licensing:** these are third-party press images used as samples; replace
   them with owned/licensed photos before a commercial launch.
-- Real IBAN / brand details: checkout shows the placeholder
-  `IR000000000000000000000000` (owner `mobilepayam`, bank ملت).
+- Real IBAN / brand details: checkout still shows the placeholder
+  `IR000000000000000000000000` (owner «موبایل پیام», bank ملت). Phone and
+  address are the real ones now.
 - Nothing is committed yet; `shop/`, `myportfolio3/` etc. are untouched.
 
 ## Verification log

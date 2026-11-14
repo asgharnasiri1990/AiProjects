@@ -49,8 +49,10 @@ export function SiteFooter() {
           <p className="mt-3 text-[11px] text-muted">
             تلفن:{" "}
             <span dir="ltr" className="inline-block">
-              ۰۲۱-۸۸۷۷۶۶۵۵
+              ۰۴۵-۳۳۲۴۵۷۳۶
             </span>
+            <br />
+            اردبیل، بازار صفویه، موبایل پیام
             <br />
             شنبه تا پنجشنبه، ۱۰ تا ۲۰
           </p>

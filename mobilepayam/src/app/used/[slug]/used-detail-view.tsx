@@ -155,7 +155,7 @@ export function UsedDetailView({ slug }: { slug: string }) {
           </p>
 
           <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-4">
-            <a href="tel:+982188776655" className={`${btnPrimary} flex-1`}>
+            <a href="tel:+984533245736" className={`${btnPrimary} flex-1`}>
               تماس برای خرید
             </a>
             <a href="mailto:hello@mobilepayam.ir" className={btnGhost}>
