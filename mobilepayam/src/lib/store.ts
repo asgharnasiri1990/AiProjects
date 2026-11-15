@@ -5,7 +5,7 @@ import { CATEGORIES, PRODUCTS } from "@/data/catalog";
 import { USED_LISTINGS } from "@/data/used";
 import type { Category, Order, OrderItem, Product, UsedListing } from "@/lib/types";
 
-const CATALOG_KEY = "mobilepayam.catalog.v1";
+const CATALOG_KEY = "mobilepayam.catalog.v2";
 const ORDERS_KEY = "mobilepayam.orders.v1";
 const USER_KEY = "mobilepayam.user.v1";
 const COUPON_KEY = "mobilepayam.coupon.v1";

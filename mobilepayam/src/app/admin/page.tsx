@@ -263,7 +263,7 @@ export default function AdminPage() {
         </p>
       ) : null}
 
-      <div className="mt-3 flex gap-1 rounded-lg border border-line bg-surface p-1">
+      <div className="mt-3 flex gap-1 overflow-x-auto rounded-lg border border-line bg-surface p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {(
           [
             ["products", "محصولات"],
@@ -276,7 +276,7 @@ export default function AdminPage() {
             key={id}
             type="button"
             onClick={() => setTab(id)}
-            className={`flex-1 rounded-md px-3 py-2 text-xs font-bold transition-colors ${
+            className={`flex-1 whitespace-nowrap rounded-md px-3 py-2 text-xs font-bold transition-colors ${
               tab === id ? "bg-brand text-white" : "text-ink hover:bg-canvas"
             }`}
           >

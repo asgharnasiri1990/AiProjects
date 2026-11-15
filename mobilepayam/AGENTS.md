@@ -59,8 +59,8 @@ UI                 src/components, src/app
 - **One catalog store.** Components read through `useCatalog()`; only the store
   imports the seed. Editing a product in `/admin` must update `/shop` without a
   reload (same store instance).
-- **Persistence keys are versioned:** `mobilepayam.catalog.v1`,
-  `mobilepayam.cart.v1`, `mobilepayam.orders.v1`, `mobilepayam.used.v1`.
+- **Persistence keys are versioned:** `mobilepayam.catalog.v2`,
+  `mobilepayam.cart.v1`, `mobilepayam.orders.v1`, `mobilepayam.used.v3`.
   Bump the version when the shape changes; never migrate silently.
 - **SSR safety:** render the seed on the server (`getServerSnapshot` = seed) and
   let `useSyncExternalStore` swap to stored data after hydration. Never read

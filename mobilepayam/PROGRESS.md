@@ -141,7 +141,7 @@ free, plain `npm run dev` picks it.
   bypass it; it exists to stop accidental access, not attackers. Real
   protection requires the backend.
 - The seed is the SSR snapshot; changing `catalog.ts` does not update existing
-  `v1` stores — bump the storage key when that matters.
+  `v2` stores — bump the storage key when that matters.
 - Product page metadata is generated from the seed only; admin-created products
   get the default title (page still renders).
 - `Paid` exists in `OrderStatus` for legacy reasons; the UI maps it to
