@@ -29,8 +29,8 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 
 - Scaffold: Next 16.4.3, React 19.3, Tailwind v4, tokens in `globals.css`
 - Layout, sticky header with navy strip + mega menu, footer
-- `src/data/catalog.ts` — 6 categories / 28 products with variants and specs
-  (mobile: 10 products, all with photos)
+- `src/data/catalog.ts` — 6 categories / 82 products with variants and specs
+  (mobile: 32; Apple/Samsung/Xiaomi 10 each)
 - `src/lib/store.ts` — versioned localStorage stores (catalog, orders, user,
   coupon) on `useSyncExternalStore`, seed as server snapshot
 - `src/lib/cart.ts` — cart with stock/10 clamps; `useResolvedCart`
@@ -50,9 +50,11 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   OnePlus 1), all with local photos. Colour variants (pink iPhone 16/15,
   burgundy iPhone 18 Pro, pink Galaxy A56/Z Flip8, green Xiaomi 14 …) come
   from Zoomit; GSMArena has no per-colour images and is only a fallback.
-- The other categories still have fewer than 10 products (watch 4, audio 5,
-  charger 3, power bank 3, case/glass 3); expanding them to 10 each is the
-  next step, phones first as requested.
+- All six categories now have 10+ products: watch 10, audio 10, charger 10,
+  power bank 10, case/glass 10 — **82 products overall, 70 with real photos**.
+- 12 items still use the `ProductArt` line art: the 10 case/glass products
+  (Zoomit has no product pages for them) plus the Apple 20W adapter and the
+  Baseus cable.
 - Content width is **1560px** (container, header and footer aligned; was 1180)
   so wide screens get much smaller side margins.
 - Floating support widget (bottom-right): phone/email actions + hours, no fake chat.

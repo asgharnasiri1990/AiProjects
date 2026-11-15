@@ -105,7 +105,31 @@ export function AdminUsed() {
     const price = Number(form.price);
     if (form.title.trim().length < 3) return flash("عنوان آگهی را کامل وارد کنید.");
     if (form.brand.trim().length < 2) return flash("برند را وارد کنید.");
-    if (!Number.isFinite(price) || price <= 0) return flash("قیمت معتبر نیست.");
+    if (!Number.isInteger(price) || price <= 0)
+      return flash("قیمت باید عدد صحیح و بزرگ‌تر از صفر باشد.");
+
+    const oldPriceRaw = form.oldPrice.trim();
+    const oldPrice = oldPriceRaw ? Number(oldPriceRaw) : undefined;
+    if (
+      oldPrice !== undefined &&
+      (!Number.isInteger(oldPrice) || oldPrice <= price)
+    )
+      return flash("قیمت قبل باید عدد صحیح و بزرگ‌تر از قیمت فعلی باشد.");
+
+    const batteryRaw = form.batteryHealth.trim();
+    const batteryHealth = batteryRaw ? Number(batteryRaw) : undefined;
+    if (
+      batteryHealth !== undefined &&
+      (!Number.isInteger(batteryHealth) ||
+        batteryHealth < 1 ||
+        batteryHealth > 100)
+    )
+      return flash("سلامت باتری باید عددی بین ۱ تا ۱۰۰ باشد.");
+
+    const warrantyRaw = form.warrantyMonths.trim();
+    const warrantyMonths = warrantyRaw ? Number(warrantyRaw) : 0;
+    if (!Number.isInteger(warrantyMonths) || warrantyMonths < 0)
+      return flash("مدت گارانتی باید عددی صحیح و صفر یا بیشتر باشد.");
 
     const images = form.images
       .split("\n")
@@ -120,9 +144,9 @@ export function AdminUsed() {
       color: form.color.trim() || undefined,
       condition: form.condition,
       price,
-      oldPrice: Number(form.oldPrice) > price ? Number(form.oldPrice) : undefined,
-      batteryHealth: Number(form.batteryHealth) || undefined,
-      warrantyMonths: Number(form.warrantyMonths) || 0,
+      oldPrice,
+      batteryHealth,
+      warrantyMonths,
       city: form.city.trim() || "تهران",
       status: form.status,
       description: form.description.trim(),

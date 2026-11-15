@@ -1,5 +1,6 @@
 import type { Category, Product, Variant } from "@/lib/types";
 import { EXTRA_PHONES } from "@/data/phones-extra";
+import { EXTRA_ACCESSORIES } from "@/data/accessories-extra";
 
 /* ─────────────────────────────────────────────────────────────
    The only seed. The store copies this into localStorage on first
@@ -678,7 +679,11 @@ const SEED_PRODUCTS: Product[] = [
 
 /* ── selectors (pure, no storage) ─────────────────────────── */
 
-export const PRODUCTS: Product[] = [...SEED_PRODUCTS, ...EXTRA_PHONES];
+export const PRODUCTS: Product[] = [
+  ...SEED_PRODUCTS,
+  ...EXTRA_PHONES,
+  ...EXTRA_ACCESSORIES,
+];
 
 export function categoryById(id: string): Category | undefined {
   return CATEGORIES.find((c) => c.id === id);

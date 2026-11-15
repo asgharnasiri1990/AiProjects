@@ -84,22 +84,29 @@ const SEED_ORDERS: Order[] = [
   },
 ];
 
-function readStored<T>(key: string): T | null {
+type Guard<T> = (value: unknown) => value is T;
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
+
+function readStored<T>(key: string, guard: Guard<T>): T | null {
   try {
     const raw = window.localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : null;
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    return guard(parsed) ? parsed : null;
   } catch {
     return null;
   }
 }
 
-function createStore<T>(key: string, seedValue: T) {
+function createStore<T>(key: string, seedValue: T, guard: Guard<T>) {
   let current: T | null = null;
   const listeners = new Set<() => void>();
 
   const get = (): T => {
     if (typeof window === "undefined") return seedValue;
-    if (current === null) current = readStored<T>(key) ?? seedValue;
+    if (current === null) current = readStored(key, guard) ?? seedValue;
     return current;
   };
 
@@ -123,12 +130,65 @@ function createStore<T>(key: string, seedValue: T) {
   return { get, subscribe, set, getServer: () => seedValue };
 }
 
-const catalogStore = createStore<Catalog>(CATALOG_KEY, SEED_CATALOG);
-const ordersStore = createStore<Order[]>(ORDERS_KEY, SEED_ORDERS);
-const userStore = createStore<User | null>(USER_KEY, null);
-const couponStore = createStore<Coupon | null>(COUPON_KEY, null);
-const adminStore = createStore<boolean>(ADMIN_KEY, false);
-const usedStore = createStore<UsedListing[]>(USED_KEY, USED_LISTINGS);
+/* Persisted values are untrusted: a stale or hand-edited key must never white-
+   screen the app, so every store validates its shape and falls back to seed. */
+const isCatalog = (value: unknown): value is Catalog =>
+  isRecord(value) &&
+  Array.isArray(value.products) &&
+  Array.isArray(value.categories) &&
+  value.products.every(
+    (product) =>
+      isRecord(product) &&
+      typeof product.id === "string" &&
+      Array.isArray(product.variants),
+  ) &&
+  value.categories.every(
+    (category) => isRecord(category) && typeof category.id === "string",
+  );
+
+const isOrders = (value: unknown): value is Order[] =>
+  Array.isArray(value) &&
+  value.every(
+    (order) =>
+      isRecord(order) &&
+      typeof order.code === "string" &&
+      Array.isArray(order.items) &&
+      typeof order.total === "number" &&
+      Number.isFinite(order.total),
+  );
+
+const isUser = (value: unknown): value is User | null =>
+  value === null ||
+  (isRecord(value) &&
+    typeof value.name === "string" &&
+    typeof value.phone === "string");
+
+const isCoupon = (value: unknown): value is Coupon | null =>
+  value === null ||
+  (isRecord(value) &&
+    typeof value.code === "string" &&
+    typeof value.percent === "number" &&
+    Number.isFinite(value.percent));
+
+const isAdminFlag: Guard<boolean> = (value) => typeof value === "boolean";
+
+const isUsedListings = (value: unknown): value is UsedListing[] =>
+  Array.isArray(value) &&
+  value.every(
+    (listing) =>
+      isRecord(listing) &&
+      typeof listing.id === "string" &&
+      typeof listing.slug === "string" &&
+      typeof listing.price === "number" &&
+      Array.isArray(listing.images),
+  );
+
+const catalogStore = createStore<Catalog>(CATALOG_KEY, SEED_CATALOG, isCatalog);
+const ordersStore = createStore<Order[]>(ORDERS_KEY, SEED_ORDERS, isOrders);
+const userStore = createStore<User | null>(USER_KEY, null, isUser);
+const couponStore = createStore<Coupon | null>(COUPON_KEY, null, isCoupon);
+const adminStore = createStore<boolean>(ADMIN_KEY, false, isAdminFlag);
+const usedStore = createStore<UsedListing[]>(USED_KEY, USED_LISTINGS, isUsedListings);
 
 /* ── hooks ─────────────────────────────────────────────────── */
 

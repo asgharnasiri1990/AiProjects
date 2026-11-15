@@ -6,9 +6,11 @@
  * Products without an entry fall back to the shared `ProductArt` line art.
  */
 import { EXTRA_PHONE_IMAGES } from "@/data/phones-extra";
+import { EXTRA_ACCESSORY_IMAGES } from "@/data/accessories-extra";
 
 export const PRODUCT_IMAGES: Record<string, string> = {
   ...EXTRA_PHONE_IMAGES,
+  ...EXTRA_ACCESSORY_IMAGES,
   "iphone-16-pro-max": "/images/products/iphone-16-pro-max.webp",
   "iphone-16": "/images/products/iphone-16.webp",
   "iphone-15": "/images/products/iphone-15.webp",
@@ -30,6 +32,7 @@ export const PRODUCT_IMAGES: Record<string, string> = {
   "sony-wh-ch720n": "/images/products/sony-wh-ch720n.webp",
   "anker-65w-gan": "/images/products/anker-65w-gan.webp",
   "anker-magsafe-10000": "/images/products/anker-magsafe-10000.webp",
+  "xiaomi-powerbank-20000": "/images/products/xiaomi-pb2020-20000.webp",
   "baseus-powerbank-30000": "/images/products/baseus-powerbank-30000.webp",
 };
 

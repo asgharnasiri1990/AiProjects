@@ -232,7 +232,7 @@ export function SiteHeader() {
             ) : null}
           </div>
 
-          <nav className="flex items-center gap-0.5">
+          <nav className="flex min-w-0 items-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {NAV.map((item) => {
               const active =
                 hydrated &&
