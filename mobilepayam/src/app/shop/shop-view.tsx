@@ -2,12 +2,24 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useCatalog } from "@/lib/store";
 import { minPrice, totalStock } from "@/data/catalog";
 import { faNum } from "@/lib/format";
 import { ProductCard } from "@/components/product-card";
-import { container, card, input } from "@/lib/ui";
+import { PriceKnob } from "@/components/price-knob";
+import { container, card } from "@/lib/ui";
+
+type Bucket = { id: string; label: string; min: number; max: number };
+
+const BUCKETS: Bucket[] = [
+  { id: "all", label: "همه", min: 0, max: 0 },
+  { id: "u1", label: "زیر ۱ میلیون", min: 0, max: 1_000_000 },
+  { id: "1-5", label: "۱ تا ۵ میلیون", min: 1_000_000, max: 5_000_000 },
+  { id: "5-20", label: "۵ تا ۲۰ میلیون", min: 5_000_000, max: 20_000_000 },
+  { id: "20-50", label: "۲۰ تا ۵۰ میلیون", min: 20_000_000, max: 50_000_000 },
+  { id: "50+", label: "بالای ۵۰ میلیون", min: 50_000_000, max: 0 },
+];
 
 const SORTS = [
   { id: "featured", label: "پرفروش‌ترین" },
@@ -30,9 +42,6 @@ export function ShopView() {
   const minParam = params.get("min") ?? "";
   const maxParam = params.get("max") ?? "";
 
-  const [minInput, setMinInput] = useState(minParam);
-  const [maxInput, setMaxInput] = useState(maxParam);
-
   const setParam = (key: string, value: string) => {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
@@ -44,6 +53,40 @@ export function ShopView() {
     () => [...new Set(products.map((product) => product.brand))].sort(),
     [products],
   );
+
+  const priceBounds = useMemo(() => {
+    const values = products.map(minPrice);
+    return {
+      min: values.length ? Math.min(...values) : 0,
+      max: values.length ? Math.max(...values) : 1,
+    };
+  }, [products]);
+
+  const currentMin = Number(minParam) || 0;
+  const currentMax = Number(maxParam) || 0;
+
+  const bucketActive = (bucket: Bucket) =>
+    bucket.min === 0 && bucket.max === 0
+      ? currentMin === 0 && currentMax === 0
+      : currentMin === bucket.min && currentMax === bucket.max;
+
+  const applyBucket = (bucket: Bucket) => {
+    const next = new URLSearchParams(params.toString());
+    if (bucket.min) next.set("min", String(bucket.min));
+    else next.delete("min");
+    if (bucket.max) next.set("max", String(bucket.max));
+    else next.delete("max");
+    router.replace(`/shop?${next.toString()}`, { scroll: false });
+  };
+
+  const commitMax = (value: number) => {
+    const next = new URLSearchParams(params.toString());
+    if (value >= priceBounds.max) next.delete("max");
+    else next.set("max", String(value));
+    const minValue = Number(next.get("min") || 0);
+    if (minValue && value <= minValue) next.delete("min");
+    router.replace(`/shop?${next.toString()}`, { scroll: false });
+  };
 
   const filtered = useMemo(() => {
     const min = Number(minParam) || 0;
@@ -162,38 +205,29 @@ export function ShopView() {
 
           <div className="border-b border-line py-3">
             <b className="mb-2 block text-xs font-bold text-ink-strong">محدودهٔ قیمت</b>
-            <div className="flex gap-1.5">
-              <input
-                value={minInput}
-                onChange={(event) => setMinInput(event.target.value)}
-                inputMode="numeric"
-                placeholder="از"
-                aria-label="حداقل قیمت"
-                className={`${input} h-9 px-2 text-xs`}
-              />
-              <input
-                value={maxInput}
-                onChange={(event) => setMaxInput(event.target.value)}
-                inputMode="numeric"
-                placeholder="تا"
-                aria-label="حداکثر قیمت"
-                className={`${input} h-9 px-2 text-xs`}
-              />
+            <PriceKnob
+              min={priceBounds.min}
+              max={priceBounds.max}
+              value={currentMax || priceBounds.max}
+              snaps={[1_000_000, 5_000_000, 20_000_000, 50_000_000, 100_000_000]}
+              onCommit={commitMax}
+            />
+            <div className="mt-3 flex flex-wrap gap-1">
+              {BUCKETS.map((bucket) => (
+                <button
+                  key={bucket.id}
+                  type="button"
+                  onClick={() => applyBucket(bucket)}
+                  className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${
+                    bucketActive(bucket)
+                      ? "border-brand bg-brand text-white"
+                      : "border-line text-ink hover:border-brand hover:text-brand"
+                  }`}
+                >
+                  {bucket.label}
+                </button>
+              ))}
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                const next = new URLSearchParams(params.toString());
-                if (minInput) next.set("min", minInput);
-                else next.delete("min");
-                if (maxInput) next.set("max", maxInput);
-                else next.delete("max");
-                router.replace(`/shop?${next.toString()}`, { scroll: false });
-              }}
-              className="mt-2 h-8 w-full rounded-md border border-line-strong text-[11px] font-bold text-ink hover:border-brand hover:text-brand"
-            >
-              اعمال قیمت
-            </button>
           </div>
 
           <label className="flex cursor-pointer items-center gap-2 pt-3 text-xs text-ink">

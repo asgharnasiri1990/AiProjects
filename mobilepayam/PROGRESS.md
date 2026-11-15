@@ -50,8 +50,11 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   OnePlus 1), all with local photos. Colour variants (pink iPhone 16/15,
   burgundy iPhone 18 Pro, pink Galaxy A56/Z Flip8, green Xiaomi 14 …) come
   from Zoomit; GSMArena has no per-colour images and is only a fallback.
-- All six categories now have 10+ products: watch 10, audio 10, charger 10,
-  power bank 10, case/glass 10 — **82 products overall, 70 with real photos**.
+- Shop price filter is a **rotary knob** (drag / wheel / arrow keys, log scale,
+  snap points) plus budget chips; both write `?min=&max=` so back/forward and
+  shared links keep working.
+- Category counts: mobile 32 (Apple/Samsung/Xiaomi 10 each), watch 10, audio 10,
+  charger 10, power bank 10, case/glass 10.
 - 12 items still use the `ProductArt` line art: the 10 case/glass products
   (Zoomit has no product pages for them) plus the Apple 20W adapter and the
   Baseus cable.
