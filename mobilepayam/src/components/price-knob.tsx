@@ -141,7 +141,7 @@ export function PriceKnob({
         ref={knobRef}
       >
         <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full"
           viewBox="0 0 200 200"
           aria-hidden="true"
         >
