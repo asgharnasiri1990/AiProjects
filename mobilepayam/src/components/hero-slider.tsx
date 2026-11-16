@@ -70,7 +70,7 @@ export function HeroSlider() {
         type="button"
         aria-label="اسلاید قبلی"
         onClick={() => go(-1)}
-        className="absolute right-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-lg text-white transition-colors hover:bg-black/55 sm:grid"
+        className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-black/35 text-xl text-white backdrop-blur transition-colors hover:bg-black/60 sm:right-4"
       >
         ›
       </button>
@@ -78,12 +78,12 @@ export function HeroSlider() {
         type="button"
         aria-label="اسلاید بعدی"
         onClick={() => go(1)}
-        className="absolute left-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-lg text-white transition-colors hover:bg-black/55 sm:grid"
+        className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-black/35 text-xl text-white backdrop-blur transition-colors hover:bg-black/60 sm:left-4"
       >
         ‹
       </button>
 
-      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+      <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5">
         {SLIDES.map((slide, slideIndex) => (
           <button
             key={slide.src}
