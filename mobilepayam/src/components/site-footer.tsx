@@ -39,9 +39,9 @@ export function SiteFooter() {
           <Link
             href="/"
             dir="ltr"
-            className="inline-block rounded-lg bg-brand px-3 py-1.5 text-sm font-black text-white"
+            className="inline-block rounded-lg bg-brand px-3 py-1.5 text-sm font-bold text-white"
           >
-            mobilepayam.
+            mobilepayam
           </Link>
           <p className="mt-3 max-w-[32ch] text-[11.5px] leading-6 text-muted">
             موبایل و لوازم جانبی اورجینال، با ضمانت اصالت کالا و پشتیبانی واقعی.

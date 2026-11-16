@@ -119,10 +119,10 @@ export function SiteHeader() {
         <Link
           href="/"
           dir="ltr"
-          className="shrink-0 rounded-lg bg-brand px-3 py-1.5 text-[15px] font-black text-white sm:text-base"
+          className="shrink-0 rounded-lg bg-brand px-3 py-1.5 text-[15px] font-bold text-white sm:text-base"
           aria-label="mobilepayam — خانه"
         >
-          mobilepayam.
+          mobilepayam
         </Link>
 
         <form action="/shop" className="relative hidden flex-1 sm:block md:max-w-[560px]">
