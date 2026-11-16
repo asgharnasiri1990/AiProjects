@@ -9,6 +9,7 @@ type Props = {
   value: number;
   onCommit: (value: number) => void;
   snaps?: number[];
+  size?: number;
 };
 
 const SWEEP = 270;
@@ -28,7 +29,14 @@ function tToPrice(t: number, min: number, max: number, snaps: number[]) {
   return Math.round(raw / step) * step;
 }
 
-export function PriceKnob({ min, max, value, onCommit, snaps = [] }: Props) {
+export function PriceKnob({
+  min,
+  max,
+  value,
+  onCommit,
+  snaps = [],
+  size = 168,
+}: Props) {
   const [preview, setPreview] = useState<number | null>(null);
   const dragging = useRef(false);
   const wheelTimer = useRef<number | null>(null);
@@ -128,7 +136,8 @@ export function PriceKnob({ min, max, value, onCommit, snaps = [] }: Props) {
   return (
     <div>
       <div
-        className="relative mx-auto h-[132px] w-[132px] touch-none select-none"
+        className="relative mx-auto touch-none select-none"
+        style={{ width: size, height: size }}
         ref={knobRef}
       >
         <svg
@@ -166,21 +175,24 @@ export function PriceKnob({ min, max, value, onCommit, snaps = [] }: Props) {
           className="absolute inset-0 cursor-grab rounded-full bg-[radial-gradient(circle_at_35%_30%,#1c3a6e,#102a54_45%,#0a1c3a_100%)] shadow-[inset_0_2px_6px_rgba(255,255,255,.25),inset_0_-8px_18px_rgba(0,0,0,.35),0_14px_26px_-16px_rgba(16,42,84,.8)] outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 active:cursor-grabbing"
         >
           <span
-            className="absolute left-1/2 top-1/2 h-[42px] w-[3px] origin-bottom rounded-full bg-gradient-to-t from-white/30 to-white"
-            style={{ transform: `translate(-50%, -100%) rotate(${angle}deg)` }}
+            className="absolute left-1/2 top-1/2 w-[3px] origin-bottom rounded-full bg-gradient-to-t from-white/30 to-white"
+            style={{
+              height: Math.round(size * 0.33),
+              transform: `translate(-50%, -100%) rotate(${angle}deg)`,
+            }}
           />
           <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0a1730] shadow-[inset_0_1px_2px_rgba(255,255,255,.3)]" />
         </div>
       </div>
 
-      <div className="mt-2 text-center">
-        <span className="block text-[10px] text-muted">حداکثر قیمت</span>
-        <b className="block text-sm font-extrabold text-ink-strong">
+      <div className="mt-3 text-center">
+        <span className="block text-[11px] text-muted">حداکثر قیمت</span>
+        <b className="mt-0.5 block text-xl font-black tracking-tight text-ink-strong">
           {faNum(shown)}
-          <span className="mr-1 text-[10px] font-normal text-muted">تومان</span>
+          <span className="mr-1 text-[10.5px] font-normal text-muted">تومان</span>
         </b>
       </div>
-      <div className="mt-1 flex justify-between text-[9.5px] text-muted">
+      <div className="mt-1.5 flex justify-between text-[9.5px] text-muted">
         <span>{faNum(min)}</span>
         <span>{faNum(max)}</span>
       </div>

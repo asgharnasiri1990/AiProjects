@@ -204,7 +204,10 @@ export function ShopView() {
           </div>
 
           <div className="border-b border-line py-3">
-            <b className="mb-2 block text-xs font-bold text-ink-strong">محدودهٔ قیمت</b>
+            <b className="mb-1 block text-xs font-bold text-ink-strong">محدودهٔ قیمت</b>
+            <p className="mb-2 text-[10px] text-muted">
+              بچرخانید یا یکی از بازه‌ها را انتخاب کنید
+            </p>
             <PriceKnob
               min={priceBounds.min}
               max={priceBounds.max}
@@ -212,13 +215,13 @@ export function ShopView() {
               snaps={[1_000_000, 5_000_000, 20_000_000, 50_000_000, 100_000_000]}
               onCommit={commitMax}
             />
-            <div className="mt-3 flex flex-wrap gap-1">
+            <div className="mt-3 flex flex-wrap gap-1.5">
               {BUCKETS.map((bucket) => (
                 <button
                   key={bucket.id}
                   type="button"
                   onClick={() => applyBucket(bucket)}
-                  className={`rounded-full border px-2 py-1 text-[10px] font-bold transition-colors ${
+                  className={`rounded-full border px-2.5 py-1.5 text-[10.5px] font-bold transition-colors ${
                     bucketActive(bucket)
                       ? "border-brand bg-brand text-white"
                       : "border-line text-ink hover:border-brand hover:text-brand"
@@ -228,6 +231,9 @@ export function ShopView() {
                 </button>
               ))}
             </div>
+            <p className="mt-2.5 text-center text-[10.5px] font-bold text-ink">
+              {faNum(filtered.length)} محصول در این بازه
+            </p>
           </div>
 
           <label className="flex cursor-pointer items-center gap-2 pt-3 text-xs text-ink">
