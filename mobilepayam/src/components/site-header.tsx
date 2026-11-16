@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useCatalog } from "@/lib/store";
 import { useCartCount } from "@/lib/cart";
+import { Logo } from "@/components/logo";
 
 /* Route-based styles must not differ between the server and the first client
    render, so the active state is applied only after hydration. */
@@ -118,11 +119,10 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-[1560px] items-center gap-3 px-4 py-2.5">
         <Link
           href="/"
-          dir="ltr"
-          className="shrink-0 rounded-lg bg-brand px-3 py-1.5 text-[15px] font-black text-white sm:text-base"
+          className="flex shrink-0 items-center"
           aria-label="mobilepayam — خانه"
         >
-          mobilepayam.
+          <Logo className="h-9 w-9 text-brand" />
         </Link>
 
         <form action="/shop" className="relative hidden flex-1 sm:block md:max-w-[560px]">

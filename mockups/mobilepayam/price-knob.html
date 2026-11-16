@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ولوم قیمت — mobilepayam</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<style>
+  :root {
+    --brand: #102a54;
+    --brand-dark: #0a1c3a;
+    --brand-soft: #e8eef7;
+    --ink: #3f4064;
+    --ink-strong: #23243f;
+    --muted: #81858b;
+    --line: #e4e4e8;
+    --canvas: #f5f5f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    display: grid; place-items: center;
+    background: var(--canvas);
+    font-family: Vazirmatn, Tahoma, sans-serif;
+    color: var(--ink);
+  }
+  .card {
+    width: min(380px, calc(100vw - 32px));
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 16px; padding: 20px; text-align: center;
+  }
+  h1 { margin: 0; font-size: 15px; font-weight: 800; color: var(--ink-strong); }
+  .hint { margin: 4px 0 0; font-size: 10.5px; color: var(--muted); }
+
+  .knob-wrap { position: relative; width: 190px; height: 190px; margin: 14px auto 6px; touch-action: none; }
+  .knob {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #1c3a6e, var(--brand) 45%, var(--brand-dark) 100%);
+    box-shadow: inset 0 2px 6px rgba(255,255,255,.25), inset 0 -8px 18px rgba(0,0,0,.35), 0 14px 26px -16px rgba(16,42,84,.8);
+    cursor: grab;
+  }
+  .knob:active { cursor: grabbing; }
+  .pointer {
+    position: absolute; left: 50%; top: 50%;
+    width: 3px; height: 62px;
+    background: linear-gradient(#fff, rgba(255,255,255,.35));
+    border-radius: 3px;
+    transform-origin: 50% 100%;
+    translate: -50% -100%;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(255,255,255,.45);
+  }
+  .hub {
+    position: absolute; left: 50%; top: 50%;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #0a1730; translate: -50% -50%;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,.3);
+    pointer-events: none;
+  }
+  .ticks { position: absolute; inset: 0; pointer-events: none; }
+
+  .readout { margin-top: 4px; }
+  .readout small { display: block; font-size: 10.5px; color: var(--muted); }
+  .readout b {
+    display: block; font-size: 20px; font-weight: 900; color: var(--ink-strong);
+    letter-spacing: -.02em;
+  }
+  .readout b span { font-size: 11px; font-weight: 400; color: var(--muted); margin-inline-start: 4px; }
+
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 14px; }
+  .chip {
+    border: 1px solid var(--line);
+    background: #fff; color: var(--ink);
+    border-radius: 999px; padding: 6px 11px;
+    font: inherit; font-size: 10.5px; font-weight: 700; cursor: pointer;
+  }
+  .chip.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .chip:hover:not(.on) { border-color: var(--brand); color: var(--brand); }
+
+  .note { margin-top: 12px; font-size: 10px; color: var(--muted); line-height: 1.8; }
+  .count { margin-top: 8px; font-size: 11px; color: var(--ink); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>محدودهٔ قیمت</h1>
+  <p class="hint">ولوم را بچرخان یا با کلیدهای جهت تنظیم کن</p>
+
+  <div class="knob-wrap" id="wrap">
+    <svg class="ticks" viewBox="0 0 200 200" aria-hidden="true">
+      <g stroke="rgba(255,255,255,.45)" stroke-width="2" stroke-linecap="round">
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(-135 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(-90 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(-45 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(0 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(45 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(90 100 100)"/>
+        <line x1="100" y1="8" x2="100" y2="18" transform="rotate(135 100 100)"/>
+      </g>
+    </svg>
+    <div class="knob" id="knob" role="slider" tabindex="0"
+         aria-label="حداکثر قیمت" aria-valuemin="450000" aria-valuemax="112000000" aria-valuenow="20000000"></div>
+    <div class="pointer" id="pointer"></div>
+    <div class="hub"></div>
+  </div>
+
+  <div class="readout">
+    <small>حداکثر قیمت</small>
+    <b id="value">۲۰٬۰۰۰٬۰۰۰<span>تومان</span></b>
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip" data-max="1000000">زیر ۱ میلیون</button>
+    <button class="chip" data-max="5000000">تا ۵ میلیون</button>
+    <button class="chip on" data-max="20000000">تا ۲۰ میلیون</button>
+    <button class="chip" data-max="50000000">تا ۵۰ میلیون</button>
+    <button class="chip" data-max="112000000">همه</button>
+  </div>
+
+  <p class="count" id="count"></p>
+  <p class="note">حس ولوم رادیوی قدیمی را دارد؛ با چرخ ماوس و کلیدهای ← → هم کار میکند. برای فیلتر فروشگاه، همین ولوم را با پله‌ها و چیپ‌ها ترکیب می‌کنیم.</p>
+</div>
+
+<script>
+  const MIN = 450000;
+  const MAX = 112000000;
+  const SNAP = [1000000, 5000000, 20000000, 50000000, 100000000];
+
+  const knob = document.getElementById("knob");
+  const wrap = document.getElementById("wrap");
+  const pointer = document.getElementById("pointer");
+  const valueEl = document.getElementById("value");
+  const countEl = document.getElementById("count");
+  const chips = [...document.querySelectorAll(".chip")];
+
+  // fake catalog distribution for the count readout
+  const prices = [450000, 450000, 590000, 690000, 750000, 1250000, 1450000, 1650000, 1950000, 2100000,
+    2300000, 2450000, 2650000, 2750000, 2850000, 2950000, 3150000, 3300000, 3400000, 3650000,
+    3900000, 4100000, 4200000, 4800000, 5600000, 6800000, 8900000, 9800000, 11500000, 12900000,
+    14800000, 14900000, 16900000, 18500000, 18900000, 19500000, 20500000, 21900000, 24500000,
+    24900000, 28500000, 28900000, 32500000, 34000000, 36000000, 38900000, 42500000, 44900000,
+    48500000, 54000000, 56900000, 62000000, 64500000, 68000000, 71900000, 78900000, 88900000,
+    96500000, 108000000, 112000000];
+
+  let t = Math.log(20000000 / MIN) / Math.log(MAX / MIN); // normalized 0..1
+  let value = 20000000;
+
+  const fmt = (n) => Math.round(n).toLocaleString("fa-IR");
+  const angleFor = (v) => -135 + v * 270;
+
+  function priceFor(tv) {
+    const raw = MIN * Math.pow(MAX / MIN, tv);
+    // snap near preset boundaries
+    for (const s of SNAP) {
+      const st = Math.log(s / MIN) / Math.log(MAX / MIN);
+      if (Math.abs(tv - st) < 0.018) return s;
+    }
+    return Math.round(raw / 100000) * 100000;
+  }
+  function tFor(price) {
+    return Math.min(1, Math.max(0, Math.log(price / MIN) / Math.log(MAX / MIN)));
+  }
+
+  function render() {
+    pointer.style.transform = `rotate(${angleFor(t)}deg)`;
+    valueEl.innerHTML = `${fmt(value)}<span>تومان</span>`;
+    knob.setAttribute("aria-valuenow", value);
+    chips.forEach((chip) => {
+      const max = Number(chip.dataset.max);
+      chip.classList.toggle("on", Math.abs(value - max) / max < 0.01);
+    });
+    const n = prices.filter((p) => p <= value).length;
+    countEl.textContent = `${n.toLocaleString("fa-IR")} محصول در این بازه`;
+  }
+
+  function setFromT(next, focusKnob) {
+    t = Math.min(1, Math.max(0, next));
+    value = priceFor(t);
+    t = tFor(value);
+    render();
+    if (focusKnob) knob.focus({ preventScroll: true });
+  }
+
+  let dragging = false;
+  function fromPointer(event) {
+    const rect = wrap.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    let deg = (Math.atan2(event.clientY - cy, event.clientX - cx) * 180) / Math.PI + 90;
+    if (deg > 180) deg -= 360;
+    const clamped = Math.max(-135, Math.min(135, deg));
+    setFromT((clamped + 135) / 270);
+  }
+
+  knob.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    knob.setPointerCapture(event.pointerId);
+    fromPointer(event);
+  });
+  knob.addEventListener("pointermove", (event) => { if (dragging) fromPointer(event); });
+  knob.addEventListener("pointerup", () => { dragging = false; });
+  knob.addEventListener("pointercancel", () => { dragging = false; });
+
+  knob.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    setFromT(t + (event.deltaY > 0 ? -0.03 : 0.03));
+  }, { passive: false });
+
+  knob.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowUp") { event.preventDefault(); setFromT(t + 0.02); }
+    if (event.key === "ArrowLeft" || event.key === "ArrowDown") { event.preventDefault(); setFromT(t - 0.02); }
+    if (event.key === "Home") { event.preventDefault(); setFromT(0); }
+    if (event.key === "End") { event.preventDefault(); setFromT(1); }
+  });
+
+  chips.forEach((chip) => chip.addEventListener("click", () => {
+    value = Number(chip.dataset.max);
+    t = tFor(value);
+    render();
+  }));
+
+  render();
+</script>
+</body>
+</html>
