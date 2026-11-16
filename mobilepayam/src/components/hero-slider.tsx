@@ -41,16 +41,28 @@ export function HeroSlider() {
 
       <div className="relative h-[210px] w-full sm:h-[300px] md:h-[400px]">
         {SLIDES.map((slide, slideIndex) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <div
             key={slide.src}
-            src={slide.src}
-            alt={slide.alt}
-            loading="eager"
-            className={`absolute inset-0 h-full w-full object-cover object-[72%_50%] transition-opacity duration-700 md:object-center ${
+            className={`absolute inset-0 transition-opacity duration-700 ${
               slideIndex === index ? "opacity-100" : "opacity-0"
             }`}
-          />
+          >
+            {/* blurred fill so the full-bleed box has no empty bars */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={slide.src}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-xl"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              loading="eager"
+              className="relative z-10 h-full w-full object-contain"
+            />
+          </div>
         ))}
       </div>
 
