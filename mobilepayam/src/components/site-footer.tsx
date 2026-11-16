@@ -1,5 +1,4 @@
 ﻿import Link from "next/link";
-import { Logo } from "@/components/logo";
 
 const COLUMNS = [
   {
@@ -39,10 +38,10 @@ export function SiteFooter() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center"
-            aria-label="mobilepayam — خانه"
+            dir="ltr"
+            className="inline-block rounded-lg bg-brand px-3 py-1.5 text-sm font-black text-white"
           >
-            <Logo className="h-9 w-9 text-brand" />
+            mobilepayam.
           </Link>
           <p className="mt-3 max-w-[32ch] text-[11.5px] leading-6 text-muted">
             موبایل و لوازم جانبی اورجینال، با ضمانت اصالت کالا و پشتیبانی واقعی.

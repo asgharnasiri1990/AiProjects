@@ -60,9 +60,8 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   Baseus cable.
 - Content width is **1560px** (container, header and footer aligned; was 1180)
   so wide screens get much smaller side margins.
-- Brand mark (smile arc + three dots) is a vector in `src/components/logo.tsx`,
-  used in the header/footer and as the favicon (`src/app/icon.svg`), navy
-  `#102a54`. No English wordmark next to it.
+- Brand logo is the navy wordmark box (`mobilepayam.`) in the header/footer;
+  the favicon is the phone mark in navy `#102a54`.
 - Floating support widget (bottom-right): **chat with simulated, keyword-based
   replies** plus phone/email shortcuts; the conversation is session-only.
 - Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
