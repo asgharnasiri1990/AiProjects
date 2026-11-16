@@ -60,7 +60,11 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   Baseus cable.
 - Content width is **1560px** (container, header and footer aligned; was 1180)
   so wide screens get much smaller side margins.
-- Floating support widget (bottom-right): phone/email actions + hours, no fake chat.
+- Brand mark (smile arc + three dots) is a vector in `src/components/logo.tsx`,
+  used in the header/footer and as the favicon (`src/app/icon.svg`), navy
+  `#102a54`. No English wordmark next to it.
+- Floating support widget (bottom-right): **chat with simulated, keyword-based
+  replies** plus phone/email shortcuts; the conversation is session-only.
 - Home: full-bleed 5-slide hero banner (`src/components/hero-slider.tsx`,
   images in `public/images/hero/`) flush under the header, with dots/arrows
   and 6s auto-rotate; the section below sits 8px under it.
