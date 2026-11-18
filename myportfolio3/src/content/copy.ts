@@ -50,6 +50,8 @@ export interface Copy {
   workTools: string;
   workSource: string;
   workRepos: string;
+  workRotate: string;
+  workClose: string;
 
   servicesTitle: string;
   servicesLead: string;
@@ -176,6 +178,8 @@ export const copy: Record<Locale, Copy> = {
     workTools: "TOOLS",
     workSource: "View source",
     workRepos: "All repositories",
+    workRotate: "Drag to rotate",
+    workClose: "Close",
 
     servicesTitle: "THE SERVICES WE PROVIDE",
     servicesLead:
@@ -352,6 +356,8 @@ export const copy: Record<Locale, Copy> = {
     workTools: "ابزار",
     workSource: "دیدن کد",
     workRepos: "همه‌ی مخزن‌ها",
+    workRotate: "برای چرخش بکشید",
+    workClose: "بستن",
 
     servicesTitle: "چه کارهایی انجام می‌دهم",
     servicesLead:

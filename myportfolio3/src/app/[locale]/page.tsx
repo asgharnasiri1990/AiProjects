@@ -14,7 +14,7 @@ import { CountUp } from "@/components/count-up";
 import { Reveal } from "@/components/reveal";
 import { ServicesAccordion } from "@/components/services-accordion";
 import { VisitTracker } from "@/components/visit-tracker";
-import { WorkGrid } from "@/components/work-grid";
+import { WorkSphere } from "@/components/work-sphere";
 
 export async function generateMetadata({
   params,
@@ -208,13 +208,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <section id="work" className="scroll-mt-20 border-b border-line">
         <div className={`${shell} py-20 sm:py-28`}>
           <Reveal>
-            <h2
-              className={`text-center font-display text-display font-semibold leading-none ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
-            >
-              {c.workLabel}
-            </h2>
+            <WorkSphere locale={locale} />
           </Reveal>
-          <WorkGrid locale={locale} />
         </div>
       </section>
 
