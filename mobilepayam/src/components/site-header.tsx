@@ -118,11 +118,15 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-[1560px] items-center gap-3 px-4 py-2.5">
         <Link
           href="/"
-          dir="ltr"
-          className="shrink-0 rounded-lg bg-brand px-3 py-1.5 text-[15px] font-bold text-white sm:text-base"
+          className="flex shrink-0 items-center"
           aria-label="mobilepayam — خانه"
         >
-          mobilepayam
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/brand/logo.png"
+            alt="mobilepayam"
+            className="h-9 w-auto sm:h-10"
+          />
         </Link>
 
         <form action="/shop" className="relative hidden flex-1 sm:block md:max-w-[560px]">
