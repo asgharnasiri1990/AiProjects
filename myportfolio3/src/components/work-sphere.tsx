@@ -61,7 +61,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     let perspective = 1000;
     let frame = 0;
 
-    const state = { dx: 0, dy: 0, vx: 0, vy: 0, tilt: -2 };
+    const state = { dx: 0, dy: 0, vx: 0, vy: 0, tilt: -4 };
     let drag: {
       id: number;
       x: number;
@@ -77,11 +77,11 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       const height = stage.clientHeight;
       radius = Math.max(
         120,
-        Math.min(320, Math.min(width * 0.34, height * 0.34)),
+        Math.min(400, Math.min(width * 0.46, height * 0.38)),
       );
       R = radius;
 
-      const scale = width <= 640 ? 0.86 : 0.8;
+      const scale = width <= 640 ? 0.58 : 0.56;
       const cw = Math.round(Math.max(84, radius * scale));
       perspective = width <= 640 ? 720 : 1000;
 
@@ -95,12 +95,12 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       vecs.forEach((v, index) => {
         const el = cardRefs.current[index];
         if (!el) return;
-        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px)`;
+        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) rotateY(${v.lon}deg) rotateX(${v.lat}deg)`;
       });
     }
 
     function clampPitch() {
-      state.dy = clamp(state.dy, -30 - state.tilt, 30 - state.tilt);
+      state.dy = clamp(state.dy, -32 - state.tilt, 32 - state.tilt);
     }
 
     function tick() {
@@ -166,10 +166,10 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       drag.lx = event.clientX;
       drag.ly = event.clientY;
 
-      state.dx += dx * 0.22;
-      state.dy += dy * 0.18;
-      state.vx = dx * 0.22;
-      state.vy = dy * 0.18;
+      state.dx += dx * 0.13;
+      state.dy += dy * 0.13;
+      state.vx = dx * 0.13;
+      state.vy = dy * 0.13;
       clampPitch();
 
       drag.moved = Math.max(
@@ -234,7 +234,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     <div className="mt-6 sm:mt-10">
       <div
         ref={stageRef}
-        className="relative mx-auto h-[clamp(380px,62vh,620px)] w-full touch-pan-y select-none"
+        className="relative mx-auto h-[clamp(360px,56vh,540px)] w-full touch-pan-y select-none"
         style={{
           perspective: "var(--persp, 1000px)",
           perspectiveOrigin: "50% 50%",
