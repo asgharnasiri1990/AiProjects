@@ -19,6 +19,10 @@ const USED_KEY = "mobilepayam.used.v3";
  */
 export const ADMIN_DEMO_CODE = "1234";
 
+/** Demo coupons: code → percent. Shared by the guard and applyCoupon so a
+ *  hand-edited localStorage value cannot invent a discount. */
+const COUPONS: Record<string, number> = { PAYAM10: 10, NOWRUZ15: 15 };
+
 export type Catalog = { products: Product[]; categories: Category[] };
 export type User = { name: string; phone: string };
 export type Coupon = { code: string; percent: number };
@@ -102,7 +106,14 @@ function readStored<T>(key: string, guard: Guard<T>): T | null {
 
 function createStore<T>(key: string, seedValue: T, guard: Guard<T>) {
   let current: T | null = null;
+  let storageBound = false;
   const listeners = new Set<() => void>();
+
+  const onStorage = (event: StorageEvent) => {
+    if (event.key !== null && event.key !== key) return;
+    current = null;
+    listeners.forEach((listener) => listener());
+  };
 
   const get = (): T => {
     if (typeof window === "undefined") return seedValue;
@@ -112,8 +123,20 @@ function createStore<T>(key: string, seedValue: T, guard: Guard<T>) {
 
   const subscribe = (listener: () => void) => {
     listeners.add(listener);
+
+    // Re-read when another tab writes the same key; otherwise the cached
+    // snapshot in this tab silently overwrites the other tab's change.
+    if (!storageBound && typeof window !== "undefined") {
+      window.addEventListener("storage", onStorage);
+      storageBound = true;
+    }
+
     return () => {
       listeners.delete(listener);
+      if (listeners.size === 0 && storageBound) {
+        window.removeEventListener("storage", onStorage);
+        storageBound = false;
+      }
     };
   };
 
@@ -140,7 +163,18 @@ const isCatalog = (value: unknown): value is Catalog =>
     (product) =>
       isRecord(product) &&
       typeof product.id === "string" &&
-      Array.isArray(product.variants),
+      typeof product.name === "string" &&
+      Array.isArray(product.variants) &&
+      product.variants.length > 0 &&
+      product.variants.every(
+        (variant) =>
+          isRecord(variant) &&
+          typeof variant.id === "string" &&
+          typeof variant.price === "number" &&
+          Number.isFinite(variant.price) &&
+          typeof variant.stock === "number" &&
+          Number.isFinite(variant.stock),
+      ),
   ) &&
   value.categories.every(
     (category) => isRecord(category) && typeof category.id === "string",
@@ -152,7 +186,11 @@ const isOrders = (value: unknown): value is Order[] =>
     (order) =>
       isRecord(order) &&
       typeof order.code === "string" &&
+      isRecord(order.customer) &&
+      isRecord(order.payment) &&
+      typeof order.status === "string" &&
       Array.isArray(order.items) &&
+      order.items.every((item) => isRecord(item)) &&
       typeof order.total === "number" &&
       Number.isFinite(order.total),
   );
@@ -168,9 +206,9 @@ const isCoupon = (value: unknown): value is Coupon | null =>
   (isRecord(value) &&
     typeof value.code === "string" &&
     typeof value.percent === "number" &&
-    Number.isFinite(value.percent));
+    COUPONS[value.code] === value.percent);
 
-const isAdminFlag: Guard<boolean> = (value) => typeof value === "boolean";
+const isAdminFlag = (value: unknown): value is boolean => typeof value === "boolean";
 
 const isUsedListings = (value: unknown): value is UsedListing[] =>
   Array.isArray(value) &&
@@ -179,8 +217,10 @@ const isUsedListings = (value: unknown): value is UsedListing[] =>
       isRecord(listing) &&
       typeof listing.id === "string" &&
       typeof listing.slug === "string" &&
+      typeof listing.title === "string" &&
       typeof listing.price === "number" &&
-      Array.isArray(listing.images),
+      Array.isArray(listing.images) &&
+      Array.isArray(listing.specs),
   );
 
 const catalogStore = createStore<Catalog>(CATALOG_KEY, SEED_CATALOG, isCatalog);
@@ -351,8 +391,6 @@ export function signIn(user: User) {
 export function signOut() {
   userStore.set(null);
 }
-
-const COUPONS: Record<string, number> = { PAYAM10: 10, NOWRUZ15: 15 };
 
 export function applyCoupon(code: string): boolean {
   const normalized = code.trim().toUpperCase();

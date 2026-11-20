@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { uid } from "@/lib/format";
 
 type Message = {
   id: string;
@@ -56,7 +57,7 @@ export function SupportWidget() {
 
     setMessages((current) => [
       ...current,
-      { id: crypto.randomUUID(), from: "user", text, time: now() },
+      { id: uid(), from: "user", text, time: now() },
     ]);
     setDraft("");
     setTyping(true);
@@ -67,7 +68,7 @@ export function SupportWidget() {
       setMessages((current) => [
         ...current,
         {
-          id: crypto.randomUUID(),
+          id: uid(),
           from: "agent",
           text: autoReply(text),
           time: now(),

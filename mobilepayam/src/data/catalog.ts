@@ -699,6 +699,7 @@ export function minPrice(product: Product): number {
 export function cheapestAvailableVariant(product: Product): Variant {
   const available = product.variants.filter((variant) => variant.stock > 0);
   const pool = available.length > 0 ? available : product.variants;
+  if (pool.length === 0) return { id: "default", price: 0, stock: 0 };
 
   return pool.reduce((cheapest, variant) =>
     variant.price < cheapest.price ? variant : cheapest,
@@ -711,7 +712,8 @@ export function totalStock(product: Product): number {
 
 export function defaultVariant(product: Product): Variant {
   return (
-    product.variants.find((variant) => variant.stock > 0) ?? product.variants[0]
+    product.variants.find((variant) => variant.stock > 0) ??
+    product.variants[0] ?? { id: "default", price: 0, stock: 0 }
   );
 }
 

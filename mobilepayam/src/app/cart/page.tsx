@@ -17,7 +17,9 @@ export default function CartPage() {
   const [code, setCode] = useState("");
   const [couponError, setCouponError] = useState("");
 
-  const discount = coupon ? Math.round((subtotal * coupon.percent) / 100) : 0;
+  const discount = coupon
+    ? Math.min(subtotal, Math.round((subtotal * coupon.percent) / 100))
+    : 0;
   const shipping = shippingFor("courier", subtotal);
   const total = subtotal - discount + shipping;
 

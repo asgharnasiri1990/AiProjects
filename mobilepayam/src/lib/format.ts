@@ -30,6 +30,18 @@ export function orderCode(): string {
   return `MP-${Math.floor(10000 + Math.random() * 89999)}`;
 }
 
+/**
+ * `crypto.randomUUID` only exists in a secure context (https or localhost).
+ * A phone hitting the dev server over LAN is plain http, so fall back to a
+ * timestamp+random id instead of throwing inside an event handler.
+ */
+export function uid(): string {
+  if (typeof globalThis.crypto?.randomUUID === "function") {
+    return globalThis.crypto.randomUUID();
+  }
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 export function orderDate(iso: string): string {
   return new Date(iso).toLocaleDateString("fa-IR", {
     day: "numeric",

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { clearCart, useResolvedCart } from "@/lib/cart";
 import { clearCoupon, placeOrder, useCoupon } from "@/lib/store";
-import { faNum, orderCode, toEnglishDigits } from "@/lib/format";
+import { faNum, orderCode, toEnglishDigits, uid } from "@/lib/format";
 import {
   SHIPPING_METHODS,
   shippingFor,
@@ -40,7 +40,9 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const discount = coupon ? Math.round((subtotal * coupon.percent) / 100) : 0;
+  const discount = coupon
+    ? Math.min(subtotal, Math.round((subtotal * coupon.percent) / 100))
+    : 0;
   const shipping = shippingFor(method, subtotal);
   const total = subtotal - discount + shipping;
 
@@ -62,7 +64,7 @@ export default function CheckoutPage() {
     setError("");
 
     const order: Order = {
-      id: crypto.randomUUID(),
+      id: uid(),
       code: orderCode(),
       createdAt: new Date().toISOString(),
       customer: { ...customer, phone },

@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { getCatalogValue, useCatalog } from "@/lib/store";
-import { MAX_ITEM_QUANTITY } from "@/lib/format";
+import { MAX_ITEM_QUANTITY, clampQty } from "@/lib/format";
 import type { CartLine, Product, Variant } from "@/lib/types";
 
 const CART_KEY = "mobilepayam.cart.v1";
@@ -15,8 +15,28 @@ function read(): CartLine[] {
   try {
     const raw = window.localStorage.getItem(CART_KEY);
     if (!raw) return SEED;
-    const parsed = JSON.parse(raw) as CartLine[];
-    return Array.isArray(parsed) ? parsed : SEED;
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return SEED;
+
+    return parsed.flatMap((value) => {
+      if (typeof value !== "object" || value === null) return [];
+      const line = value as Partial<CartLine>;
+      if (
+        typeof line.productId !== "string" ||
+        typeof line.variantId !== "string" ||
+        typeof line.qty !== "number" ||
+        !Number.isFinite(line.qty)
+      ) {
+        return [];
+      }
+      return [
+        {
+          productId: line.productId,
+          variantId: line.variantId,
+          qty: Math.max(0, Math.trunc(line.qty)),
+        },
+      ];
+    });
   } catch {
     return SEED;
   }
@@ -28,10 +48,28 @@ function get(): CartLine[] {
   return lines;
 }
 
+let storageBound = false;
+
+function onStorage(event: StorageEvent) {
+  if (event.key !== null && event.key !== CART_KEY) return;
+  lines = null;
+  listeners.forEach((listener) => listener());
+}
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
+
+  if (!storageBound && typeof window !== "undefined") {
+    window.addEventListener("storage", onStorage);
+    storageBound = true;
+  }
+
   return () => {
     listeners.delete(listener);
+    if (listeners.size === 0 && storageBound) {
+      window.removeEventListener("storage", onStorage);
+      storageBound = false;
+    }
   };
 }
 
@@ -67,7 +105,14 @@ export function useResolvedCart(): {
   for (const line of cart) {
     const product = products.find((item) => item.id === line.productId);
     const variant = product?.variants.find((item) => item.id === line.variantId);
-    if (product && variant) resolved.push({ line, product, variant });
+    if (!product || !variant) continue;
+
+    // A stored/edited line is untrusted: clamp to stock and the 10-item cap,
+    // and drop lines that can no longer be bought (stock 0).
+    const qty = clampQty(line.qty, variant.stock);
+    if (qty <= 0) continue;
+
+    resolved.push({ line: { ...line, qty }, product, variant });
   }
 
   return {

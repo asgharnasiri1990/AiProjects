@@ -10,7 +10,11 @@ export function LoginView() {
   const params = useSearchParams();
   const router = useRouter();
   const user = useUser();
-  const next = params.get("next") || "/account";
+  const requestedNext = params.get("next") ?? "/account";
+  const next =
+    requestedNext.startsWith("/") && !requestedNext.startsWith("//")
+      ? requestedNext
+      : "/account";
 
   const [name, setName] = useState(user?.name ?? "");
   const [phone, setPhone] = useState(user?.phone ?? "");
