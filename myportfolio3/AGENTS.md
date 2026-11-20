@@ -85,11 +85,13 @@ module-not-found error. The fonts are bundled; the site builds offline.
   the bar stays on one line.
 - **Mobile:** root font is 17px under 640px, work cards are one column, and
   labels/body copy are bumped up; desktop keeps two columns and the smaller labels.
-- **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
-  Do not replace them with stock photos; keep the `work.ts` sources real.
+- **Work images** are real screenshots (`work-*.webp`). Do not replace them with
+  stock photos; keep the `work.ts` sources real. They render **in colour** inside
+  the globe and the project modal (owner's choice, 2026-11-21) — the rest of the
+  page stays monochrome.
 - **The project section is a photo globe** (`components/work-sphere.tsx`), modelled
-  on the "Photo Globe" reference: latitude/longitude rows of tiles (9 rows,
-  18 columns at the equator, fewer towards the poles) laid on the sphere with
+  on the "Photo Globe" reference: latitude/longitude rows of tiles (8 rows,
+  15 columns at the equator, fewer towards the poles) laid on the sphere with
   `rotateY(lon) rotateX(-lat) translateZ(R)`, small paper-coloured gaps between
   them, `backface-visibility: hidden` so the far side reads as a solid ball. The
   12 project screenshots cycle across the tiles. The heading sits above the globe,

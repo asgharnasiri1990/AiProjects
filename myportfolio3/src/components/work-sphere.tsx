@@ -11,8 +11,8 @@ import { CircleLink } from "@/components/circle-link";
 /** Rows of the globe, latitude in degrees, and columns at the equator. */
 const ROW_FROM = -80;
 const ROW_TO = 80;
-const ROWS = 9;
-const BASE_COLS = 18;
+const ROWS = 8;
+const BASE_COLS = 15;
 const ROW_STEP = (ROW_TO - ROW_FROM) / (ROWS - 1);
 
 function linkFor(item: WorkItem) {
@@ -56,7 +56,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
         out.push({
           lat,
           lon: col * step + offset,
-          item: n % items.length,
+          item: (n * 5) % items.length,
         });
         n += 1;
       }
@@ -97,14 +97,14 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       const height = stageEl.clientHeight;
       R = Math.max(140, Math.min(420, Math.min(height * 0.44, width * 0.3)));
 
-      const arcH = R * ((ROW_STEP * Math.PI) / 180) * 0.9;
+      const arcH = R * ((ROW_STEP * Math.PI) / 180) * 0.94;
 
       tiles.forEach((tile, index) => {
         const el = tileRefs.current[index];
         if (!el) return;
         const shrink = Math.max(0.2, Math.cos((tile.lat * Math.PI) / 180));
         const cols = Math.max(3, Math.round(BASE_COLS * shrink));
-        const arcW = ((2 * Math.PI * R) / cols) * shrink * 0.9;
+        const arcW = ((2 * Math.PI * R) / cols) * shrink * 0.94;
         el.style.width = `${Math.round(arcW)}px`;
         el.style.height = `${Math.round(arcH)}px`;
         el.style.marginLeft = `${-Math.round(arcW) / 2}px`;
@@ -282,7 +282,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
                   src={item.image}
                   alt=""
                   loading="lazy"
-                  className="h-full w-full object-cover object-top grayscale"
+                  className="h-full w-full object-cover object-top"
                 />
               </button>
             );
@@ -321,7 +321,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
               <img
                 src={current.image}
                 alt=""
-                className="h-full w-full object-cover object-top grayscale"
+                className="h-full w-full object-cover object-top"
               />
               <button
                 ref={closeRef}
