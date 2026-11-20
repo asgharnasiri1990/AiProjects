@@ -8,7 +8,13 @@ import { displayTracking, focusRing, labelStyle, latinTracking } from "@/lib/sty
 import { ArrowUpRightIcon } from "@/components/icons";
 import { CircleLink } from "@/components/circle-link";
 
-/** Real screenshots, captured from the running sites (see content/work.ts). */
+/** Rows of the globe, latitude in degrees, and columns at the equator. */
+const ROW_FROM = -80;
+const ROW_TO = 80;
+const ROWS = 9;
+const BASE_COLS = 18;
+const ROW_STEP = (ROW_TO - ROW_FROM) / (ROWS - 1);
+
 function linkFor(item: WorkItem) {
   return item.source ?? item.live ?? "";
 }
@@ -17,49 +23,56 @@ function clamp(value: number, min: number, max: number) {
   return value < min ? min : value > max ? max : value;
 }
 
+interface Tile {
+  lat: number;
+  lon: number;
+  item: number;
+}
+
 export function WorkSphere({ locale }: { locale: Locale }) {
   const c = copy[locale];
   const items = work;
-  const N = items.length;
 
   const stageRef = useRef<HTMLDivElement | null>(null);
   const worldRef = useRef<HTMLDivElement | null>(null);
-  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tileRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const suppressClick = useRef(false);
   const activeRef = useRef<number | null>(null);
 
   const [active, setActive] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
 
-  const vecs = useMemo(() => {
-    const GA = Math.PI * (3 - Math.sqrt(5));
-    return items.map((_, index) => {
-      const y = 1 - (index / (N - 1)) * 2;
-      const radius = Math.sqrt(Math.max(0, 1 - y * y));
-      const theta = index * GA;
-      const x = Math.cos(theta) * radius;
-      const z = Math.sin(theta) * radius;
-      return {
-        x,
-        y,
-        z,
-        lat: (Math.asin(y) * 180) / Math.PI,
-        lon: (Math.atan2(x, z) * 180) / Math.PI,
-      };
-    });
-  }, [items, N]);
+  /** Latitude/longitude slots; photos cycle through the project list. */
+  const tiles = useMemo<Tile[]>(() => {
+    const out: Tile[] = [];
+    let n = 0;
+    for (let row = 0; row < ROWS; row += 1) {
+      const lat = ROW_FROM + row * ROW_STEP;
+      const shrink = Math.max(0.25, Math.cos((lat * Math.PI) / 180));
+      const cols = Math.max(3, Math.round(BASE_COLS * shrink));
+      const step = 360 / cols;
+      const offset = row % 2 ? step / 2 : 0;
+      for (let col = 0; col < cols; col += 1) {
+        out.push({
+          lat,
+          lon: col * step + offset,
+          item: n % items.length,
+        });
+        n += 1;
+      }
+    }
+    return out;
+  }, [items.length]);
 
   useEffect(() => {
     const stage = stageRef.current;
     const world = worldRef.current;
     if (!stage || !world) return;
 
-    const worldEl = world;
     const stageEl = stage;
+    const worldEl = world;
 
     let R = 200;
-    let radius = 200;
-    let perspective = 1000;
     let frame = 0;
     let last = 0;
 
@@ -68,53 +81,36 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     ).matches;
 
     const state = {
-      dx: 0,
-      dy: 0,
-      vx: 0,
-      vy: 0,
-      tilt: -4,
+      yaw: 0,
+      pitch: -8,
+      dragYaw: 0,
+      dragPitch: 0,
+      vX: 0,
+      vY: 0,
       auto: 0,
       scrollYaw: 0,
+      scale: 1,
     };
-    let drag: {
-      id: number;
-      x: number;
-      y: number;
-      lx: number;
-      ly: number;
-      moved: number;
-    } | null = null;
 
     function layout() {
-      if (!stage) return;
-      const width = stage.clientWidth;
-      const height = stage.clientHeight;
-      radius = Math.max(
-        160,
-        Math.min(560, Math.min(height * 0.42, width * 0.46)),
-      );
-      R = radius;
+      const width = stageEl.clientWidth;
+      const height = stageEl.clientHeight;
+      R = Math.max(140, Math.min(420, Math.min(height * 0.44, width * 0.3)));
 
-      const scale = width <= 640 ? 0.6 : 0.58;
-      const cw = Math.round(Math.max(96, radius * scale));
-      perspective = width <= 640 ? 960 : 1500;
+      const arcH = R * ((ROW_STEP * Math.PI) / 180) * 0.9;
 
-      stage.style.setProperty("--cw", `${cw}px`);
-      stage.style.setProperty("--persp", `${perspective}px`);
-      stage.style.setProperty(
-        "--hw",
-        `${Math.round(Math.min(width * 0.76, 460))}px`,
-      );
-
-      vecs.forEach((v, index) => {
-        const el = cardRefs.current[index];
+      tiles.forEach((tile, index) => {
+        const el = tileRefs.current[index];
         if (!el) return;
-        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px)`;
+        const shrink = Math.max(0.2, Math.cos((tile.lat * Math.PI) / 180));
+        const cols = Math.max(3, Math.round(BASE_COLS * shrink));
+        const arcW = ((2 * Math.PI * R) / cols) * shrink * 0.9;
+        el.style.width = `${Math.round(arcW)}px`;
+        el.style.height = `${Math.round(arcH)}px`;
+        el.style.marginLeft = `${-Math.round(arcW) / 2}px`;
+        el.style.marginTop = `${-Math.round(arcH) / 2}px`;
+        el.style.transform = `rotateY(${tile.lon}deg) rotateX(${-tile.lat}deg) translateZ(${R}px)`;
       });
-    }
-
-    function clampPitch() {
-      state.dy = clamp(state.dy, -32 - state.tilt, 32 - state.tilt);
     }
 
     function tick(now: number) {
@@ -122,70 +118,42 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       last = now;
 
       if (!drag && activeRef.current === null) {
-        if (!reduceMotion) state.auto += dt * 0.012;
-        state.dx += state.vx;
-        state.dy += state.vy;
-        state.vx *= 0.94;
-        state.vy *= 0.94;
-        if (Math.abs(state.vx) < 0.002) state.vx = 0;
-        if (Math.abs(state.vy) < 0.002) state.vy = 0;
-        clampPitch();
+        if (!reduceMotion) state.auto += dt * 0.009;
+        state.dragYaw += state.vX;
+        state.dragPitch += state.vY;
+        state.vX *= 0.94;
+        state.vY *= 0.94;
+        if (Math.abs(state.vX) < 0.002) state.vX = 0;
+        if (Math.abs(state.vY) < 0.002) state.vY = 0;
+        state.dragPitch = clamp(state.dragPitch, -38, 38);
       }
 
-      // The section's travel through the viewport drives an extra yaw.
+      // Section travel through the viewport: a slow extra turn.
       const rect = stageEl.getBoundingClientRect();
       const travel =
         (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-      const progress = clamp(travel, 0, 1);
-      state.scrollYaw = progress * 150;
+      state.scrollYaw = clamp(travel, 0, 1) * 120;
 
-      const sy = state.auto + state.scrollYaw + state.dx;
-      const sx = state.tilt + state.dy;
+      state.yaw = state.auto + state.scrollYaw + state.dragYaw;
+      state.pitch = clamp(-8 + state.dragPitch, -55, 40);
 
-      worldEl.style.transform = `rotateY(${sy}deg) rotateX(${sx}deg)`;
-
-      const rx = (sx * Math.PI) / 180;
-      const ry = (sy * Math.PI) / 180;
-      const cosX = Math.cos(rx);
-      const sinX = Math.sin(rx);
-      const cosY = Math.cos(ry);
-      const sinY = Math.sin(ry);
-
-      vecs.forEach((v, index) => {
-        const el = cardRefs.current[index];
-        if (!el) return;
-
-        const py = -v.y;
-        const z1 = py * sinX + v.z * cosX;
-        const z2 = -v.x * sinY + z1 * cosY;
-
-        // Counter-rotate the world so every card keeps facing the camera; a
-        // slice of its tangent angle survives as depth variety. Without this
-        // the far half turns edge-on and the sphere reads as a hemisphere.
-        const tilt = 0.18;
-        el.style.transform =
-          `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) ` +
-          `rotateX(${-sx}deg) rotateY(${-sy}deg) ` +
-          `rotateY(${v.lon * tilt}deg) rotateX(${v.lat * tilt}deg)`;
-
-        const base = 0.12 + 0.88 * Math.pow((z2 + 1) / 2, 0.9);
-        const opacity = (0.35 + 0.65 * base).toFixed(3);
-
-        if (el.dataset.o !== opacity) {
-          el.style.opacity = opacity;
-          el.dataset.o = opacity;
-        }
-      });
+      worldEl.style.transform =
+        `rotateX(${state.pitch}deg) rotateY(${state.yaw}deg)`;
 
       frame = requestAnimationFrame(tick);
     }
+
+    let drag: {
+      id: number;
+      lx: number;
+      ly: number;
+      moved: number;
+    } | null = null;
 
     function onDown(event: PointerEvent) {
       if (activeRef.current !== null) return;
       drag = {
         id: event.pointerId,
-        x: event.clientX,
-        y: event.clientY,
         lx: event.clientX,
         ly: event.clientY,
         moved: 0,
@@ -200,47 +168,41 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       drag.lx = event.clientX;
       drag.ly = event.clientY;
 
-      state.dx += dx * 0.16;
-      state.dy += dy * 0.12;
-      state.vx = dx * 0.16;
-      state.vy = dy * 0.12;
-      clampPitch();
+      state.dragYaw += dx * 0.22;
+      state.dragPitch += dy * 0.14;
+      state.vX = dx * 0.22;
+      state.vY = dy * 0.14;
 
-      drag.moved = Math.max(
-        drag.moved,
-        Math.abs(event.clientX - drag.x) + Math.abs(event.clientY - drag.y),
-      );
+      drag.moved = Math.max(drag.moved, Math.abs(dx) + Math.abs(dy));
       if (drag.moved > 6) suppressClick.current = true;
     }
 
-    function onUp(event: PointerEvent) {
-      if (!drag || event.pointerId !== drag.id) return;
+    function onUp() {
       drag = null;
       window.setTimeout(() => {
         suppressClick.current = false;
       }, 0);
     }
 
-    // Scrolling with the pointer over the sphere spins it faster instead of
-    // scrolling the page. Outside the sphere the page scrolls as usual.
+    // Wheel over the globe spins it; outside the globe (but in the section)
+    // the page scrolls normally.
     function onWheel(event: WheelEvent) {
       if (activeRef.current !== null) return;
       const rect = stageEl.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
-      const distance = Math.hypot(event.clientX - cx, event.clientY - cy);
-      if (distance > R * 1.2) return;
+      if (Math.hypot(event.clientX - cx, event.clientY - cy) > R * 1.15) return;
       event.preventDefault();
       const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
-      state.dx += delta * 0.35;
-      state.vx = clamp(state.vx + delta * 0.02, -6, 6);
+      state.dragYaw += delta * 0.32;
+      state.vX = clamp(state.vX + delta * 0.02, -6, 6);
     }
 
     layout();
     frame = requestAnimationFrame(tick);
 
-    stage.addEventListener("pointerdown", onDown);
-    stage.addEventListener("wheel", onWheel, { passive: false });
+    stageEl.addEventListener("pointerdown", onDown);
+    stageEl.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
@@ -250,14 +212,14 @@ export function WorkSphere({ locale }: { locale: Locale }) {
 
     return () => {
       cancelAnimationFrame(frame);
-      stage.removeEventListener("pointerdown", onDown);
-      stage.removeEventListener("wheel", onWheel);
+      stageEl.removeEventListener("pointerdown", onDown);
+      stageEl.removeEventListener("wheel", onWheel);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
       window.removeEventListener("resize", onResize);
     };
-  }, [vecs]);
+  }, [tiles]);
 
   useEffect(() => {
     activeRef.current = active;
@@ -282,69 +244,54 @@ export function WorkSphere({ locale }: { locale: Locale }) {
   const current: WorkItem | null = active === null ? null : items[active];
 
   return (
-    <div className="mt-6 sm:mt-10">
+    <div>
+      <h2
+        className={`text-center font-display text-display font-semibold leading-none ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
+      >
+        {c.workLabel}
+      </h2>
+
       <div
         ref={stageRef}
-        className="relative mx-auto h-[clamp(420px,74vh,720px)] w-full touch-pan-y select-none"
-        style={{
-          perspective: "var(--persp, 1000px)",
-          perspectiveOrigin: "50% 50%",
-        }}
+        className="relative mx-auto mt-4 h-[clamp(400px,70vh,700px)] w-full touch-pan-y select-none sm:mt-8"
+        style={{ perspective: "1400px", perspectiveOrigin: "50% 50%" }}
       >
         <div
           ref={worldRef}
           className="absolute left-1/2 top-1/2 h-0 w-0 [transform-style:preserve-3d]"
         >
-          {items.map((item, index) => (
-            <button
-              key={item.slug}
-              type="button"
-              ref={(el) => {
-                cardRefs.current[index] = el;
-              }}
-              onClick={() => {
-                if (suppressClick.current) return;
-                setActive(index);
-              }}
-              aria-label={`${item.title[locale]} — ${item.source ? c.workSource : c.workVisit}`}
-              className={`group absolute left-0 top-0 rounded-[3px] focus-visible:outline-none ${focusRing}`}
-              style={{
-                width: "var(--cw)",
-                height: "calc(var(--cw) / 1.5)",
-                marginLeft: "calc(var(--cw) / -2)",
-                marginTop: "calc(var(--cw) / -3)",
-              }}
-            >
-              <span className="pointer-events-none relative block h-full w-full overflow-hidden rounded-[3px] border border-line bg-wash">
+          {tiles.map((tile, index) => {
+            const item = items[tile.item];
+            return (
+              <button
+                key={`${tile.lat}-${tile.lon}`}
+                type="button"
+                ref={(el) => {
+                  tileRefs.current[index] = el;
+                }}
+                onClick={() => {
+                  if (suppressClick.current) return;
+                  setActive(tile.item);
+                }}
+                aria-label={`${item.title[locale]} — ${item.source ? c.workSource : c.workVisit}`}
+                className={`absolute left-0 top-0 overflow-hidden rounded-[2px] border border-paper bg-wash [backface-visibility:hidden] ${focusRing}`}
+                style={{ transformStyle: "preserve-3d" }}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.image}
                   alt=""
                   loading="lazy"
-                  className="h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
+                  className="h-full w-full object-cover object-top grayscale"
                 />
-                <span className="absolute bottom-1.5 start-1.5 rounded-full bg-signal px-1.5 py-0.5 font-mono text-[9px] leading-none text-signal-ink">
-                  {item.index}
-                </span>
-              </span>
-            </button>
-          ))}
-
-        </div>
-
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-          <h2
-            className={`max-w-[70%] bg-paper px-[0.85em] py-[0.32em] text-center font-display text-[clamp(1.45rem,4vw,2.6rem)] font-semibold leading-none text-ink ring-1 ring-line ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
-          >
-            {c.workLabel}
-          </h2>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:mt-6">
-        <span
-          className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
-        >
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <span className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}>
           {c.workRotate}
         </span>
         <CircleLink
@@ -374,7 +321,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
               <img
                 src={current.image}
                 alt=""
-                className="h-full w-full object-cover grayscale"
+                className="h-full w-full object-cover object-top grayscale"
               />
               <button
                 ref={closeRef}
@@ -387,10 +334,8 @@ export function WorkSphere({ locale }: { locale: Locale }) {
             </div>
 
             <div className="p-6 sm:p-8">
-              <p
-                className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}
-              >
-                {current.index} Â· {current.categoryLabel[locale]}
+              <p className={`font-mono text-[10px] text-soft ${labelStyle(locale)}`}>
+                {current.index} · {current.categoryLabel[locale]}
               </p>
               <h3
                 className={`mt-2 font-display text-2xl font-semibold leading-tight sm:text-3xl ${latinTracking(locale, "tracking-[-0.02em]")}`}
@@ -421,9 +366,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
                   <ArrowUpRightIcon width={14} height={14} aria-hidden />
                 </a>
               ) : (
-                <p
-                  className={`mt-6 font-mono text-[10px] text-soft ${labelStyle(locale)}`}
-                >
+                <p className={`mt-6 font-mono text-[10px] text-soft ${labelStyle(locale)}`}>
                   {current.categoryLabel[locale]}
                 </p>
               )}
@@ -434,5 +377,3 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     </div>
   );
 }
-
-

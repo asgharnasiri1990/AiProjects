@@ -87,18 +87,18 @@ module-not-found error. The fonts are bundled; the site builds offline.
   labels/body copy are bumped up; desktop keeps two columns and the smaller labels.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
-- **The project section is a 3D sphere** (`components/work-sphere.tsx`): twelve
-  cards on a Fibonacci sphere, radius from the stage height (`.42`) with cards at
-  `.58` of that radius, `perspective: 1500`. It spins on its own (~12°/s), the
-  section's travel through the viewport adds up to 150° of yaw, and dragging adds
-  yaw/pitch with momentum. Every card counter-rotates the world so it keeps facing
-  the camera (with ~18% of its tangent angle kept for depth) — without that the
-  far half turns edge-on and the sphere reads as a hemisphere. With the pointer
-  inside the sphere, a wheel gesture is captured and spins it faster instead of
-  scrolling the page; outside the sphere the page scrolls normally. The section
-  title sits on a paper plate above the cards. Clicking a card opens the detail
-  modal; the modal CTA is `View source` when the item has a repository and
-  `Open site` when it only has a `live` URL.
+- **The project section is a photo globe** (`components/work-sphere.tsx`), modelled
+  on the "Photo Globe" reference: latitude/longitude rows of tiles (9 rows,
+  18 columns at the equator, fewer towards the poles) laid on the sphere with
+  `rotateY(lon) rotateX(-lat) translateZ(R)`, small paper-coloured gaps between
+  them, `backface-visibility: hidden` so the far side reads as a solid ball. The
+  12 project screenshots cycle across the tiles. The heading sits above the globe,
+  not on top of it. It spins on its own (~9°/s), the section's travel through the
+  viewport adds up to 120° of yaw, dragging adds yaw/pitch with momentum, and a
+  wheel gesture **inside the globe** spins it faster instead of scrolling the
+  page (outside the globe the page scrolls normally). Clicking a tile opens that
+  project's modal; the CTA is `View source` with a repository and `Open site`
+  with only a `live` URL.
 - **Services** are intentionally the five labels from the reference (the
   owner's choice): UI/UX, WEB DESIGN, LANDING PAGE DESIGN, UI DESIGN FIGMA,
   MOBILE APP DESIGN. The accordion opens one row at a time.
