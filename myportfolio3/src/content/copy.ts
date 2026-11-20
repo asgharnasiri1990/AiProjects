@@ -49,6 +49,7 @@ export interface Copy {
   workWeb: string;
   workTools: string;
   workSource: string;
+  workVisit: string;
   workRepos: string;
   workRotate: string;
   workClose: string;
@@ -177,6 +178,7 @@ export const copy: Record<Locale, Copy> = {
     workWeb: "WEB",
     workTools: "TOOLS",
     workSource: "View source",
+    workVisit: "Open site",
     workRepos: "All repositories",
     workRotate: "Drag to rotate",
     workClose: "Close",
@@ -355,6 +357,7 @@ export const copy: Record<Locale, Copy> = {
     workWeb: "وب",
     workTools: "ابزار",
     workSource: "دیدن کد",
+    workVisit: "دیدن سایت",
     workRepos: "همه‌ی مخزن‌ها",
     workRotate: "برای چرخش بکشید",
     workClose: "بستن",

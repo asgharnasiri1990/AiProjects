@@ -8,28 +8,9 @@ import { displayTracking, focusRing, labelStyle, latinTracking } from "@/lib/sty
 import { ArrowUpRightIcon } from "@/components/icons";
 import { CircleLink } from "@/components/circle-link";
 
-/**
- * Placeholder previews. These are the default stills from the archive; swap the
- * array (or the `image` field in content/work.ts) once the real screenshots land.
- */
-const CDN =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/";
-
-const DEFAULT_IMAGES = [
-  "hf_20260922_194349_26ffdbfd-ac5e-49e9-a07d-c06d3f7cb4cb",
-  "hf_20260922_194350_5546ea3d-6336-42c7-a59f-06165c5802be",
-  "hf_20260922_194349_b4533691-cb49-41d4-b56c-51f0fdcbe250",
-  "hf_20260922_194350_28d92c80-de66-41cb-911e-b3b44aebe1f5",
-  "hf_20260922_194349_04e89718-4214-4aff-bac5-490462bbfe2f",
-  "hf_20260922_194417_2c031e22-2fad-4c81-a544-83cd6bba1c33",
-  "hf_20260922_194349_a39c3226-7848-4b15-b840-98ad8aec467b",
-  "hf_20260922_194417_555e4d90-f35f-4a1a-8c75-def1e8b71988",
-  "hf_20260922_194417_e525a243-03c8-454b-83b4-60f541baf70a",
-  "hf_20260922_194416_30e307a9-1265-45c3-a1a0-5c6fa5bb9f8d",
-];
-
-function previewFor(index: number) {
-  return `${CDN}${DEFAULT_IMAGES[index % DEFAULT_IMAGES.length]}_min.webp`;
+/** Real screenshots, captured from the running sites (see content/work.ts). */
+function linkFor(item: WorkItem) {
+  return item.source ?? item.live ?? "";
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -80,7 +61,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     let perspective = 1000;
     let frame = 0;
 
-    const state = { dx: 16, dy: 10, vx: 0, vy: 0, tilt: -6 };
+    const state = { dx: 0, dy: 0, vx: 0, vy: 0, tilt: -2 };
     let drag: {
       id: number;
       x: number;
@@ -95,12 +76,12 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       const width = stage.clientWidth;
       const height = stage.clientHeight;
       radius = Math.max(
-        130,
-        Math.min(340, Math.min(width * 0.4, height * 0.46)),
+        120,
+        Math.min(320, Math.min(width * 0.34, height * 0.34)),
       );
       R = radius;
 
-      const scale = width <= 640 ? 0.58 : 0.5;
+      const scale = width <= 640 ? 0.86 : 0.8;
       const cw = Math.round(Math.max(84, radius * scale));
       perspective = width <= 640 ? 720 : 1000;
 
@@ -114,9 +95,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       vecs.forEach((v, index) => {
         const el = cardRefs.current[index];
         if (!el) return;
-        el.style.transform =
-          `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) ` +
-          `rotateY(${v.lon}deg) rotateX(${v.lat}deg)`;
+        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px)`;
       });
     }
 
@@ -276,7 +255,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
                 if (suppressClick.current) return;
                 setActive(index);
               }}
-              aria-label={`${item.title[locale]} â€” ${c.workSource}`}
+              aria-label={`${item.title[locale]} — ${item.source ? c.workSource : c.workVisit}`}
               className={`group absolute left-0 top-0 rounded-[3px] focus-visible:outline-none ${focusRing}`}
               style={{
                 width: "var(--cw)",
@@ -288,7 +267,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
               <span className="pointer-events-none relative block h-full w-full overflow-hidden rounded-[3px] border border-line bg-wash">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={previewFor(index)}
+                  src={item.image}
                   alt=""
                   loading="lazy"
                   className="h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-[1.04]"
@@ -320,7 +299,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
         </span>
         <CircleLink
           href="https://github.com/asgharnasiri1990/AiProjects"
-          label={`${c.workRepos} â€” ${c.externalLink}`}
+          label={`${c.workRepos} — ${c.externalLink}`}
           external
         />
       </div>
@@ -343,7 +322,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
             <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-wash">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={previewFor(active ?? 0)}
+                src={current.image}
                 alt=""
                 className="h-full w-full object-cover grayscale"
               />
@@ -382,12 +361,12 @@ export function WorkSphere({ locale }: { locale: Locale }) {
                 ))}
               </div>
               <a
-                href={current.source}
+                href={linkFor(current)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-signal px-6 font-mono text-[10px] font-medium text-signal-ink transition-colors hover:bg-signal-hover ${labelStyle(locale)} ${focusRing}`}
               >
-                {c.workSource}
+                {current.source ? c.workSource : c.workVisit}
                 <ArrowUpRightIcon width={14} height={14} aria-hidden />
               </a>
             </div>

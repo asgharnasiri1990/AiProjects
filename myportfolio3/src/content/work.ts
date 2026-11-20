@@ -11,12 +11,15 @@ export interface WorkItem {
   categoryLabel: Localized;
   stack: string[];
   image: string;
-  source: string;
+  /** Source repository, when there is one. */
+  source?: string;
+  /** Live site, used when there is no public repository. */
+  live?: string;
 }
 
 /**
- * The four featured projects in this repository.
- * Categories drive the filter pill in the featured-project section.
+ * The featured projects. Screenshots live in /public/images and are real
+ * captures of the running sites — do not swap them for stock images.
  */
 export const work: WorkItem[] = [
   {
@@ -80,90 +83,60 @@ export const work: WorkItem[] = [
     source:
       "https://github.com/asgharnasiri1990/AiProjects/tree/main/price-compare",
   },
-
-  // Placeholders — swap the copy, image and source once the real builds are in.
   {
-    slug: "sample-dashboard",
+    slug: "payamshop",
     index: "05",
-    title: { en: "Dashboard kit", fa: "کیت داشبورد" },
+    title: { en: "PayamShop", fa: "پیام‌شاپ" },
     summary: {
-      en: "Charts, tables and filters on one dark surface.",
-      fa: "نمودار، جدول و فیلتر روی یک سطح تیره.",
+      en: "Persian mobile storefront: phones, watches and accessories.",
+      fa: "فروشگاه موبایل فارسی: گوشی، ساعت هوشمند و لوازم جانبی.",
     },
     category: "web",
-    categoryLabel: { en: "Web app", fa: "وب‌اپ" },
-    stack: ["Next.js", "Charts", "Tailwind CSS"],
-    image: "/images/work-shop.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
+    categoryLabel: { en: "Online store", fa: "فروشگاه آنلاین" },
+    stack: ["Next.js", "RTL", "Vercel"],
+    image: "/images/work-payamshop.webp",
+    live: "https://payamshop.vercel.app",
   },
   {
-    slug: "sample-reading-list",
+    slug: "lilou-gallery",
     index: "06",
-    title: { en: "Reading list", fa: "فهرست خواندن" },
+    title: { en: "Lilou Gallery", fa: "لیلـو گالری" },
     summary: {
-      en: "A small library that remembers where you stopped.",
-      fa: "کتابخانه‌ای کوچک که یادش می‌ماند کجا رها کردی.",
+      en: "A small fashion gallery for shawls, bags and shoes.",
+      fa: "گالری کوچک پوشاک و اکسسوری: شال، کیف و کفش.",
     },
     category: "web",
-    categoryLabel: { en: "Web app", fa: "وب‌اپ" },
-    stack: ["Next.js", "LocalStorage", "RTL"],
-    image: "/images/work-site-2.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
+    categoryLabel: { en: "Fashion gallery", fa: "گالری پوشاک" },
+    stack: ["Next.js", "RTL", "Vercel"],
+    image: "/images/work-lilou.webp",
+    live: "https://lilou-gallery.vercel.app",
   },
   {
-    slug: "sample-invoice",
+    slug: "amin-shop",
     index: "07",
-    title: { en: "Invoice builder", fa: "سازندهٔ فاکتور" },
+    title: { en: "Amin Shop", fa: "فروشگاه امین" },
     summary: {
-      en: "Fill a form, print a clean A4 invoice.",
-      fa: "فرم را پر کن، فاکتور A4 تمیز بگیر.",
+      en: "Accessories shop: chargers, cables, cases and audio.",
+      fa: "فروشگاه لوازم جانبی: شارژر، کابل، قاب و صدا.",
     },
-    category: "tools",
-    categoryLabel: { en: "Tool", fa: "ابزار" },
-    stack: ["React", "Print CSS", "TypeScript"],
-    image: "/images/work-price.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
+    category: "web",
+    categoryLabel: { en: "Accessories store", fa: "فروشگاه لوازم جانبی" },
+    stack: ["Next.js", "RTL", "Vercel"],
+    image: "/images/work-amin.webp",
+    live: "https://amin-shop.vercel.app",
   },
   {
-    slug: "sample-weather",
+    slug: "cafe-yar",
     index: "08",
-    title: { en: "Weather board", fa: "تختهٔ هوا" },
+    title: { en: "Cafe Yar", fa: "کافه‌یار" },
     summary: {
-      en: "One week of weather, no clutter.",
-      fa: "هوای یک هفته، بدون شلوغی.",
+      en: "Café menu with dine-in and takeaway ordering.",
+      fa: "منوی کافه با سفارش حضوری و بیرون‌بر.",
     },
     category: "tools",
-    categoryLabel: { en: "Tool", fa: "ابزار" },
-    stack: ["Next.js", "Open API", "Cache"],
-    image: "/images/work-flight.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
-  },
-  {
-    slug: "sample-board",
-    index: "09",
-    title: { en: "Task board", fa: "تختهٔ کارها" },
-    summary: {
-      en: "Drag columns, keep the state in the URL.",
-      fa: "ستون‌ها را جابه‌جا کن؛ وضعیت در URL می‌ماند.",
-    },
-    category: "web",
-    categoryLabel: { en: "Web app", fa: "وب‌اپ" },
-    stack: ["React", "DnD", "URL State"],
-    image: "/images/work-shop.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
-  },
-  {
-    slug: "sample-analytics",
-    index: "10",
-    title: { en: "Analytics panel", fa: "پنل تحلیل" },
-    summary: {
-      en: "The other half of the counter behind this page.",
-      fa: "نیمهٔ دیگرِ شمارنده‌ای که پشت همین صفحه است.",
-    },
-    category: "web",
-    categoryLabel: { en: "Web app", fa: "وب‌اپ" },
-    stack: ["Next.js", "KV", "Charts"],
-    image: "/images/work-site-2.webp",
-    source: "https://github.com/asgharnasiri1990/AiProjects",
+    categoryLabel: { en: "Café menu", fa: "منوی کافه" },
+    stack: ["Next.js", "RTL", "Vercel"],
+    image: "/images/work-menu.webp",
+    live: "https://menu-online-fawn.vercel.app",
   },
 ];
