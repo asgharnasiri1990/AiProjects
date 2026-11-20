@@ -4,20 +4,25 @@ import Link from "next/link";
 import { useState } from "react";
 import { useUsedListings } from "@/lib/store";
 import { USED_CONDITION_LABEL, USED_STATUS_LABEL } from "@/data/used";
-import { faNum } from "@/lib/format";
+import { discountPercent, faNum } from "@/lib/format";
 import { ProductArt } from "@/components/product-art";
 import { UsedCard } from "@/components/used-card";
 import { container, card, btnPrimary, btnGhost } from "@/lib/ui";
 
 function embedUrl(url: string): string | null {
   const youtube = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{6,})/,
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/,
   );
   if (youtube) return `https://www.youtube.com/embed/${youtube[1]}`;
   const aparat = url.match(/aparat\.com\/v\/([\w-]+)/);
   if (aparat)
     return `https://www.aparat.com/video/video/embed/videohash/${aparat[1]}/vt/frame`;
   return null;
+}
+
+/** Only direct files can go into <video>; other URLs get a clear note. */
+function isDirectVideo(url: string): boolean {
+  return /\.(mp4|webm|ogg)(\?|#|$)/i.test(url);
 }
 
 export function UsedDetailView({ slug }: { slug: string }) {
@@ -38,6 +43,9 @@ export function UsedDetailView({ slug }: { slug: string }) {
 
   const cover = listing.images[activeImage] ?? listing.images[0];
   const embed = listing.video ? embedUrl(listing.video) : null;
+  const off = listing.oldPrice
+    ? discountPercent(listing.price, listing.oldPrice)
+    : 0;
   const related = listings
     .filter((item) => item.id !== listing.id)
     .slice(0, 4);
@@ -132,20 +140,16 @@ export function UsedDetailView({ slug }: { slug: string }) {
           </div>
 
           <div className="mt-3 flex flex-wrap items-baseline gap-2 rounded-lg bg-[linear-gradient(115deg,#eef2f8,#f7f9fc)] px-4 py-3">
-            {listing.oldPrice ? (
-              <s className="text-xs text-muted">{faNum(listing.oldPrice)}</s>
+            {off > 0 ? (
+              <s className="text-xs text-muted">{faNum(listing.oldPrice ?? 0)}</s>
             ) : null}
             <b className="text-2xl font-extrabold text-ink-strong">
               {faNum(listing.price)}
             </b>
             <span className="text-[11px] text-muted">تومان</span>
-            {listing.oldPrice ? (
+            {off > 0 ? (
               <span className="mr-auto rounded-full bg-brand px-2 py-0.5 text-[10px] font-bold text-white">
-                ٪
-                {faNum(
-                  Math.round((1 - listing.price / listing.oldPrice) * 100),
-                )}{" "}
-                تخفیف
+                ٪{faNum(off)} تخفیف
               </span>
             ) : null}
           </div>
@@ -218,19 +222,26 @@ export function UsedDetailView({ slug }: { slug: string }) {
               <iframe
                 src={embed}
                 title={`ویدئوی ${listing.title}`}
+                loading="lazy"
                 className="aspect-video w-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            ) : (
+            ) : isDirectVideo(listing.video) ? (
               <video
                 src={listing.video}
                 controls
+                preload="none"
                 className="aspect-video w-full"
                 poster={cover}
               >
                 مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
               </video>
+            ) : (
+              <p className="p-6 text-center text-[11.5px] leading-6 text-muted">
+                این لینک ویدئو پشتیبانی نمی‌شود؛ لینک یوتیوب/آپارات یا فایل
+                mp4/webm بگذارید.
+              </p>
             )}
           </div>
         </section>

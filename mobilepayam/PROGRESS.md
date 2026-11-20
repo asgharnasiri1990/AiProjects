@@ -2,7 +2,7 @@
 
 > Read this first when picking the project up. `AGENTS.md` has the rules; this
 > file has the state, the decisions and what to do next.
-> Last updated: 2026-11-14
+> Last updated: 2026-11-20
 
 ## Locked decisions (do not reopen without the owner)
 
@@ -34,8 +34,12 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 - `src/lib/store.ts` — versioned localStorage stores (catalog, orders, user,
   coupon) on `useSyncExternalStore`, seed as server snapshot
 - `src/lib/cart.ts` — cart with stock/10 clamps; `useResolvedCart`
+- Hardening: storage guards + `error.tsx`, validated/clamped cart lines,
+  validated coupons, safe `?next=`, cross-tab `storage` sync; Next.js **16.4.6**
+  (security advisories)
 - `src/lib/shipping.ts` — methods, free-over-5M rule
-- All 14 routes: `/`, `/shop`, `/shop/[slug]`, `/cart`, `/checkout`,
+- All 16 routes: `/`, `/shop`, `/shop/[slug]`, `/used`, `/used/[slug]`,
+  `/cart`, `/checkout`,
   `/checkout/result`, `/track`, `/login`, `/account`, `/categories`, `/about`,
   `/faq`, `/contact`, `/admin`
 - Admin: product add/edit/delete, category add/delete, order status,
@@ -71,7 +75,7 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
   «اردبیل، بازار صفویه، موبایل پیام» on `/contact`, the footer and the used
   listings' contact CTA; the SHEBA owner is «موبایل پیام».
 - Used admin: add/edit/delete listings with multiple image URLs, a video URL
-  (mp4 or YouTube/Aparat) and descriptions; persisted in `mobilepayam.used.v1`.
+  (mp4 or YouTube/Aparat) and descriptions; persisted in `mobilepayam.used.v3`.
 - Checkout: address + shipping + gateway **or** SHEBA with receipt upload;
   order is created, cart cleared, result page shows the code
 - Track: order code lookup with a 4-step timeline (seed orders MP-10482 and
@@ -100,7 +104,7 @@ The rejected mockups (`lux.html`, `energetic.html`) stay only as history.
 
 | Check | Result |
 | --- | --- |
-| `npm run build` | ✅ 15 routes, TypeScript passed |
+| `npm run build` | ✅ 18 route entries, Next 16.4.6, TypeScript passed |
 | `npm run lint` | ✅ 0 problems |
 | `npx tsc --noEmit` | ✅ |
 | Home renders (10 featured cards, no console errors) | ✅ |

@@ -46,7 +46,7 @@ export function ShopView() {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
-    router.replace(`/shop?${next.toString()}`, { scroll: false });
+    router.push(`/shop?${next.toString()}`, { scroll: false });
   };
 
   const brands = useMemo(
@@ -56,10 +56,9 @@ export function ShopView() {
 
   const priceBounds = useMemo(() => {
     const values = products.map(minPrice);
-    return {
-      min: values.length ? Math.min(...values) : 0,
-      max: values.length ? Math.max(...values) : 1,
-    };
+    const min = values.length ? Math.min(...values) : 1;
+    const max = values.length ? Math.max(...values) : 2;
+    return { min, max: Math.max(max, min + 1) };
   }, [products]);
 
   const currentMin = Number(minParam) || 0;
@@ -76,7 +75,7 @@ export function ShopView() {
     else next.delete("min");
     if (bucket.max) next.set("max", String(bucket.max));
     else next.delete("max");
-    router.replace(`/shop?${next.toString()}`, { scroll: false });
+    router.push(`/shop?${next.toString()}`, { scroll: false });
   };
 
   const commitMax = (value: number) => {

@@ -8,7 +8,7 @@ import {
   useUsedListings,
 } from "@/lib/store";
 import { USED_CONDITION_LABEL, USED_STATUS_LABEL } from "@/data/used";
-import { faNum } from "@/lib/format";
+import { faNum, parseNumberInput } from "@/lib/format";
 import type {
   Spec,
   UsedCondition,
@@ -102,14 +102,14 @@ export function AdminUsed() {
     event.preventDefault();
     if (!form) return;
 
-    const price = Number(form.price);
+    const price = parseNumberInput(form.price);
     if (form.title.trim().length < 3) return flash("عنوان آگهی را کامل وارد کنید.");
     if (form.brand.trim().length < 2) return flash("برند را وارد کنید.");
     if (!Number.isInteger(price) || price <= 0)
       return flash("قیمت باید عدد صحیح و بزرگ‌تر از صفر باشد.");
 
     const oldPriceRaw = form.oldPrice.trim();
-    const oldPrice = oldPriceRaw ? Number(oldPriceRaw) : undefined;
+    const oldPrice = oldPriceRaw ? parseNumberInput(oldPriceRaw) : undefined;
     if (
       oldPrice !== undefined &&
       (!Number.isInteger(oldPrice) || oldPrice <= price)
@@ -117,7 +117,7 @@ export function AdminUsed() {
       return flash("قیمت قبل باید عدد صحیح و بزرگ‌تر از قیمت فعلی باشد.");
 
     const batteryRaw = form.batteryHealth.trim();
-    const batteryHealth = batteryRaw ? Number(batteryRaw) : undefined;
+    const batteryHealth = batteryRaw ? parseNumberInput(batteryRaw) : undefined;
     if (
       batteryHealth !== undefined &&
       (!Number.isInteger(batteryHealth) ||
@@ -127,7 +127,7 @@ export function AdminUsed() {
       return flash("سلامت باتری باید عددی بین ۱ تا ۱۰۰ باشد.");
 
     const warrantyRaw = form.warrantyMonths.trim();
-    const warrantyMonths = warrantyRaw ? Number(warrantyRaw) : 0;
+    const warrantyMonths = warrantyRaw ? parseNumberInput(warrantyRaw) : 0;
     if (!Number.isInteger(warrantyMonths) || warrantyMonths < 0)
       return flash("مدت گارانتی باید عددی صحیح و صفر یا بیشتر باشد.");
 

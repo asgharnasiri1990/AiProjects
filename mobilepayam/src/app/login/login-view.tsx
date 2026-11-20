@@ -16,16 +16,21 @@ export function LoginView() {
       ? requestedNext
       : "/account";
 
-  const [name, setName] = useState(user?.name ?? "");
-  const [phone, setPhone] = useState(user?.phone ?? "");
+  const [name, setName] = useState<string | null>(null);
+  const [phone, setPhone] = useState<string | null>(null);
   const [error, setError] = useState("");
+
+  // The server snapshot is null, so fall back to the stored user until the
+  // field is edited. No effect means no cascading render.
+  const nameValue = name ?? user?.name ?? "";
+  const phoneValue = phone ?? user?.phone ?? "";
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (name.trim().length < 3) return setError("نام را کامل وارد کنید.");
-    const digits = toEnglishDigits(phone).replace(/\D/g, "");
+    if (nameValue.trim().length < 3) return setError("نام را کامل وارد کنید.");
+    const digits = toEnglishDigits(phoneValue).replace(/\D/g, "");
     if (!/^09\d{9}$/.test(digits)) return setError("شمارهٔ موبایل باید ۱۱ رقم و با ۰۹ شروع شود.");
-    signIn({ name: name.trim(), phone: digits });
+    signIn({ name: nameValue.trim(), phone: digits });
     router.push(next);
   };
 
@@ -42,7 +47,7 @@ export function LoginView() {
           <label className={label}>
             نام و نام خانوادگی
             <input
-              value={name}
+              value={nameValue}
               onChange={(event) => setName(event.target.value)}
               className={input}
               placeholder="مثلاً امیر پاکزاد"
@@ -51,7 +56,7 @@ export function LoginView() {
           <label className={label}>
             شمارهٔ موبایل
             <input
-              value={phone}
+              value={phoneValue}
               onChange={(event) => setPhone(event.target.value)}
               inputMode="tel"
               dir="ltr"

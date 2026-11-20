@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { clearCart, useResolvedCart } from "@/lib/cart";
-import { clearCoupon, placeOrder, useCoupon } from "@/lib/store";
+import { clearCoupon, getOrdersValue, placeOrder, useCoupon } from "@/lib/store";
 import { faNum, orderCode, toEnglishDigits, uid } from "@/lib/format";
 import {
   SHIPPING_METHODS,
@@ -39,6 +39,14 @@ export default function CheckoutPage() {
   );
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const previewRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+    };
+  }, []);
 
   const discount = coupon
     ? Math.min(subtotal, Math.round((subtotal * coupon.percent) / 100))
@@ -50,7 +58,7 @@ export default function CheckoutPage() {
     setCustomer((current) => ({ ...current, [field]: value }));
 
   const submit = () => {
-    if (lines.length === 0) return;
+    if (submitting || lines.length === 0) return;
 
     const phone = toEnglishDigits(customer.phone).replace(/\D/g, "");
     const postal = toEnglishDigits(customer.postalCode).replace(/\D/g, "");
@@ -62,10 +70,15 @@ export default function CheckoutPage() {
     if (payment === "sheba" && !receipt) return setError("برای واریز به شبا، تصویر فیش را بارگذاری کنید.");
 
     setError("");
+    setSubmitting(true);
+
+    let code = orderCode();
+    const existing = getOrdersValue();
+    while (existing.some((item) => item.code === code)) code = orderCode();
 
     const order: Order = {
       id: uid(),
-      code: orderCode(),
+      code,
       createdAt: new Date().toISOString(),
       customer: { ...customer, phone },
       items: lines.map(({ product, variant, line }) => ({
@@ -90,7 +103,7 @@ export default function CheckoutPage() {
     placeOrder(order);
     clearCart();
     clearCoupon();
-    router.push(`/checkout/result?code=${order.code}`);
+    router.push(`/checkout/result?code=${code}`);
   };
 
   if (lines.length === 0) {
@@ -125,7 +138,13 @@ export default function CheckoutPage() {
         </span>
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          submit();
+        }}
+        className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_340px]"
+      >
         <div className={`${card} p-4`}>
           <b className="mb-3 block text-sm font-extrabold text-ink-strong">اطلاعات گیرنده</b>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -295,11 +314,23 @@ export default function CheckoutPage() {
                   onChange={(event) => {
                     const file = event.target.files?.[0];
                     if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                      setError("حجم فایل فیش نباید بیشتر از ۵ مگابایت باشد.");
+                      event.target.value = "";
+                      return;
+                    }
+                    if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
+                      setError("فقط تصویر یا PDF فیش پذیرفته می‌شود.");
+                      event.target.value = "";
+                      return;
+                    }
+                    if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+                    previewRef.current = file.type.startsWith("image/")
+                      ? URL.createObjectURL(file)
+                      : null;
                     setReceipt({
                       name: file.name,
-                      preview: file.type.startsWith("image/")
-                        ? URL.createObjectURL(file)
-                        : undefined,
+                      preview: previewRef.current ?? undefined,
                     });
                     setError("");
                   }}
@@ -373,8 +404,12 @@ export default function CheckoutPage() {
             </b>
           </div>
 
-          <button type="button" onClick={submit} className={`${btnPrimary} mt-4 w-full`}>
-            {payment === "gateway" ? "پرداخت و ثبت سفارش" : "ثبت سفارش با فیش"}
+          <button type="submit" disabled={submitting} className={`${btnPrimary} mt-4 w-full`}>
+            {submitting
+              ? "در حال ثبت سفارش…"
+              : payment === "gateway"
+                ? "پرداخت و ثبت سفارش"
+                : "ثبت سفارش با فیش"}
           </button>
 
           <p className="mt-3 text-center text-[10px] text-muted">
@@ -385,7 +420,7 @@ export default function CheckoutPage() {
             عدد
           </p>
         </aside>
-      </div>
+      </form>
     </main>
   );
 }

@@ -13,6 +13,8 @@ type Props = {
 };
 
 const SWEEP = 270;
+/** Keyboard step must clear the snap threshold below, or a key press snaps back. */
+const KEY_STEP = 0.05;
 
 function priceToT(price: number, min: number, max: number) {
   if (max <= min) return 0;
@@ -117,11 +119,15 @@ export function PriceKnob({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const current = preview ?? value;
     let next: number | null = null;
+    const rtl =
+      knobRef.current?.ownerDocument.documentElement.dir === "rtl";
+    const increase = rtl ? "ArrowLeft" : "ArrowRight";
+    const decrease = rtl ? "ArrowRight" : "ArrowLeft";
 
-    if (event.key === "ArrowRight" || event.key === "ArrowUp")
-      next = tToPrice(Math.min(1, priceToT(current, min, max) + 0.02), min, max, snaps);
-    else if (event.key === "ArrowLeft" || event.key === "ArrowDown")
-      next = tToPrice(Math.max(0, priceToT(current, min, max) - 0.02), min, max, snaps);
+    if (event.key === increase || event.key === "ArrowUp")
+      next = tToPrice(Math.min(1, priceToT(current, min, max) + KEY_STEP), min, max, snaps);
+    else if (event.key === decrease || event.key === "ArrowDown")
+      next = tToPrice(Math.max(0, priceToT(current, min, max) - KEY_STEP), min, max, snaps);
     else if (event.key === "Home") next = min;
     else if (event.key === "End") next = max;
 

@@ -30,7 +30,7 @@ export function UsedView() {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
-    router.replace(`/used?${next.toString()}`, { scroll: false });
+    router.push(`/used?${next.toString()}`, { scroll: false });
   };
 
   const brands = useMemo(

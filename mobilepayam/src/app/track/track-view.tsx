@@ -30,7 +30,11 @@ export function TrackView() {
   const order = orders.find(
     (item) => item.code.toLowerCase() === code.trim().toLowerCase(),
   );
-  const activeIndex = order ? STEPS.findIndex((step) => step.id === order.status) : -1;
+  const activeIndex = order
+    ? order.status === "paid"
+      ? 0
+      : STEPS.findIndex((step) => step.id === order.status)
+    : -1;
 
   return (
     <main className={`${container} pb-10`}>
@@ -66,6 +70,12 @@ export function TrackView() {
               </b>
               <span className="text-[11px] text-muted">{orderDate(order.createdAt)}</span>
             </div>
+
+            {order.status === "canceled" ? (
+              <p className="mt-3 rounded-lg bg-brand-soft px-3 py-2 text-[11px] font-bold text-brand">
+                این سفارش لغو شده است.
+              </p>
+            ) : null}
 
             <div className="mt-5 flex items-center">
               {STEPS.map((step, index) => {

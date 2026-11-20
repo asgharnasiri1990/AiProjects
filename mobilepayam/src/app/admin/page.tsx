@@ -16,7 +16,7 @@ import {
   useOrders,
 } from "@/lib/store";
 import { minPrice, totalStock } from "@/data/catalog";
-import { faNum, orderDate } from "@/lib/format";
+import { faNum, orderDate, parseNumberInput } from "@/lib/format";
 import type { Category, IconKey, OrderStatus, Product } from "@/lib/types";
 import { ProductArt } from "@/components/product-art";
 import { AdminGate } from "@/components/admin-gate";
@@ -118,8 +118,8 @@ export default function AdminPage() {
     event.preventDefault();
     if (!form) return;
 
-    const price = Number(form.price);
-    const stock = Number(form.stock);
+    const price = parseNumberInput(form.price);
+    const stock = parseNumberInput(form.stock);
     if (form.name.trim().length < 3) return flash("نام محصول را کامل وارد کنید.");
     if (form.brand.trim().length < 2) return flash("برند را وارد کنید.");
     if (!Number.isInteger(price) || price <= 0)
@@ -293,8 +293,8 @@ export default function AdminPage() {
                 <th className="px-2 py-2 text-right font-medium">محصول</th>
                 <th className="px-2 py-2 text-right font-medium">دسته</th>
                 <th className="px-2 py-2 text-right font-medium">برند</th>
-                <th className="px-2 py-2 text-right font-medium">قیمت</th>
-                <th className="px-2 py-2 text-right font-medium">موجودی</th>
+                <th className="px-2 py-2 text-right font-medium">قیمت از</th>
+                <th className="px-2 py-2 text-right font-medium">موجودی کل</th>
                 <th className="px-2 py-2 text-right font-medium">عملیات</th>
               </tr>
             </thead>
@@ -553,7 +553,7 @@ export default function AdminPage() {
                 </select>
               </label>
               <label className={label}>
-                قیمت (تومان)
+                قیمت تنوع اول (تومان)
                 <input
                   value={form.price}
                   onChange={(event) =>
@@ -565,7 +565,7 @@ export default function AdminPage() {
                 />
               </label>
               <label className={label}>
-                موجودی
+                موجودی تنوع اول
                 <input
                   value={form.stock}
                   onChange={(event) =>

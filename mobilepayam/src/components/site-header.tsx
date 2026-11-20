@@ -87,6 +87,7 @@ export function SiteHeader() {
   const { categories } = useCatalog();
   const cartCount = useCartCount();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [activeCat, setActiveCat] = useState(categories[0]?.id ?? "mobile");
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -143,6 +144,16 @@ export function SiteHeader() {
         </form>
 
         <div className="mr-auto flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setSearchOpen((value) => !value)}
+            aria-expanded={searchOpen}
+            aria-controls="mobile-search"
+            aria-label="جستجوی محصول"
+            className="grid h-10 w-10 place-items-center rounded-lg text-ink transition-colors hover:bg-canvas hover:text-brand sm:hidden"
+          >
+            <Icon name="search" className="h-4.5 w-4.5" />
+          </button>
           <Link
             href="/account"
             className="grid h-10 w-10 place-items-center rounded-lg text-ink transition-colors hover:bg-canvas hover:text-brand"
@@ -162,6 +173,28 @@ export function SiteHeader() {
           </Link>
         </div>
       </div>
+
+      {searchOpen ? (
+        <div id="mobile-search" className="border-t border-line/70 px-4 py-2 sm:hidden">
+          <form
+            action="/shop"
+            onSubmit={() => setSearchOpen(false)}
+            className="relative"
+          >
+            <input
+              type="search"
+              name="q"
+              autoFocus
+              placeholder="جستجوی محصول…"
+              aria-label="جستجوی محصول"
+              className="h-10 w-full rounded-lg border border-transparent bg-canvas px-10 text-sm text-ink-strong outline-none transition-colors placeholder:text-muted focus:border-brand focus:bg-surface"
+            />
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted">
+              <Icon name="search" className="h-4.5 w-4.5" />
+            </span>
+          </form>
+        </div>
+      ) : null}
 
       <div className="border-t border-line/70">
         <div className="mx-auto flex w-full max-w-[1560px] flex-wrap items-center gap-1 px-4 py-1.5">

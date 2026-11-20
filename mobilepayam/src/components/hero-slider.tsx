@@ -16,6 +16,8 @@ export function HeroSlider() {
 
   useEffect(() => {
     if (paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % SLIDES.length);
     }, 6000);

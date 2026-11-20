@@ -26,6 +26,11 @@ export function toEnglishDigits(input: string): string {
     .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)));
 }
 
+/** Persian digits / thousands separators / spaces → Number (NaN when invalid). */
+export function parseNumberInput(input: string): number {
+  return Number(toEnglishDigits(input).replace(/[,٬\s]/g, ""));
+}
+
 export function orderCode(): string {
   return `MP-${Math.floor(10000 + Math.random() * 89999)}`;
 }
