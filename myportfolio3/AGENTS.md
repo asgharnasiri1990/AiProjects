@@ -87,6 +87,15 @@ module-not-found error. The fonts are bundled; the site builds offline.
   labels/body copy are bumped up; desktop keeps two columns and the smaller labels.
 - **Work images** are real screenshots (`work-*.webp`), rendered grayscale.
   Do not replace them with stock photos; keep the `work.ts` sources real.
+- **The project section is a 3D sphere** (`components/work-sphere.tsx`): twelve
+  cards on a Fibonacci sphere, radius from the stage height (`.48`) with cards at
+  `.58` of that radius, `perspective: 1500`. It spins slowly on its own (~4°/s),
+  the section's travel through the viewport adds up to 150° of yaw, and dragging
+  adds yaw/pitch with momentum. Cards that turn edge-on dim (never vanish
+  completely) so they don't read as slivers. The section title sits on a paper
+  plate above the cards. Clicking a card opens the detail modal; the modal CTA is
+  `View source` when the item has a repository and `Open site` when it only has a
+  `live` URL.
 - **Services** are intentionally the five labels from the reference (the
   owner's choice): UI/UX, WEB DESIGN, LANDING PAGE DESIGN, UI DESIGN FIGMA,
   MOBILE APP DESIGN. The accordion opens one row at a time.

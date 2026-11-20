@@ -55,13 +55,27 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     if (!stage || !world) return;
 
     const worldEl = world;
+    const stageEl = stage;
 
     let R = 200;
     let radius = 200;
     let perspective = 1000;
     let frame = 0;
+    let last = 0;
 
-    const state = { dx: 0, dy: 0, vx: 0, vy: 0, tilt: -4 };
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const state = {
+      dx: 0,
+      dy: 0,
+      vx: 0,
+      vy: 0,
+      tilt: -4,
+      auto: 0,
+      scrollYaw: 0,
+    };
     let drag: {
       id: number;
       x: number;
@@ -76,14 +90,14 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       const width = stage.clientWidth;
       const height = stage.clientHeight;
       radius = Math.max(
-        120,
-        Math.min(400, Math.min(width * 0.46, height * 0.38)),
+        160,
+        Math.min(560, Math.min(height * 0.48, width * 0.46)),
       );
       R = radius;
 
-      const scale = width <= 640 ? 0.58 : 0.56;
-      const cw = Math.round(Math.max(84, radius * scale));
-      perspective = width <= 640 ? 720 : 1000;
+      const scale = width <= 640 ? 0.6 : 0.58;
+      const cw = Math.round(Math.max(96, radius * scale));
+      perspective = width <= 640 ? 960 : 1500;
 
       stage.style.setProperty("--cw", `${cw}px`);
       stage.style.setProperty("--persp", `${perspective}px`);
@@ -105,8 +119,12 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       state.dy = clamp(state.dy, -32 - state.tilt, 32 - state.tilt);
     }
 
-    function tick() {
+    function tick(now: number) {
+      const dt = last ? Math.min(48, now - last) : 16;
+      last = now;
+
       if (!drag && activeRef.current === null) {
+        if (!reduceMotion) state.auto += dt * 0.0042;
         state.dx += state.vx;
         state.dy += state.vy;
         state.vx *= 0.94;
@@ -116,7 +134,14 @@ export function WorkSphere({ locale }: { locale: Locale }) {
         clampPitch();
       }
 
-      const sy = state.dx;
+      // The section's travel through the viewport drives an extra yaw.
+      const rect = stageEl.getBoundingClientRect();
+      const travel =
+        (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      const progress = clamp(travel, 0, 1);
+      state.scrollYaw = progress * 150;
+
+      const sy = state.auto + state.scrollYaw + state.dx;
       const sx = state.tilt + state.dy;
 
       worldEl.style.transform = `rotateY(${sy}deg) rotateX(${sx}deg)`;
@@ -136,8 +161,12 @@ export function WorkSphere({ locale }: { locale: Locale }) {
         const z1 = py * sinX + v.z * cosX;
         const z2 = -v.x * sinY + z1 * cosY;
 
-        const base = 0.1 + 0.9 * Math.pow((z2 + 1) / 2, 0.9);
-        const opacity = (0.34 + 0.66 * base).toFixed(3);
+        const base = 0.12 + 0.88 * Math.pow((z2 + 1) / 2, 0.9);
+        // Edge-on cards dim instead of reading as a thin sliver, but never pop
+        // out completely.
+        const facing =
+          0.18 + 0.82 * clamp((Math.abs(z2) - 0.05) / 0.22, 0, 1);
+        const opacity = ((0.35 + 0.65 * base) * facing).toFixed(3);
 
         if (el.dataset.o !== opacity) {
           el.style.opacity = opacity;
@@ -168,10 +197,10 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       drag.lx = event.clientX;
       drag.ly = event.clientY;
 
-      state.dx += dx * 0.13;
-      state.dy += dy * 0.13;
-      state.vx = dx * 0.13;
-      state.vy = dy * 0.13;
+      state.dx += dx * 0.16;
+      state.dy += dy * 0.12;
+      state.vx = dx * 0.16;
+      state.vy = dy * 0.12;
       clampPitch();
 
       drag.moved = Math.max(
@@ -236,7 +265,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     <div className="mt-6 sm:mt-10">
       <div
         ref={stageRef}
-        className="relative mx-auto h-[clamp(360px,56vh,540px)] w-full touch-pan-y select-none"
+        className="relative mx-auto h-[clamp(420px,74vh,720px)] w-full touch-pan-y select-none"
         style={{
           perspective: "var(--persp, 1000px)",
           perspectiveOrigin: "50% 50%",
@@ -285,8 +314,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
 
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
           <h2
-            className={`max-w-[80%] text-center font-display text-[clamp(1.45rem,4vw,2.6rem)] font-semibold leading-none text-ink ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
-            style={{ textShadow: "0 2px 30px var(--color-paper)" }}
+            className={`max-w-[70%] bg-paper px-[0.85em] py-[0.32em] text-center font-display text-[clamp(1.45rem,4vw,2.6rem)] font-semibold leading-none text-ink ring-1 ring-line ${locale === "en" ? "uppercase" : ""} ${displayTracking(locale)}`}
           >
             {c.workLabel}
           </h2>
