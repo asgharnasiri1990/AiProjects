@@ -91,7 +91,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       const height = stage.clientHeight;
       radius = Math.max(
         160,
-        Math.min(560, Math.min(height * 0.48, width * 0.46)),
+        Math.min(560, Math.min(height * 0.42, width * 0.46)),
       );
       R = radius;
 
@@ -109,9 +109,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       vecs.forEach((v, index) => {
         const el = cardRefs.current[index];
         if (!el) return;
-        const ry = Math.max(-60, Math.min(60, v.lon));
-        const rx = Math.max(-45, Math.min(45, v.lat));
-        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) rotateY(${ry}deg) rotateX(${rx}deg)`;
+        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px)`;
       });
     }
 
@@ -124,7 +122,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       last = now;
 
       if (!drag && activeRef.current === null) {
-        if (!reduceMotion) state.auto += dt * 0.0042;
+        if (!reduceMotion) state.auto += dt * 0.012;
         state.dx += state.vx;
         state.dy += state.vy;
         state.vx *= 0.94;
@@ -161,12 +159,17 @@ export function WorkSphere({ locale }: { locale: Locale }) {
         const z1 = py * sinX + v.z * cosX;
         const z2 = -v.x * sinY + z1 * cosY;
 
+        // Counter-rotate the world so every card keeps facing the camera; a
+        // slice of its tangent angle survives as depth variety. Without this
+        // the far half turns edge-on and the sphere reads as a hemisphere.
+        const tilt = 0.18;
+        el.style.transform =
+          `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) ` +
+          `rotateX(${-sx}deg) rotateY(${-sy}deg) ` +
+          `rotateY(${v.lon * tilt}deg) rotateX(${v.lat * tilt}deg)`;
+
         const base = 0.12 + 0.88 * Math.pow((z2 + 1) / 2, 0.9);
-        // Edge-on cards dim instead of reading as a thin sliver, but never pop
-        // out completely.
-        const facing =
-          0.18 + 0.82 * clamp((Math.abs(z2) - 0.05) / 0.22, 0, 1);
-        const opacity = ((0.35 + 0.65 * base) * facing).toFixed(3);
+        const opacity = (0.35 + 0.65 * base).toFixed(3);
 
         if (el.dataset.o !== opacity) {
           el.style.opacity = opacity;
@@ -218,10 +221,26 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       }, 0);
     }
 
+    // Scrolling with the pointer over the sphere spins it faster instead of
+    // scrolling the page. Outside the sphere the page scrolls as usual.
+    function onWheel(event: WheelEvent) {
+      if (activeRef.current !== null) return;
+      const rect = stageEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(event.clientX - cx, event.clientY - cy);
+      if (distance > R * 1.2) return;
+      event.preventDefault();
+      const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
+      state.dx += delta * 0.35;
+      state.vx = clamp(state.vx + delta * 0.02, -6, 6);
+    }
+
     layout();
     frame = requestAnimationFrame(tick);
 
     stage.addEventListener("pointerdown", onDown);
+    stage.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
     window.addEventListener("pointercancel", onUp);
@@ -232,6 +251,7 @@ export function WorkSphere({ locale }: { locale: Locale }) {
     return () => {
       cancelAnimationFrame(frame);
       stage.removeEventListener("pointerdown", onDown);
+      stage.removeEventListener("wheel", onWheel);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);

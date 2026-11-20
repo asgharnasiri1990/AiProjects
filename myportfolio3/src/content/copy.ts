@@ -180,7 +180,7 @@ export const copy: Record<Locale, Copy> = {
     workSource: "View source",
     workVisit: "Open site",
     workRepos: "All repositories",
-    workRotate: "Drag to rotate",
+    workRotate: "Drag or scroll to spin",
     workClose: "Close",
 
     servicesTitle: "THE SERVICES WE PROVIDE",
@@ -359,7 +359,7 @@ export const copy: Record<Locale, Copy> = {
     workSource: "دیدن کد",
     workVisit: "دیدن سایت",
     workRepos: "همه‌ی مخزن‌ها",
-    workRotate: "برای چرخش بکشید",
+    workRotate: "بکشید یا اسکرول کنید",
     workClose: "بستن",
 
     servicesTitle: "چه کارهایی انجام می‌دهم",
