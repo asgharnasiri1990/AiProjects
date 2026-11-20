@@ -95,7 +95,9 @@ export function WorkSphere({ locale }: { locale: Locale }) {
       vecs.forEach((v, index) => {
         const el = cardRefs.current[index];
         if (!el) return;
-        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) rotateY(${v.lon}deg) rotateX(${v.lat}deg)`;
+        const ry = Math.max(-60, Math.min(60, v.lon));
+        const rx = Math.max(-45, Math.min(45, v.lat));
+        el.style.transform = `translate3d(${v.x * R}px, ${-v.y * R}px, ${v.z * R}px) rotateY(${ry}deg) rotateX(${rx}deg)`;
       });
     }
 
@@ -360,15 +362,23 @@ export function WorkSphere({ locale }: { locale: Locale }) {
                   </span>
                 ))}
               </div>
-              <a
-                href={linkFor(current)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-signal px-6 font-mono text-[10px] font-medium text-signal-ink transition-colors hover:bg-signal-hover ${labelStyle(locale)} ${focusRing}`}
-              >
-                {current.source ? c.workSource : c.workVisit}
-                <ArrowUpRightIcon width={14} height={14} aria-hidden />
-              </a>
+              {linkFor(current) ? (
+                <a
+                  href={linkFor(current)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-signal px-6 font-mono text-[10px] font-medium text-signal-ink transition-colors hover:bg-signal-hover ${labelStyle(locale)} ${focusRing}`}
+                >
+                  {current.source ? c.workSource : c.workVisit}
+                  <ArrowUpRightIcon width={14} height={14} aria-hidden />
+                </a>
+              ) : (
+                <p
+                  className={`mt-6 font-mono text-[10px] text-soft ${labelStyle(locale)}`}
+                >
+                  {current.categoryLabel[locale]}
+                </p>
+              )}
             </div>
           </div>
         </div>

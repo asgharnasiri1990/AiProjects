@@ -15,6 +15,8 @@ export interface WorkItem {
   source?: string;
   /** Live site, used when there is no public repository. */
   live?: string;
+  /** Temporary filler card, waiting for the real build. */
+  placeholder?: boolean;
 }
 
 /**
@@ -138,5 +140,63 @@ export const work: WorkItem[] = [
     stack: ["Next.js", "RTL", "Vercel"],
     image: "/images/work-menu.webp",
     live: "https://menu-online-fawn.vercel.app",
+  },
+  // Temporary filler cards — replace title, copy and image when the real
+  // builds are ready, then drop the `placeholder` flag.
+  {
+    slug: "coming-soon-09",
+    index: "09",
+    title: { en: "Coming soon", fa: "به‌زودی" },
+    summary: {
+      en: "A slot waiting for the next build.",
+      fa: "جایی خالی برای پروژه‌ی بعدی.",
+    },
+    category: "web",
+    categoryLabel: { en: "In progress", fa: "در دست ساخت" },
+    stack: ["Reserved"],
+    image: "/images/work-soon-09.webp",
+    placeholder: true,
+  },
+  {
+    slug: "coming-soon-10",
+    index: "10",
+    title: { en: "Coming soon", fa: "به‌زودی" },
+    summary: {
+      en: "A slot waiting for the next build.",
+      fa: "جایی خالی برای پروژه‌ی بعدی.",
+    },
+    category: "web",
+    categoryLabel: { en: "In progress", fa: "در دست ساخت" },
+    stack: ["Reserved"],
+    image: "/images/work-soon-10.webp",
+    placeholder: true,
+  },
+  {
+    slug: "coming-soon-11",
+    index: "11",
+    title: { en: "Coming soon", fa: "به‌زودی" },
+    summary: {
+      en: "A slot waiting for the next build.",
+      fa: "جایی خالی برای پروژه‌ی بعدی.",
+    },
+    category: "tools",
+    categoryLabel: { en: "In progress", fa: "در دست ساخت" },
+    stack: ["Reserved"],
+    image: "/images/work-soon-11.webp",
+    placeholder: true,
+  },
+  {
+    slug: "coming-soon-12",
+    index: "12",
+    title: { en: "Coming soon", fa: "به‌زودی" },
+    summary: {
+      en: "A slot waiting for the next build.",
+      fa: "جایی خالی برای پروژه‌ی بعدی.",
+    },
+    category: "tools",
+    categoryLabel: { en: "In progress", fa: "در دست ساخت" },
+    stack: ["Reserved"],
+    image: "/images/work-soon-12.webp",
+    placeholder: true,
   },
 ];
